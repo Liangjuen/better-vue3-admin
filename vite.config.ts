@@ -48,7 +48,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 		resolve: {
 			// 别名
 			alias: {
-				'@': resolve(''),
+				'~': resolve(''),
 				'@config': resolve('config'),
 				'@network': resolve('network'),
 				'@modules': resolve('modules'),

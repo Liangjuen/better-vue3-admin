@@ -23,7 +23,7 @@
 		}
 	},
 	"lint-staged": {
-		"*.{js,ts}": [
+		"*.{js,ts,vue}": [
 			"npm run lint",
 			"npm run format"
 		]
@@ -33,6 +33,7 @@
 		"element-plus": "^2.4.4",
 		"nprogress": "^0.2.0",
 		"pinia": "^2.1.7",
+		"pinia-plugin-persistedstate": "^3.2.1",
 		"vue": "^3.3.11",
 		"vue-draggable-plus": "^0.3.5",
 		"vue-router": "^4.2.5",
