@@ -1,0 +1,27 @@
+:root {
+	--dark-bg-color: #1e272e;
+    --theme-padding: 10px;
+    --theme-margin: 10px;
+    --theme-border-radius: 6px;
+    --left-aside-width: 256px;
+    --collapse-left-aside-width: 64px;
+	--logo-width: 40px;
+    --tabs-height: 30px;
+    --topbar-height: 48px;
+    --horizontal-menu-height: 36px;
+	--menu-item-margin: 5px;
+    --footer-height: 40px;
+    --filter: 3px;
+    --topbar-z-index: 12;
+    --side-z-index: 40;
+    --border: 1px solid var(--el-border-color);
+	--ani-duration: 300ms;
+    --ani-delay: 0.9s;
+    --ani-timing-function: cubic-bezier(0.7, 0.3, 0.1, 1);
+	--ani-transfrom-x-distance: 50px;
+	--ani-transfrom-x-distance-re: -50px;
+}
+
+html.dark {
+    --el-bg-color:  var(--dark-bg-color);
+}

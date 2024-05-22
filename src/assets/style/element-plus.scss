@@ -1,0 +1,52 @@
+:root {
+	--el-transition-duration: var(--animate-duration);
+}
+
+.el-overlay {
+    backdrop-filter: blur(var(--filter));
+}
+
+.el-menu--popup {
+	padding: 0;
+}
+
+.el-table {
+	&.cell {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+	}
+
+	thead tr th {
+		color: var(--el-text-color-primary);
+	}
+}
+
+.el-pagination {
+	justify-content: center;
+}
+
+.el-form-item {
+	.el-form-item__content> .el-select {
+		width: 100%;
+	}
+
+}
+body {
+	&.el-dialog {
+		--el-dialog-border-radius: var(--theme-border-radius);
+		overflow: hidden;
+	}
+}
+
+@media screen and (max-width: 980px) {
+    body {
+		&.el-dialog {
+			width: auto !important;
+			margin: 5vw;
+		}
+	}
+}

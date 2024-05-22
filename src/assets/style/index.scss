@@ -1,1 +1,11 @@
 @use "./normalize.scss";
+@use "./css-vars.scss";
+@use "./element-plus.scss";
+@use "./animation.scss";
+@use "./atomization.scss";
+@use "./nprogress.scss";
+
+body {
+	font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+		'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
