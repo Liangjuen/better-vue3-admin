@@ -1,0 +1,64 @@
+.el-menu {
+	// 菜单背景透明
+	--custom-menu-active-color: #fff;
+}
+
+// 菜单背景深色
+.app-layout.horizontal,
+.app-layout.vertical {
+		.el-menu {
+			&.dark,
+			&.auto {
+				--custom-menu-active-color: var(--el-menu-text-color);
+			}
+		}
+}
+
+.el-menu {
+	// 追加 .is-active 样式
+	.el-menu-item.is-active,
+	&.el-menu--horizontal>.el-sub-menu.is-active .el-sub-menu__title {
+		background-color: var(--el-color-primary);
+	}
+
+	// 鼠标悬停样式
+	.el-sub-menu .el-sub-menu__title:hover,
+	.el-menu-item:not(.is-disabled):hover,
+	.el-menu-item:not(.is-disabled):focus,
+	.el-menu-item:hover,
+	.el-sub-menu__title:hover{
+		background-color: var(--el-color-primary);
+		color: var(--el-menu-active-color);
+	}
+
+	&.el-menu--popup {
+		.el-menu-item:last-child, .el-sub-menu:last-child>.el-sub-menu__title {
+			margin-bottom: 0;
+		}
+	}
+
+	// 菜单列表项样式
+	.el-menu-item, .el-sub-menu__title {
+		padding: 0 calc(var(--el-menu-base-level-padding) - var(--menu-item-margin));
+		margin: 0 var(--menu-item-margin);
+		margin-bottom: var(--menu-item-margin);
+		border-radius: var(--el-border-radius-base);
+	}
+
+}
+
+.el-menu--horizontal.el-menu .el-sub-menu.is-active>.el-sub-menu__title {
+	&:hover{
+		color: #fff;
+	}
+	color: var(--el-menu-text-color);
+}
+
+.el-menu--vertical.el-menu {
+	.el-sub-menu.is-active .el-sub-menu__title.el-tooltip__trigger  {
+		color: var(--el-color-primary);
+		&:hover {
+			color: #fff;
+		}
+	}
+}

@@ -1,0 +1,92 @@
+<template>
+	<el-drawer
+		title="设置项"
+		direction="rtl"
+		v-model="appStore.showSettings"
+		size="312px"
+	>
+		<set-item label="菜单模式">
+			<el-select v-model="appStore.layoutMode">
+				<el-option label="纵向" value="vertical"></el-option>
+				<el-option label="横向" value="horizontal"></el-option>
+			</el-select>
+		</set-item>
+		<set-item label="菜单背景">
+			<el-select v-model="appStore.menuBackMode">
+				<el-option
+					v-for="item in menuBackModes"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value"
+				/>
+			</el-select>
+		</set-item>
+		<set-item label="过度动画">
+			<el-select v-model="appStore.animationName">
+				<el-option
+					v-for="item in viewTransitionNames"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value"
+				/>
+			</el-select>
+		</set-item>
+		<set-item label="菜单宽度">
+			<el-input-number
+				type="number"
+				v-model="appStore.menuWidth"
+				:min="256"
+				:max="500"
+				:style="{ width: '160px' }"
+			/>
+		</set-item>
+		<set-item label="主题色">
+			<el-color-picker v-model="appStore.color" size="small" />
+		</set-item>
+		<set-item label="圆角">
+			<el-input-number
+				type="number"
+				v-model="appStore.radius"
+				:min="2"
+				:max="50"
+				:style="{ width: '160px' }"
+			/>
+		</set-item>
+		<set-item label="暗黑模式">
+			<theme />
+		</set-item>
+		<set-item label="标签">
+			<el-switch v-model="appStore.showTabbar" />
+		</set-item>
+		<template #footer>
+			<el-button type="primary" @click="confirmReset">重置</el-button>
+		</template>
+	</el-drawer>
+</template>
+
+<script setup lang="ts">
+import { ElMessageBox } from 'element-plus'
+import SetItem from './set-item.vue'
+import { useGlobal } from '~/views'
+import { config } from '~/config'
+
+defineOptions({
+	name: 'set-opt-drawer'
+})
+
+const {
+	theme: { viewTransitionNames, menuBackModes }
+} = config
+
+const { appStore } = useGlobal()
+
+function confirmReset() {
+	ElMessageBox.confirm('请确定重置配置!', '提示', {
+		confirmButtonText: '确定',
+		cancelButtonText: '取消',
+		type: 'warning'
+	}).then(() => {
+		appStore.$reset()
+	})
+}
+</script>
