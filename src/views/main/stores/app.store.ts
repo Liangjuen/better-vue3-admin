@@ -8,7 +8,7 @@ import { config } from '~/config'
 
 const defaultOptions = config.theme.default
 
-export const useAppSotre = defineStore(
+export const useAppStore = defineStore(
 	StoreName.APP,
 	() => {
 		// 是否折叠左侧菜单
