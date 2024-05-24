@@ -21,16 +21,33 @@ module.exports = {
 		{ value: 'revert', name: 'revert:   回退' },
 		{ value: 'build', name: 'build:    打包' }
 	],
+	scopes: [
+		{name: 'accounts'}
+	],
+
+	scopeOverrides: {
+		fix: [
+		  {name: 'merge'},
+		  {name: 'style'},
+		  {name: 'e2eTest'},
+		  {name: 'unitTest'}
+		]
+	},
 	// override the messages, defaults are as follows
 	messages: {
 		type: '请选择提交类型:',
+		scope: '此更改的范围(可选):',
 		customScope: '请输入您修改的范围(可选):',
 		subject: '请简要描述提交 message (必填):',
-		body: '请输入详细描述(可选，待优化去除，跳过即可):',
-		footer: '请输入要关闭的issue(待优化去除，跳过即可):',
-		confirmCommit: '确认使用以上信息提交？(y/n/e/h)'
+		body: '长说明，使用"|"换行(可选):\n',
+		footer: '请输入要关闭的issue 例如：#31, #34(可选):',
+		confirmCommit: '确定提交说明?'
 	},
 	allowCustomScopes: true,
+	skipEmptyScopes: true,
 	skipQuestions: ['body', 'footer'],
-	subjectLimit: 72
+	subjectLimit: 72,
+	// typePrefix: '[',
+	// typeSuffix: ']',
+	// subjectSeparator: ': '
 }
