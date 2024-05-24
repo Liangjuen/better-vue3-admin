@@ -7,8 +7,30 @@ export {}
 
 declare module 'vue' {
 	export interface GlobalComponents {
+		ElButton: (typeof import('element-plus/es'))['ElButton']
+		ElCol: (typeof import('element-plus/es'))['ElCol']
+		ElColorPicker: (typeof import('element-plus/es'))['ElColorPicker']
 		ElConfigProvider: (typeof import('element-plus/es'))['ElConfigProvider']
+		ElDrawer: (typeof import('element-plus/es'))['ElDrawer']
+		ElDropdown: (typeof import('element-plus/es'))['ElDropdown']
+		ElDropdownItem: (typeof import('element-plus/es'))['ElDropdownItem']
+		ElDropdownMenu: (typeof import('element-plus/es'))['ElDropdownMenu']
+		ElIcon: (typeof import('element-plus/es'))['ElIcon']
+		ElInputNumber: (typeof import('element-plus/es'))['ElInputNumber']
+		ElMenu: (typeof import('element-plus/es'))['ElMenu']
+		ElMenuItem: (typeof import('element-plus/es'))['ElMenuItem']
+		ElOption: (typeof import('element-plus/es'))['ElOption']
+		ElRow: (typeof import('element-plus/es'))['ElRow']
+		ElScrollbar: (typeof import('element-plus/es'))['ElScrollbar']
+		ElSelect: (typeof import('element-plus/es'))['ElSelect']
+		ElSubMenu: (typeof import('element-plus/es'))['ElSubMenu']
+		ElSwitch: (typeof import('element-plus/es'))['ElSwitch']
 		RouterLink: (typeof import('vue-router'))['RouterLink']
 		RouterView: (typeof import('vue-router'))['RouterView']
+		SvgIcon: (typeof import('./src/components/svg-icon/src/svgIcon.vue'))['default']
+		Theme: (typeof import('./src/components/theme/index.vue'))['default']
+	}
+	export interface ComponentCustomProperties {
+		vLoading: (typeof import('element-plus/es'))['ElLoadingDirective']
 	}
 }
