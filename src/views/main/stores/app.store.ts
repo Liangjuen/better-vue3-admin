@@ -46,6 +46,9 @@ export const useAppStore = defineStore(
 		// 最大缓存路由页面数
 		const maxCache = ref(config.maxKeepAlive)
 
+		// 圆角
+		const radius = ref(6)
+
 		// 防抖函数 根据需求自行调整
 		const debouncedRefreshView = useDebounceFn(() => {
 			isRefresh.value = false
@@ -98,6 +101,19 @@ export const useAppStore = defineStore(
 			}
 		)
 
+		watch(
+			radius,
+			(val) => {
+				document.documentElement.style.setProperty(
+					'--el-border-radius-base',
+					`${val}px`
+				)
+			},
+			{
+				immediate: true
+			}
+		)
+
 		return {
 			isFold,
 			layoutMode,
@@ -110,6 +126,7 @@ export const useAppStore = defineStore(
 			animationName,
 			isRefresh,
 			maxCache,
+			radius,
 			refreshView,
 			$reset
 		}
@@ -127,7 +144,8 @@ export const useAppStore = defineStore(
 				'color',
 				'menuWidth',
 				'animationName',
-				'maxCache'
+				'maxCache',
+				'radius'
 			]
 		}
 	}
