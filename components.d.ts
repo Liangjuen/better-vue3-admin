@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
 	export interface GlobalComponents {
+		BDialog: (typeof import('./src/components/common/b/dialog/index.vue'))['default']
+		BRow: (typeof import('./src/components/common/b/row/index.vue'))['default']
 		ElButton: (typeof import('element-plus/es'))['ElButton']
 		ElCol: (typeof import('element-plus/es'))['ElCol']
 		ElColorPicker: (typeof import('element-plus/es'))['ElColorPicker']
@@ -27,8 +29,8 @@ declare module 'vue' {
 		ElSwitch: (typeof import('element-plus/es'))['ElSwitch']
 		RouterLink: (typeof import('vue-router'))['RouterLink']
 		RouterView: (typeof import('vue-router'))['RouterView']
-		SvgIcon: (typeof import('./src/components/svg-icon/src/svgIcon.vue'))['default']
-		Theme: (typeof import('./src/components/theme/index.vue'))['default']
+		SvgIcon: (typeof import('./src/components/common/svg-icon/index.vue'))['default']
+		Theme: (typeof import('./src/components/common/theme/index.vue'))['default']
 	}
 	export interface ComponentCustomProperties {
 		vLoading: (typeof import('element-plus/es'))['ElLoadingDirective']

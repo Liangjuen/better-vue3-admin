@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { svgIconProps } from './svgIcon'
+import { svgIconProps } from './svg-icon'
 const props = defineProps(svgIconProps)
 
 const symbolId = computed(() => `#${props.prefix}-${props.icon}`)
@@ -26,6 +26,5 @@ const symbolId = computed(() => `#${props.prefix}-${props.icon}`)
 	stroke: currentColor;
 	overflow: hidden;
 	outline: none;
-	/* transition: color var(--ani-duration) var(--ani-timing-function); */
 }
 </style>
