@@ -47,7 +47,7 @@ export const useAppStore = defineStore(
 		const maxCache = ref(config.maxKeepAlive)
 
 		// 圆角
-		const radius = ref(6)
+		const radius = ref(defaultOptions.radius)
 
 		// 防抖函数 根据需求自行调整
 		const debouncedRefreshView = useDebounceFn(() => {
@@ -69,6 +69,7 @@ export const useAppStore = defineStore(
 			animationName.value = defaultOptions.animationName
 			showTabbar.value = defaultOptions.showTabbar
 			menuWidth.value = defaultOptions.menuWidth
+			radius.value = defaultOptions.radius
 		}
 
 		watch(

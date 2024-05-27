@@ -80,7 +80,8 @@ export const config = {
 			color: '#409EFF',
 			animationName: 'none',
 			showTabbar: true,
-			menuWidth: 256
+			menuWidth: 256,
+			radius: 6
 		} as const
 	}
 }
