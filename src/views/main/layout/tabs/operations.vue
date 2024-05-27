@@ -1,5 +1,5 @@
 <template>
-	<ul class="operation-container">
+	<ul class="operation-container" @contextmenu="(e: MouseEvent) => openCm(e)">
 		<li
 			:key="item.icon"
 			v-for="item in oprations"
@@ -31,6 +31,23 @@ const oprations = [
 		action: () => router.push('/')
 	}
 ]
+
+// 右键菜单
+function openCm(e: PointerEvent | MouseEvent) {
+	BContextMenu.create(e, {
+		list: [
+			{
+				icon: 'rotate-cw',
+				context: '重新加载',
+				callback: (done) => {
+					appStore.refreshView()
+					done()
+				}
+			}
+		],
+		width: 110
+	})
+}
 </script>
 
 <style lang="scss" scoped>
