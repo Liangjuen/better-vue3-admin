@@ -144,6 +144,7 @@ let layout = computed(() => {
 }
 
 .app-views {
+	position: relative;
 	height: var(--view-height);
 	margin: 0 var(--theme-margin) var(--theme-margin) var(--theme-margin);
 	overflow: hidden;

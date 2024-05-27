@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref, watch, computed } from 'vue'
-import { useDebounceFn } from '@vueuse/core'
 
 import { primaryColor } from '~/utils'
 import { StoreName } from '~/enums'
@@ -49,16 +48,14 @@ export const useAppStore = defineStore(
 		// 圆角
 		const radius = ref(defaultOptions.radius)
 
-		// 防抖函数 根据需求自行调整
-		const debouncedRefreshView = useDebounceFn(() => {
-			isRefresh.value = false
-		}, 1000)
-
 		// 刷新页面()
 		function refreshView() {
 			if (isRefresh.value) return
 			isRefresh.value = true
-			debouncedRefreshView()
+			const timer = setTimeout(() => {
+				isRefresh.value = false
+				clearTimeout(timer)
+			}, 3000)
 		}
 
 		// 重置设置
