@@ -13,6 +13,7 @@ const routes: RouteRecordRaw[] = [
 		path: '/',
 		name: 'Layout',
 		component: () => import('~/views/main/index.vue'),
+		redirect: '/index',
 		children: [...staticRoutes]
 	},
 	// {
