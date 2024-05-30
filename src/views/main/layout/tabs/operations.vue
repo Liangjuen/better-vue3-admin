@@ -11,10 +11,9 @@
 	</ul>
 </template>
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import { useGlobal } from '~/views'
-
-const router = useRouter()
+import { useBetter } from '~/hooks'
+const { mitt, router } = useBetter()
 const { appStore } = useGlobal()
 
 const oprations = [
@@ -24,7 +23,7 @@ const oprations = [
 	},
 	{
 		icon: 'rotate-cw',
-		action: () => appStore.refreshView()
+		action: () => mitt.emit('view.refresh')
 	},
 	{
 		icon: 'home',

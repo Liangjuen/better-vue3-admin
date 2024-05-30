@@ -163,11 +163,11 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	position: absolute;
 	left: 0;
 	width: 16px;
-	height: 2px;
+	height: 1.5px;
 	transition:
-		top 0.25s,
+		top 0.5s,
 		background-color 0.5s,
-		transform 0.25s;
+		transform 0.5s;
 	background-color: var(--el-text-color-primary);
 }
 </style>

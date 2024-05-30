@@ -1,19 +1,11 @@
 <template>
 	<div class="app-views">
-		<transition name="fade" appear mode="out-in">
-			<div
-				v-if="appStore.isRefresh"
-				class="loading"
-				:style="{ 'z-index': currentZIndex }"
-			>
-				<div class="loader"></div>
-			</div>
-		</transition>
-		<el-scrollbar height="100%">
-			<router-view v-slot="{ Component, route }">
+		<view-loading v-model="appStore.isRefresh" />
+		<el-scrollbar height="100%" :key="key" ref="scrollbarRef">
+			<router-view v-slot="{ Component }">
 				<transition :name="appStore.animationName" appear mode="out-in">
 					<keep-alive :include="processStore.caches">
-						<component :is="Component" :key="route.path" />
+						<component :is="Component" />
 					</keep-alive>
 				</transition>
 			</router-view>
@@ -22,138 +14,47 @@
 </template>
 
 <script setup lang="ts">
-import { useZIndex } from 'element-plus'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useGlobal } from '~/views'
+import ViewLoading from './loading/index.vue'
 const { appStore, processStore } = useGlobal()
-const { currentZIndex } = useZIndex()
+import { useBetter } from '~/hooks'
 defineOptions({
 	name: 'app-view'
 })
+const { mitt } = useBetter()
+
+const scrollbarRef = ref()
+
+const key = ref(1)
+
+// 刷新页面
+function refresh() {
+	key.value += 1
+}
+
+function scrollTo({ el, top }: { el?: string; top?: number }) {
+	if (el) {
+		top = scrollbarRef.value.querySelector(el).offsetTop
+	}
+
+	scrollbarRef.value.scrollTo({
+		top,
+		behavior: 'smooth'
+	})
+}
+
+onMounted(() => {
+	mitt.on('view.scrollTo', scrollTo)
+
+	mitt.on('view.refresh', refresh)
+})
+
+onUnmounted(() => {
+	mitt.off('view.scrollTo')
+
+	mitt.off('view.refresh')
+})
 </script>
 
-<style lang="scss" scoped>
-.loading {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	backdrop-filter: blur(var(--filter));
-	.loader {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
-}
-
-.loader {
-	width: 40px;
-	aspect-ratio: 1;
-	--c: linear-gradient(var(--el-color-primary) 0 0);
-	--r1: radial-gradient(
-		farthest-side at bottom,
-		var(--el-color-primary) 93%,
-		#0000
-	);
-	--r2: radial-gradient(
-		farthest-side at top,
-		var(--el-color-primary) 93%,
-		#0000
-	);
-	background: var(--c), var(--r1), var(--r2), var(--c), var(--r1), var(--r2),
-		var(--c), var(--r1), var(--r2);
-	background-repeat: no-repeat;
-	animation: l2 1s infinite alternate;
-}
-@keyframes l2 {
-	0%,
-	25% {
-		background-size:
-			8px 0,
-			8px 4px,
-			8px 4px,
-			8px 0,
-			8px 4px,
-			8px 4px,
-			8px 0,
-			8px 4px,
-			8px 4px;
-		background-position:
-			0 50%,
-			0 calc(50% - 2px),
-			0 calc(50% + 2px),
-			50% 50%,
-			50% calc(50% - 2px),
-			50% calc(50% + 2px),
-			100% 50%,
-			100% calc(50% - 2px),
-			100% calc(50% + 2px);
-	}
-	50% {
-		background-size:
-			8px 100%,
-			8px 4px,
-			8px 4px,
-			8px 0,
-			8px 4px,
-			8px 4px,
-			8px 0,
-			8px 4px,
-			8px 4px;
-		background-position:
-			0 50%,
-			0 calc(0% - 2px),
-			0 calc(100% + 2px),
-			50% 50%,
-			50% calc(50% - 2px),
-			50% calc(50% + 2px),
-			100% 50%,
-			100% calc(50% - 2px),
-			100% calc(50% + 2px);
-	}
-	75% {
-		background-size:
-			8px 100%,
-			8px 4px,
-			8px 4px,
-			8px 100%,
-			8px 4px,
-			8px 4px,
-			8px 0,
-			8px 4px,
-			8px 4px;
-		background-position:
-			0 50%,
-			0 calc(0% - 2px),
-			0 calc(100% + 2px),
-			50% 50%,
-			50% calc(0% - 2px),
-			50% calc(100% + 2px),
-			100% 50%,
-			100% calc(50% - 2px),
-			100% calc(50% + 2px);
-	}
-	95%,
-	100% {
-		background-size:
-			8px 100%,
-			8px 4px,
-			8px 4px,
-			8px 100%,
-			8px 4px,
-			8px 4px,
-			8px 100%,
-			8px 4px,
-			8px 4px;
-		background-position:
-			0 50%,
-			0 calc(0% - 2px),
-			0 calc(100% + 2px),
-			50% 50%,
-			50% calc(0% - 2px),
-			50% calc(100% + 2px),
-			100% 50%,
-			100% calc(0% - 2px),
-			100% calc(100% + 2px);
-	}
-}
-</style>
+<style lang="scss" scoped></style>
