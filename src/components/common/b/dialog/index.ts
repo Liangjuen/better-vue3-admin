@@ -1,4 +1,4 @@
-import { withInstall } from 'element-plus/lib/utils'
+import { withInstall } from '~/utils'
 
 import Dialog from './index.vue'
 

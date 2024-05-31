@@ -14,15 +14,12 @@
 			]"
 		/>
 		<div class="app-layout-main">
-			<app-aside
-				v-if="!appStore.isVertical"
-				:class="[
-					'app-layout-top-menu',
-					'app-layout-item',
-					appStore.menuBackMode
-				]"
-			/>
-			<app-topbar class="app-layout-item" />
+			<app-topbar class="app-layout-item">
+				<template #left v-if="!appStore.isVertical">
+					<app-logo />
+					<app-menu class="app-topbar-manu" />
+				</template>
+			</app-topbar>
 			<app-tabs v-show="appStore.showTabbar" />
 			<app-main class="app-views" />
 		</div>
@@ -34,6 +31,8 @@
 import { computed } from 'vue'
 import { useGlobal } from '../index'
 const { appStore } = useGlobal()
+import AppLogo from './layout/logo/index.vue'
+import AppMenu from './layout/menu/index.vue'
 import AppAside from './layout/aside/index.vue'
 import AppTopbar from './layout/topbar/index.vue'
 import AppMain from './layout/index.vue'
@@ -48,6 +47,7 @@ let layout = computed(() => {
 	return [
 		'app-layout',
 		appStore.layoutMode,
+		`menu-back-${appStore.menuBackMode || 'none'}`,
 		{ collapse: appStore.isFold, 'show-tabbar': appStore.showTabbar }
 	]
 })
@@ -58,7 +58,7 @@ let layout = computed(() => {
 	--view-height: calc(
 		100vh - (var(--theme-margin) * 2 + var(--topbar-height))
 	);
-	&.vertical.show-tabbar {
+	&.show-tabbar {
 		--view-height: calc(
 			100vh -
 				(
@@ -67,29 +67,10 @@ let layout = computed(() => {
 				)
 		);
 	}
-	&.horizontal {
-		--top-menu-height: calc(
-			var(--horizontal-menu-height) + var(--menu-item-margin) * 2
-		);
-		&.show-tabbar {
-			--view-height: calc(
-				100vh -
-					(
-						(var(--theme-margin) * 3) + var(--topbar-height) +
-							var(--tabs-height) + var(--top-menu-height)
-					)
-			);
-		}
-		--view-height: calc(
-			100vh -
-				(
-					(var(--theme-margin) * 2) + var(--topbar-height) +
-						var(--top-menu-height)
-				)
-		);
-	}
 }
-
+/**
+ *	菜单垂直布局
+ */
 .app-layout.vertical,
 .app-layout {
 	display: flex;
@@ -114,30 +95,42 @@ let layout = computed(() => {
 	}
 }
 
+/**
+ *	菜单水平布局
+ */
 .app-layout.horizontal {
-	.app-layout-top-menu {
-		display: flex;
-		height: calc(
-			var(--horizontal-menu-height) + var(--menu-item-margin) * 2
-		);
-		padding: 0 var(--theme-padding);
-		.app-logo {
-			height: 100%;
-			width: var(--logo-width);
-		}
-		.app-aside-menu {
-			width: calc(100% - var(--logo-width));
-		}
+	.app-topbar-manu {
+		width: calc(100vw - 356px);
+		height: calc(100% - (var(--theme-padding) * 2));
+		max-height: 40px;
+		min-height: 30px;
+		border: none;
 	}
 }
 
-.app-layout.horizontal,
-.app-layout.vertical {
-	.dark {
+.app-layout.menu-back-dark {
+	&.horizontal {
+		.app-topbar,
+		.username {
+			background-color: var(--dark-bg-color);
+			color: #fff;
+		}
+	}
+	.app-layout-aside {
 		background-color: var(--dark-bg-color);
 		color: #fff;
 	}
-	.auto {
+}
+
+.app-layout.menu-back-auto {
+	&.horizontal {
+		.app-topbar,
+		.username {
+			background-color: var(--el-color-primary-light-3);
+			color: #fff;
+		}
+	}
+	.app-layout-aside {
 		background-color: var(--el-color-primary-light-3);
 		color: #fff;
 	}
@@ -148,7 +141,6 @@ let layout = computed(() => {
 	height: var(--view-height);
 	margin: 0 var(--theme-margin) var(--theme-margin) var(--theme-margin);
 	overflow: hidden;
-	border-radius: var(--el-border-radius-base);
 	.el-scrollbar__view {
 		height: 100%;
 	}

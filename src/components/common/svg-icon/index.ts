@@ -1,4 +1,4 @@
-import { withInstall } from 'element-plus/lib/utils'
+import { withInstall } from '~/utils'
 export * from './svg-icon'
 import Icon from './index.vue'
 

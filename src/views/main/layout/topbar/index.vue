@@ -1,73 +1,60 @@
 <template>
 	<div class="app-topbar">
-		<el-row align="middle" justify="space-between">
-			<!-- 左侧 -->
-			<el-col class="top-left" :xs="6" :sm="8" :md="8" :lg="8" :xl="8">
-				<slot name="left">
-					<button
-						v-show="appStore.isVertical"
-						class="topbar-ham"
-						@click="toggleAsideMode"
-					>
-						<span class="ham-container">
-							<span :class="['ham-top', activeClass]"></span>
-							<span :class="['ham-middle', activeClass]"></span>
-							<span :class="['ham-bottom', activeClass]"></span>
-						</span>
-					</button>
-				</slot>
-			</el-col>
+		<slot name="left">
+			<div class="panel-left">
+				<button
+					v-show="appStore.isVertical"
+					class="topbar-ham"
+					@click="toggleAsideMode"
+				>
+					<span class="ham-container">
+						<span :class="['ham-top', activeClass]"></span>
+						<span :class="['ham-middle', activeClass]"></span>
+						<span :class="['ham-bottom', activeClass]"></span>
+					</span>
+				</button>
+			</div>
+		</slot>
 
-			<!-- 右侧工具栏 -->
-			<el-col
-				class="top-right"
-				:xs="18"
-				:sm="16"
-				:md="16"
-				:lg="16"
-				:xl="16"
-			>
-				<slot name="right">
-					<div class="right-tools">
-						<setting class="tool-item" />
-						<globalize class="tool-item" />
-						<fullscreen class="tool-item" />
-						<theme class="tool-item" />
+		<!-- 右侧工具栏 -->
+		<slot name="right">
+			<div class="panel-right">
+				<div class="right-tools">
+					<setting class="tool-item" />
+					<globalize class="tool-item" />
+					<fullscreen class="tool-item" />
+					<theme class="tool-item" />
+				</div>
+				<el-dropdown trigger="click" class="right-user ml-12">
+					<div class="user-info">
+						<span class="username mr-8">尼克胡</span>
+
+						<img
+							class="avatar"
+							src="../../../../assets/images/portrait.jpeg"
+						/>
 					</div>
-					<el-dropdown trigger="click" class="right-user ml-12">
-						<div class="user-info">
-							<span class="username mr-8">尼克胡</span>
-
-							<img
-								class="avatar"
-								src="../../../../assets/images/portrait.jpeg"
-							/>
-						</div>
-						<template #dropdown>
-							<el-dropdown-menu>
-								<el-dropdown-item>
-									<router-link to="/personal">
-										<span>
-											<svg-icon
-												icon="user"
-												class="mr-8"
-											/>
-											个人中心
-										</span>
-									</router-link>
-								</el-dropdown-item>
-								<el-dropdown-item>
-									<span @click="logout">
-										<svg-icon icon="log-out" />
-										退出登录
+					<template #dropdown>
+						<el-dropdown-menu>
+							<el-dropdown-item>
+								<router-link to="/personal">
+									<span>
+										<svg-icon icon="user" class="mr-8" />
+										个人中心
 									</span>
-								</el-dropdown-item>
-							</el-dropdown-menu>
-						</template>
-					</el-dropdown>
-				</slot>
-			</el-col>
-		</el-row>
+								</router-link>
+							</el-dropdown-item>
+							<el-dropdown-item>
+								<span @click="logout">
+									<svg-icon icon="log-out" />
+									退出登录
+								</span>
+							</el-dropdown-item>
+						</el-dropdown-menu>
+					</template>
+				</el-dropdown>
+			</div>
+		</slot>
 	</div>
 </template>
 
@@ -104,6 +91,9 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 
 <style lang="scss">
 .app-topbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	width: 100%;
 	height: var(--topbar-height);
 	padding: 0 var(--theme-padding);
@@ -173,41 +163,37 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 </style>
 
 <style lang="scss" scoped>
-.el-row {
-	height: 100%;
+.panel-right {
+	display: flex;
+	align-items: center;
 }
 
-.top-right {
+.right-tools {
 	display: flex;
+	align-items: center;
 	justify-content: flex-end;
-
-	.right-tools {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		.tool-item {
-			cursor: pointer;
-			margin: 0 8px;
-			&:hover {
-				color: var(--el-color-primary);
-			}
+	.tool-item {
+		cursor: pointer;
+		margin: 0 8px;
+		&:hover {
+			color: var(--el-color-primary);
 		}
 	}
+}
 
-	.right-user {
-		.user-info {
-			display: flex;
-			align-items: center;
-			cursor: pointer;
-			.username {
-				font-size: 16px;
-			}
-			.avatar {
-				width: 28px;
-				height: 28px;
-				border-radius: 50%;
-				overflow: hidden;
-			}
+.right-user {
+	.user-info {
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		.username {
+			font-size: 16px;
+		}
+		.avatar {
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			overflow: hidden;
 		}
 	}
 }

@@ -1,22 +1,20 @@
 <template>
 	<div class="app-views">
-		<view-loading v-model="appStore.isRefresh" />
-		<el-scrollbar height="100%" :key="key" ref="scrollbarRef">
-			<router-view v-slot="{ Component }">
+		<router-view v-slot="{ Component, route }">
+			<el-scrollbar height="100%" :key="key" :ref="scrollbarRef">
 				<transition :name="appStore.animationName" appear mode="out-in">
 					<keep-alive :include="processStore.caches">
-						<component :is="Component" />
+						<component :is="Component" :key="route.path" />
 					</keep-alive>
 				</transition>
-			</router-view>
-		</el-scrollbar>
+			</el-scrollbar>
+		</router-view>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useGlobal } from '~/views'
-import ViewLoading from './loading/index.vue'
 const { appStore, processStore } = useGlobal()
 import { useBetter } from '~/hooks'
 defineOptions({
@@ -35,10 +33,10 @@ function refresh() {
 
 function scrollTo({ el, top }: { el?: string; top?: number }) {
 	if (el) {
-		top = scrollbarRef.value.querySelector(el).offsetTop
+		top = scrollbarRef.value.wrapRef.querySelector(el).offsetTop
 	}
 
-	scrollbarRef.value.scrollTo({
+	scrollbarRef.value.wrapRef.scrollTo({
 		top,
 		behavior: 'smooth'
 	})

@@ -27,12 +27,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { VueDraggable } from 'vue-draggable-plus'
+import { useBetter } from '~/hooks'
 import { useGlobal } from '~/views'
-const { processStore, appStore } = useGlobal()
-const route = useRoute()
-const router = useRouter()
+const { processStore } = useGlobal()
+const { route, router, mitt } = useBetter()
 const scroller = ref<HTMLElement>()
 
 // 将当前tab滚动到可视区中间
@@ -81,7 +80,7 @@ function openCm(e: PointerEvent | MouseEvent, item: Process.Item) {
 				icon: 'rotate-cw',
 				context: '重新加载',
 				callback: (done) => {
-					appStore.refreshView()
+					mitt.emit('view.refresh')
 					done()
 				},
 				hidden: !item.active
@@ -181,10 +180,10 @@ onMounted(() => {
 		flex-shrink: 0;
 		display: inline-flex;
 		height: 100%;
-		padding: 0 calc(var(--theme-padding) * 0.8);
+		padding: 0 var(--theme-padding);
 		align-items: center;
 		font-size: 13.5px;
-		margin-right: calc(var(--theme-margin) * 0.8);
+		margin-right: var(--theme-margin);
 		border-radius: var(--el-border-radius-base);
 		background-color: var(--el-bg-color);
 		transition:

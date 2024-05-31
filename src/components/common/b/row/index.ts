@@ -1,4 +1,4 @@
-import { withInstall } from 'element-plus/lib/utils'
+import { withInstall } from '~/utils'
 import Row from './index.vue'
 
 export const BRow = withInstall(Row)

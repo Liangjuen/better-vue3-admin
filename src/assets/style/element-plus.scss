@@ -10,6 +10,10 @@
 	padding: 0;
 }
 
+.el-popper {
+	border: unset !important;
+}
+
 .el-table {
 	&.cell {
 		white-space: nowrap;

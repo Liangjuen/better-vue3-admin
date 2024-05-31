@@ -11,10 +11,8 @@
 	</ul>
 </template>
 <script setup lang="ts">
-import { useGlobal } from '~/views'
 import { useBetter } from '~/hooks'
 const { mitt, router } = useBetter()
-const { appStore } = useGlobal()
 
 const oprations = [
 	{
@@ -39,7 +37,7 @@ function openCm(e: PointerEvent | MouseEvent) {
 				icon: 'rotate-cw',
 				context: '重新加载',
 				callback: (done) => {
-					appStore.refreshView()
+					mitt.emit('view.refresh')
 					done()
 				}
 			}

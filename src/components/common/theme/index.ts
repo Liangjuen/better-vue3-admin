@@ -1,4 +1,4 @@
-import { withInstall } from 'element-plus/lib/utils'
+import { withInstall } from '~/utils'
 import ThemeCom from './index.vue'
 
 export const Theme = withInstall(ThemeCom)
