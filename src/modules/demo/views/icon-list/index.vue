@@ -1,19 +1,40 @@
 <template>
-	<div class="index">
-		<div class="item" v-for="item in svgNames" :key="item">
-			<div class="div">
-				<div class="svg-box">
-					<svg-icon class="svg" :icon="item" :size="24"></svg-icon>
+	<el-scrollbar height="100%">
+		<div class="icon-list">
+			<div
+				class="item"
+				v-for="item in svgNames"
+				:key="item"
+				@click="handleClick(item)"
+			>
+				<div class="div">
+					<div class="svg-box">
+						<svg-icon
+							class="svg"
+							:icon="item"
+							:size="24"
+						></svg-icon>
+					</div>
+					<span class="svg-name-span">{{ item }}</span>
 				</div>
-				<span class="svg-name-span">{{ item }}</span>
 			</div>
+			<div class="placeholder" v-for="i in 8" :key="i"></div>
 		</div>
-		<div class="placeholder" v-for="i in 8" :key="i"></div>
-	</div>
+	</el-scrollbar>
 </template>
 
 <script setup lang="ts">
+import { useClipboard } from '@vueuse/core'
 import svgNames from '~/assets/icons/index'
+const { copy } = useClipboard()
+
+function handleClick(item: string) {
+	const content = `<svg-icon icon="${item}" />`
+	copy(content)
+	ElMessage.success({
+		message: `已拷贝${content}`
+	})
+}
 </script>
 
 <script lang="ts">
@@ -23,19 +44,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.index {
+.icon-list {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
 
 .item {
-	padding: 8px;
-	margin-bottom: 16px;
+	padding: var(--theme-padding);
+	margin-bottom: var(--theme-margin);
+	.svg {
+		transition: transform 0.3s;
+	}
 }
 
-.item:hover .svg {
-	stroke: var(--el-color-primary);
+.item:hover {
+	.svg {
+		stroke: var(--el-color-primary);
+		transform: scale(1.1);
+	}
 }
 
 .placeholder {
@@ -56,8 +83,8 @@ export default {
 	background-color: var(--el-bg-color);
 	border-radius: 6px;
 	box-shadow:
-		rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-		rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+		rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+		rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 	box-sizing: content-box;
 	outline: 0px;
 }
