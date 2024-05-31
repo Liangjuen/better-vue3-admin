@@ -1,15 +1,13 @@
 <template>
-	<div class="app-views">
-		<router-view v-slot="{ Component, route }">
-			<el-scrollbar height="100%" :key="key" :ref="scrollbarRef">
-				<transition :name="appStore.animationName" appear mode="out-in">
-					<keep-alive :include="processStore.caches">
-						<component :is="Component" :key="route.path" />
-					</keep-alive>
-				</transition>
-			</el-scrollbar>
+	<section class="app-views">
+		<router-view v-slot="{ Component }">
+			<transition :name="appStore.animationName" appear mode="out-in">
+				<keep-alive :include="processStore.caches" :key="key">
+					<component :is="Component" />
+				</keep-alive>
+			</transition>
 		</router-view>
-	</div>
+	</section>
 </template>
 
 <script setup lang="ts">
