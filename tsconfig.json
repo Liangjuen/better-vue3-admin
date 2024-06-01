@@ -32,7 +32,7 @@
 		"src/**/*.vue",
 		"src/**/*.d.ts",
 		"types/**/*.d.ts",
-    	"types/**/*.ts",
+		"types/**/*.ts",
 		"mock/**/*.ts",
 		"auto-imports.d.ts",
 		"components.d.ts"
