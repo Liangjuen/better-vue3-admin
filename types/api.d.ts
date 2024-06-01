@@ -1,5 +1,19 @@
 declare namespace API {
 	/**
+	 * 操作状态码
+	 */
+	enum ResultCode {
+		/**
+		 * 失败
+		 */
+		FAILED = 0,
+
+		/**
+		 * 成功
+		 */
+		SUCCESS
+	}
+	/**
 	 * 返回结构
 	 */
 	interface Response<T = any> {
@@ -35,7 +49,7 @@ declare namespace API {
 		/**
 		 * 详细信息
 		 */
-		detail?: T
+		detail?: any
 	}
 
 	/**

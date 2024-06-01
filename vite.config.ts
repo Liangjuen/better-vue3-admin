@@ -1,10 +1,11 @@
 import path from 'node:path'
-import { defineConfig, UserConfig, ConfigEnv } from 'vite'
+import { defineConfig, UserConfig, ConfigEnv, loadEnv } from 'vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import vue from '@vitejs/plugin-vue'
+import { viteMockServe } from 'vite-plugin-mock'
 
 function resolve(dir: string) {
 	return path.resolve(__dirname, 'src', dir)
@@ -12,6 +13,7 @@ function resolve(dir: string) {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
+	const env = loadEnv(mode, process.cwd(), '')
 	return {
 		plugins: [
 			vue(),
@@ -54,17 +56,20 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 						}
 					]
 				}
+			}),
+			/**
+			 * 请求数据模拟
+			 * 参考文档: https://github.com/vbenjs/vite-plugin-mock/blob/main/README.zh_CN.md
+			 */
+			viteMockServe({
+				mockPath: 'mock', // 目录位置
+				enable: !!env['MOCK'] // 是否启用 mock 功能(关闭后将不会拦截请求)
 			})
 		],
 		resolve: {
 			// 别名
 			alias: {
-				'~': resolve(''),
-				'@config': resolve('config'),
-				'@network': resolve('network'),
-				'@modules': resolve('modules'),
-				'@router': resolve('router'),
-				'@views': resolve('views')
+				'~': resolve('')
 			}
 		}
 	}

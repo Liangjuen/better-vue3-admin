@@ -20,9 +20,10 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"baseUrl": "./src",
+		"baseUrl": ".",
 		"paths": {
-			"~/*": ["*"]
+			"~/*": ["src/*"],
+			"#/*": ["types/*"]
 		}
 	},
 	"include": [
@@ -30,6 +31,9 @@
 		"src/**/*.tsx",
 		"src/**/*.vue",
 		"src/**/*.d.ts",
+		"types/**/*.d.ts",
+    	"types/**/*.ts",
+		"mock/**/*.ts",
 		"auto-imports.d.ts",
 		"components.d.ts"
 	],

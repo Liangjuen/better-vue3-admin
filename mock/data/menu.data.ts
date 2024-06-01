@@ -1,8 +1,8 @@
-export const menus = [
+export const menuData = [
 	{
 		id: 29,
-		createdAt: '2024-02-19T11:14:37.652Z',
-		updatedAt: '2024-03-13T08:43:21.995Z',
+		createdAt: '2024-02-19',
+		updatedAt: '2024-03-13',
 		name: '组件',
 		perms: [],
 		pid: null,
@@ -17,8 +17,8 @@ export const menus = [
 	},
 	{
 		id: 30,
-		createdAt: '2024-02-19T11:16:50.587Z',
-		updatedAt: '2024-03-13T08:43:22.034Z',
+		createdAt: '2024-02-19',
+		updatedAt: '2024-03-13',
 		name: '图标',
 		perms: [],
 		pid: 29,
@@ -33,8 +33,8 @@ export const menus = [
 	},
 	{
 		id: 34,
-		createdAt: '2024-02-19T11:24:13.620Z',
-		updatedAt: '2024-03-13T08:43:22.179Z',
+		createdAt: '2024-02-19',
+		updatedAt: '2024-03-13',
 		name: '页面视图',
 		perms: [],
 		pid: 29,
@@ -49,8 +49,8 @@ export const menus = [
 	},
 	{
 		id: 1,
-		createdAt: '2024-02-06T08:11:47.571Z',
-		updatedAt: '2024-03-13T08:43:21.605Z',
+		createdAt: '2024-02-06',
+		updatedAt: '2024-03-13',
 		name: '系统管理',
 		perms: [],
 		pid: null,
@@ -65,8 +65,8 @@ export const menus = [
 	},
 	{
 		id: 2,
-		createdAt: '2024-02-06T08:11:47.571Z',
-		updatedAt: '2024-03-13T08:43:21.605Z',
+		createdAt: '2024-02-06',
+		updatedAt: '2024-03-13',
 		name: '菜单管理',
 		perms: [],
 		pid: 1,
@@ -81,8 +81,8 @@ export const menus = [
 	},
 	{
 		id: 42,
-		createdAt: '2024-02-23T11:43:57.386Z',
-		updatedAt: '2024-03-24T12:12:29.000Z',
+		createdAt: '2024-02-23',
+		updatedAt: '2024-03-24',
 		name: '个人中心',
 		perms: [],
 		pid: null,
@@ -97,8 +97,8 @@ export const menus = [
 	},
 	{
 		id: 4,
-		createdAt: '2024-02-06T14:20:31.236Z',
-		updatedAt: '2024-03-18T08:46:04.000Z',
+		createdAt: '2024-02-06',
+		updatedAt: '2024-03-18',
 		name: '用户列表',
 		perms: [],
 		pid: 1,
@@ -113,8 +113,8 @@ export const menus = [
 	},
 	{
 		id: 5,
-		createdAt: '2024-02-06T14:22:37.613Z',
-		updatedAt: '2024-03-13T08:43:21.826Z',
+		createdAt: '2024-02-06',
+		updatedAt: '2024-03-13',
 		name: '角色管理',
 		perms: [],
 		pid: 1,
@@ -129,8 +129,8 @@ export const menus = [
 	},
 	{
 		id: 35,
-		createdAt: '2024-02-19T11:25:05.000Z',
-		updatedAt: '2024-03-22T14:00:34.000Z',
+		createdAt: '2024-02-19',
+		updatedAt: '2024-03-22',
 		name: '视图',
 		perms: [],
 		pid: 34,
@@ -145,8 +145,8 @@ export const menus = [
 	},
 	{
 		id: 36,
-		createdAt: '2024-02-19T11:29:17.384Z',
-		updatedAt: '2024-03-22T14:00:55.000Z',
+		createdAt: '2024-02-19',
+		updatedAt: '2024-03-22',
 		name: '视图组',
 		perms: [],
 		pid: 34,
@@ -161,8 +161,8 @@ export const menus = [
 	},
 	{
 		id: 33,
-		createdAt: '2024-02-19T11:21:50.433Z',
-		updatedAt: '2024-03-22T14:01:26.000Z',
+		createdAt: '2024-02-19',
+		updatedAt: '2024-03-22',
 		name: '右键菜单',
 		perms: [],
 		pid: 29,
@@ -177,8 +177,8 @@ export const menus = [
 	},
 	{
 		id: 31,
-		createdAt: '2024-02-19T11:18:02.261Z',
-		updatedAt: '2024-03-22T13:59:45.000Z',
+		createdAt: '2024-02-19',
+		updatedAt: '2024-03-22',
 		name: '图标列表',
 		perms: [],
 		pid: 30,

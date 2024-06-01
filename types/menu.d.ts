@@ -1,7 +1,7 @@
 /**
  * 菜单
  */
-namespace Menu {
+declare namespace Menu {
 	enum Status {
 		disable = 0,
 		normal
@@ -23,7 +23,7 @@ namespace Menu {
 		perms
 	}
 
-	interface Item extends Entity {
+	interface Item extends BaseEntity {
 		id?: number
 		pid: number | null
 		path: string | null
@@ -41,16 +41,4 @@ namespace Menu {
 	}
 
 	type List = Array<Item>
-
-	interface GetList extends BaseQueryCondition {
-		name?: string
-		status?: Status
-	}
-
-	interface Form
-		extends Omit<Item, 'createAt' | 'updatedAt' | 'id' | 'children'> {}
-
-	interface Create extends Form {}
-
-	interface Update extends Form {}
 }

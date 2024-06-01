@@ -1,6 +1,6 @@
 <template>
-	<div ref="viewWrap" class="view-wrap view view-content-wrap">
-		<el-row class="view-wrap-top-tools" v-if="$slots['tools']">
+	<div ref="viewWrap" class="b-view-wrap view view-content-wrap">
+		<el-row class="b-view-wrap-top-tools" v-if="$slots['tools']">
 			<slot name="tools"> </slot>
 		</el-row>
 		<slot />
@@ -14,16 +14,15 @@ defineOptions({
 </script>
 
 <style lang="scss">
-.view-wrap {
+.b-view-wrap {
 	display: flex;
 	position: relative;
 	flex-direction: column;
 	height: 100%;
 	overflow: hidden;
-	transition:
-		width var(--ani-duration),
-		height var(--ani-duration);
-	.view-wrap-top-tools {
+	border-radius: var(--el-border-radius-base);
+
+	.b-view-wrap-top-tools {
 		justify-content: flex-end;
 		margin-bottom: 8px;
 		align-items: center;
