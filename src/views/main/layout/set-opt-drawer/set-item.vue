@@ -18,14 +18,14 @@ defineProps<{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	min-height: 48px;
-	margin-bottom: 12px;
-	line-height: 48px;
+	min-height: 36px;
+	margin-bottom: var(--theme-margin);
+	line-height: 36px;
 
 	.label {
 		font-size: 14px;
 		flex: 1;
-		margin-right: 10px;
+		margin-right: var(--theme-margin);
 	}
 
 	.item {

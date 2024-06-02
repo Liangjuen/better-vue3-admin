@@ -5,7 +5,7 @@
 		v-model="appStore.showSettings"
 		size="312px"
 	>
-		<set-item label="菜单模式">
+		<!-- <set-item label="菜单模式">
 			<el-select v-model="appStore.layoutMode">
 				<el-option label="纵向" value="vertical"></el-option>
 				<el-option label="横向" value="horizontal"></el-option>
@@ -20,7 +20,8 @@
 					:value="item.value"
 				/>
 			</el-select>
-		</set-item>
+		</set-item> -->
+		<layout-picker />
 		<set-item label="过度动画">
 			<el-select v-model="appStore.animationName">
 				<el-option
@@ -67,6 +68,7 @@
 <script setup lang="ts">
 import { ElMessageBox } from 'element-plus'
 import SetItem from './set-item.vue'
+import LayoutPicker from './layout-picker.vue'
 import { useGlobal } from '~/views'
 import { config } from '~/config'
 
