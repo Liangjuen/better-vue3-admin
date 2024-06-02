@@ -22,8 +22,9 @@
 		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
 		"paths": {
+			"$/*": ["./"],
 			"~/*": ["src/*"],
-			"#/*": ["types/*"]
+			"#/*": ["typings/*"]
 		}
 	},
 	"include": [
@@ -31,11 +32,9 @@
 		"src/**/*.tsx",
 		"src/**/*.vue",
 		"src/**/*.d.ts",
-		"types/**/*.d.ts",
-		"types/**/*.ts",
+		"typings/**/*.d.ts",
+		"typings/**/*.ts",
 		"mock/**/*.ts",
-		"auto-imports.d.ts",
-		"components.d.ts"
 	],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }

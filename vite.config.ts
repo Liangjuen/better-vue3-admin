@@ -24,7 +24,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 			AutoImport({
 				resolvers: [ElementPlusResolver()],
 				// 指定自动导入的 组合式API(普通函数、hook、函数式组件等)目录
-				dirs: ['src/components/composable']
+				dirs: ['src/components/composable'],
+				dts: './typings/auto-imports.d.ts'
 			}),
 			/**
 			 * 参考文档: https://github.com/unplugin/unplugin-vue-components#readme
@@ -33,7 +34,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 				resolvers: [ElementPlusResolver()],
 				// 自定义组件导入路径
 				dirs: ['src/components/common'],
-				directoryAsNamespace: true
+				directoryAsNamespace: true,
+				dts: './typings/components.d.ts'
 			}),
 			createSvgIconsPlugin({
 				// 指定需要缓存的图标文件夹
