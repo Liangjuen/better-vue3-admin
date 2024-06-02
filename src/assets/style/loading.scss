@@ -1,0 +1,34 @@
+.loading {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	background-color: var(--el-bg-color);
+	backdrop-filter: blur(var(--filter));
+	.loader {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+.loader {
+	width: 45px;
+	aspect-ratio: .75;
+	--c: no-repeat linear-gradient(var(--el-color-primary) 0 0);
+	background:
+	  var(--c) 0%   50%,
+	  var(--c) 50%  50%,
+	  var(--c) 100% 50%;
+	background-size: 20% 50%;
+	animation: l6 1s infinite linear;
+  }
+  @keyframes l6 {
+	20% {background-position: 0% 0%  ,50% 50% ,100% 50% }
+	40% {background-position: 0% 100%,50% 0%  ,100% 50% }
+	60% {background-position: 0% 50% ,50% 100%,100% 0%  }
+	80% {background-position: 0% 50% ,50% 50% ,100% 100%}
+  }
