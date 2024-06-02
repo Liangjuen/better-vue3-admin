@@ -34,7 +34,7 @@
 		"src/**/*.d.ts",
 		"typings/**/*.d.ts",
 		"typings/**/*.ts",
-		"mock/**/*.ts",
+		"mock/**/*.ts"
 	],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }
