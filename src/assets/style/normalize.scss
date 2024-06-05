@@ -145,13 +145,13 @@ a {
 }
 
 *::-webkit-scrollbar {
-	width: 6px;
-	height: 6px;
-	border-radius: 4px;
+	width: 8px;
+	height: 8px;
 }
 
 *::-webkit-scrollbar-thumb {
 	background-color: rgba(144, 147, 153, 0.3);
+	border-radius: 8px;
 }
 
 *::-webkit-scrollbar-track {
