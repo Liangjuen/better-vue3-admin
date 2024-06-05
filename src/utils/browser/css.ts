@@ -7,7 +7,7 @@ export class PrimaryColor {
 		darkLevels: [2],
 		color: '#409eff',
 		mixWhite: '#ffffff',
-		mixBlack: '#000000'
+		mixBlack: '#141414'
 	}
 
 	/**
@@ -38,16 +38,18 @@ export class PrimaryColor {
 	 * @param levels 梯度集合[3,5,7,8,9]
 	 */
 	setGradient(options?: {
-		varName: string
-		color: string
+		varName?: string
+		color?: string
 		lightLevels?: number[]
 		darkLevels?: number[]
+		mixin?: string
 	}) {
 		const {
-			varName,
-			color,
+			varName = this.default.namespace,
+			color = this.default.color,
 			lightLevels = this.default.lightLevels,
-			darkLevels = this.default.darkLevels
+			darkLevels = this.default.darkLevels,
+			mixin = this.default.mixWhite
 		} = options || {
 			...this.default,
 			varName: this.default.namespace
@@ -58,7 +60,7 @@ export class PrimaryColor {
 			this.setPropertyColor(
 				`${varName}-light-${l}`,
 				// 获取梯度值
-				adjustLightness(color, this.default.mixWhite, l)
+				adjustLightness(color, mixin, l)
 			)
 		})
 
@@ -67,7 +69,7 @@ export class PrimaryColor {
 			this.setPropertyColor(
 				`${varName}-dark-${l}`,
 				// 获取梯度值
-				adjustLightness(color, this.default.mixWhite, l, false)
+				adjustLightness(color, mixin, l, false)
 			)
 		})
 	}
