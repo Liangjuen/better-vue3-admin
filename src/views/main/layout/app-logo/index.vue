@@ -1,10 +1,10 @@
 <template>
-	<div class="app-logo">
+	<router-link to="/" class="app-logo">
 		<img src="../../../../../public/vite.svg" />
 		<span v-show="showLabel">
 			<slot name="label">BETTER-VUE3-ADMIN</slot>
 		</span>
-	</div>
+	</router-link>
 </template>
 
 <script setup lang="ts">
@@ -22,14 +22,15 @@ defineProps<{
 	justify-content: center;
 	align-items: center;
 	min-width: 48px;
-	height: var(--topbar-height);
-	max-height: var(--topbar-height);
+	height: var(--layout-topbar-height);
+	max-height: var(--layout-topbar-height);
 	background-color: transparent;
 	cursor: pointer;
 	span {
 		margin-left: 10px;
 		line-height: 1;
 		white-space: nowrap;
+		color: var(--el-color-primary);
 	}
 }
 </style>

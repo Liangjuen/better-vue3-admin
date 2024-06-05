@@ -3,7 +3,7 @@
 		v-model="processStore.list"
 		:animation="250"
 		target=".process-scroller"
-		class="process-container"
+		:class="processClass"
 	>
 		<div ref="scroller" class="process-scroller" @wheel="handleWheel">
 			<div
@@ -26,14 +26,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { useBetter } from '~/hooks'
 import { useGlobal } from '~/views'
+const props = defineProps<{
+	type: Theme.TabStyle
+}>()
+defineOptions({
+	name: 'app-tab-process'
+})
 const { processStore } = useGlobal()
 const { route, router, mitt } = useBetter()
 const scroller = ref<HTMLElement>()
 
+const processClass = computed(() => {
+	return [
+		'process-container',
+		`process-container-style-${props.type || 'default'}`
+	]
+})
 // 将当前tab滚动到可视区中间
 const scrollToView = () => {
 	const active = scroller.value?.querySelector('.active')
@@ -160,16 +172,69 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+html.dark {
+	.process-container {
+		--process-bgc-fill: var(--el-color-primary-dark-2);
+	}
+}
 .process-container {
+	--process-bgc-fill: var(--el-color-primary-light-9);
 	flex: 1;
-	height: var(--tabs-height);
+	height: 100%;
 	overflow: hidden;
+	&-style-chrome {
+		.process-scroller {
+			.process-item {
+				border-top-left-radius: 8px;
+				border-top-right-radius: 8px;
+				border-bottom-left-radius: unset;
+				border-bottom-right-radius: unset;
+				&:first-child {
+					margin-left: var(--layout-margin);
+				}
+				&::before,
+				&::after {
+					transition: all var(--ani-duration);
+				}
+				&.active {
+					position: relative;
+					&::before,
+					&::after {
+						position: absolute;
+						bottom: 0;
+						content: '';
+						width: 10px;
+						height: 15px;
+						border-radius: 100%;
+						box-shadow: 0 0 0 30px var(--el-color-primary-light-8); /*使用box-shadow不影响尺寸*/
+					}
+
+					&::before {
+						left: -10px;
+						clip-path: inset(50% 0 0 50%);
+					}
+					&::after {
+						right: -10px;
+						clip-path: inset(50% 50% 0 0);
+					}
+				}
+			}
+		}
+	}
+	&-style-card {
+		.process-item {
+			border: 1px solid var(--el-border-color);
+			&.active {
+				border: 1px solid var(--el-color-primary);
+			}
+		}
+	}
 }
 
 .process-scroller {
 	display: flex;
 	width: 100%;
-	height: var(--tabs-height);
+	height: 100%;
 	position: relative;
 	overflow-y: hidden;
 	overflow-x: auto;
@@ -177,20 +242,19 @@ onMounted(() => {
 		display: none;
 	}
 	.process-item {
+		--ab-width: calc(var(--layout-tab-height) - var(--layout-padding));
+		--offset: calc(var(--ab-width) / 2);
 		flex-shrink: 0;
 		display: inline-flex;
 		height: 100%;
-		padding: 0 var(--theme-padding);
+		padding: 0 var(--layout-padding);
 		align-items: center;
 		font-size: 13.5px;
-		margin-right: var(--theme-margin);
-		border-radius: var(--el-border-radius-base);
+		margin-right: var(--layout-margin);
+		border-radius: 8px;
 		background-color: var(--el-bg-color);
-		transition:
-			background-color var(--ani-duration),
-			color var(--ani-duration);
+		transition: color var(--ani-duration);
 		cursor: pointer;
-
 		&:last-child {
 			margin: 0;
 		}
@@ -198,8 +262,8 @@ onMounted(() => {
 			color: var(--el-color-primary);
 		}
 		&.active {
-			background-color: var(--el-color-primary);
-			color: var(--el-color-white);
+			background-color: var(--el-color-primary-light-8);
+			color: var(--el-color-primary);
 		}
 		.svg-icon {
 			width: 0;

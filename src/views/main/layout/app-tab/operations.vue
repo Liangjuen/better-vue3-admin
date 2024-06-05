@@ -1,5 +1,5 @@
 <template>
-	<ul class="operation-container" @contextmenu="(e: MouseEvent) => openCm(e)">
+	<ul :class="opratClass" @contextmenu="(e: MouseEvent) => openCm(e)">
 		<li
 			:key="item.icon"
 			v-for="item in oprations"
@@ -11,21 +11,36 @@
 	</ul>
 </template>
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useBetter } from '~/hooks'
+const props = defineProps<{
+	type: Theme.TabStyle
+}>()
+defineOptions({
+	name: 'app-tab-options'
+})
+
+const opratClass = computed(() => {
+	return [
+		'operation-container',
+		`operation-container-style-${props.type || 'default'}`
+	]
+})
+
 const { mitt, router } = useBetter()
 
 const oprations = [
 	{
-		icon: 'chevron-left',
-		action: () => router.back()
+		icon: 'home',
+		action: () => router.push('/')
 	},
 	{
 		icon: 'rotate-cw',
 		action: () => mitt.emit('view.refresh')
 	},
 	{
-		icon: 'home',
-		action: () => router.push('/')
+		icon: 'maximize-2',
+		action: () => router.back()
 	}
 ]
 
@@ -50,8 +65,8 @@ function openCm(e: PointerEvent | MouseEvent) {
 <style lang="scss" scoped>
 .operation-container {
 	display: flex;
+	height: 100%;
 	background-color: var(--el-bg-color);
-	height: var(--tabs-height);
 	border-radius: var(--el-border-radius-base);
 	margin-right: var(--theme-margin);
 	.item {

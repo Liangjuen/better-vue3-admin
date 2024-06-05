@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watch, computed } from 'vue'
+import { useDark } from '@vueuse/core'
 
 import { primaryColor } from '~/utils'
 import { StoreName } from '~/enums'
@@ -12,6 +13,8 @@ export const useAppStore = defineStore(
 	() => {
 		// 是否折叠左侧菜单
 		const isFold = ref(false)
+
+		const isDark = useDark()
 
 		// 布局模式
 		const layoutMode = ref<Theme.LayoutMode>(defaultOptions.layoutMode)
@@ -48,6 +51,9 @@ export const useAppStore = defineStore(
 		// 圆角
 		const radius = ref(defaultOptions.radius)
 
+		// tab 风格
+		const tabStyle = ref<Theme.TabStyle>('')
+
 		// 刷新页面()
 		function refreshView() {
 			if (isRefresh.value) return
@@ -67,6 +73,7 @@ export const useAppStore = defineStore(
 			showTabbar.value = defaultOptions.showTabbar
 			menuWidth.value = defaultOptions.menuWidth
 			radius.value = defaultOptions.radius
+			tabStyle.value = defaultOptions.tabStyle
 		}
 
 		watch(
@@ -78,10 +85,12 @@ export const useAppStore = defineStore(
 		)
 
 		watch(
-			color,
-			(val) => {
+			[color, isDark],
+			([val, dark]) => {
 				if (!val) val = '#409EFF'
-				primaryColor.set(val).setGradient()
+				primaryColor
+					.set(val)
+					.setGradient({ mixin: dark ? '#141414' : undefined })
 			},
 			{ immediate: true }
 		)
@@ -125,6 +134,7 @@ export const useAppStore = defineStore(
 			isRefresh,
 			maxCache,
 			radius,
+			tabStyle,
 			refreshView,
 			$reset
 		}
@@ -143,7 +153,8 @@ export const useAppStore = defineStore(
 				'menuWidth',
 				'animationName',
 				'maxCache',
-				'radius'
+				'radius',
+				'tabStyle'
 			]
 		}
 	}

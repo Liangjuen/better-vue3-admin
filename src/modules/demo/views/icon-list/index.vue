@@ -1,26 +1,20 @@
 <template>
-	<el-scrollbar height="100%">
-		<div class="icon-list">
-			<div
-				class="item"
-				v-for="item in svgNames"
-				:key="item"
-				@click="handleClick(item)"
-			>
-				<div class="div">
-					<div class="svg-box">
-						<svg-icon
-							class="svg"
-							:icon="item"
-							:size="24"
-						></svg-icon>
-					</div>
-					<span class="svg-name-span">{{ item }}</span>
+	<div class="icon-list">
+		<div
+			class="item"
+			v-for="item in svgNames"
+			:key="item"
+			@click="handleClick(item)"
+		>
+			<div class="div">
+				<div class="svg-box">
+					<svg-icon class="svg" :icon="item" :size="24"></svg-icon>
 				</div>
+				<span class="svg-name-span">{{ item }}</span>
 			</div>
-			<div class="placeholder" v-for="i in 8" :key="i"></div>
 		</div>
-	</el-scrollbar>
+		<div class="placeholder" v-for="i in 8" :key="i"></div>
+	</div>
 </template>
 
 <script setup lang="ts">

@@ -5,27 +5,21 @@
 		v-model="appStore.showSettings"
 		size="312px"
 	>
-		<!-- <set-item label="菜单模式">
-			<el-select v-model="appStore.layoutMode">
-				<el-option label="纵向" value="vertical"></el-option>
-				<el-option label="横向" value="horizontal"></el-option>
-			</el-select>
-		</set-item>
-		<set-item label="菜单背景">
-			<el-select v-model="appStore.menuBackMode">
-				<el-option
-					v-for="item in menuBackModes"
-					:key="item.value"
-					:label="item.label"
-					:value="item.value"
-				/>
-			</el-select>
-		</set-item> -->
 		<layout-picker />
 		<set-item label="过度动画">
 			<el-select v-model="appStore.animationName">
 				<el-option
 					v-for="item in viewTransitionNames"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value"
+				/>
+			</el-select>
+		</set-item>
+		<set-item label="标签风格">
+			<el-select v-model="appStore.tabStyle">
+				<el-option
+					v-for="item in tabStyles"
 					:key="item.value"
 					:label="item.label"
 					:value="item.value"
@@ -77,7 +71,7 @@ defineOptions({
 })
 
 const {
-	theme: { viewTransitionNames, menuBackModes }
+	theme: { viewTransitionNames, tabStyles }
 } = config
 
 const { appStore } = useGlobal()

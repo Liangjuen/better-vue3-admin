@@ -73,6 +73,21 @@ export const config = {
 				value: 'auto'
 			}
 		],
+		// 标签风格
+		tabStyles: [
+			{
+				label: '默认',
+				value: ''
+			},
+			{
+				label: '谷歌',
+				value: 'chrome'
+			},
+			{
+				label: '卡片',
+				value: 'card'
+			}
+		],
 		// 默认配置值
 		default: {
 			layoutMode: 'vertical',
@@ -81,7 +96,8 @@ export const config = {
 			animationName: 'none',
 			showTabbar: true,
 			menuWidth: 256,
-			radius: 6
+			radius: 6,
+			tabStyle: ''
 		} as const
 	}
 }

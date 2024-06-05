@@ -2,31 +2,41 @@
 	<el-menu
 		router
 		ellipsis
-		class="custom-menu"
 		:collapse-transition="false"
-		:collapse="appStore.isFold"
+		:collapse="collapse"
 		:default-active="route.path"
-		:mode="appStore.layoutMode"
+		:mode="mode"
 		:popper-offset="10"
 		v-bind="menuStyle"
 	>
-		<sub-menu :list="menuStore.tree" />
+		<sub-menu :list="list" />
 	</el-menu>
 </template>
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import SubMenu from './sub-menu.vue'
-import { useGlobal } from '~/views'
 import { useSet } from './useSet'
 
 defineOptions({
 	name: 'nav-menu'
 })
 
+withDefaults(
+	defineProps<{
+		list: Menu.List
+		collapse: boolean
+		mode?: Theme.MenuLayoutMode
+		backMode?: Theme.MenuBackMode
+	}>(),
+	{
+		mode: 'horizontal',
+		backMode: 'auto'
+	}
+)
+
 const { menuStyle } = useSet()
 const route = useRoute()
-const { appStore, menuStore } = useGlobal()
 </script>
 
 <style lang="scss">
