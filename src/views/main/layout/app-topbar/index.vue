@@ -4,7 +4,7 @@
 			<div class="panel-left">
 				<button
 					v-show="appStore.isVertical"
-					class="topbar-ham"
+					class="topbar-ham app-topbar-action-hover"
 					@click="toggleAsideMode"
 				>
 					<span class="ham-container">
@@ -20,12 +20,15 @@
 		<slot name="right">
 			<div class="panel-right">
 				<div class="right-tools">
-					<setting class="tool-item" />
-					<globalize class="tool-item" />
-					<fullscreen class="tool-item" />
-					<theme class="tool-item" />
+					<setting class="tool-item app-topbar-action-hover" />
+					<globalize class="tool-item app-topbar-action-hover" />
+					<fullscreen class="tool-item app-topbar-action-hover" />
+					<theme-toggle class="tool-item app-topbar-action-hover" />
 				</div>
-				<el-dropdown trigger="click" class="right-user ml-12">
+				<el-dropdown
+					trigger="click"
+					class="right-user ml-12 app-topbar-action-hover"
+				>
 					<div class="user-info">
 						<span class="username mr-8">尼克胡</span>
 
@@ -63,6 +66,7 @@ import { computed } from 'vue'
 import Globalize from './globalize.vue'
 import Fullscreen from './fullscreen.vue'
 import Setting from './setting.vue'
+import ThemeToggle from './themeToggle.vue'
 import { useGlobal } from '~/views'
 import { ElMessageBox, ElMessage } from 'element-plus'
 
@@ -96,10 +100,19 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	justify-content: space-between;
 	width: 100%;
 	height: var(--topbar-height);
-	padding: 0 var(--theme-padding);
-	margin: 0 0 var(--theme-margin);
 	background-color: var(--layout-item-bg-color);
 	box-sizing: border-box;
+	.panel-left,
+	.panel-right {
+		height: 100%;
+	}
+}
+
+.app-topbar-action-hover {
+	transition: background-color var(--el-transition-duration);
+	&:hover {
+		background-color: var(--el-fill-color-dark);
+	}
 }
 
 .topbar-ham {
@@ -169,19 +182,26 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 }
 
 .right-tools {
+	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
 	.tool-item {
+		display: flex;
+		align-items: center;
+		height: 100%;
 		cursor: pointer;
-		margin: 0 8px;
+		padding: 0 10px;
 		&:hover {
 			color: var(--el-color-primary);
+			background-color: var(--el-fill-color-dark);
 		}
 	}
 }
 
 .right-user {
+	height: 100%;
+	padding: 0 var(--layout-padding);
 	.user-info {
 		display: flex;
 		align-items: center;

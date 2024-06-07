@@ -31,15 +31,11 @@ const { mitt, router } = useBetter()
 
 const oprations = [
 	{
-		icon: 'home',
-		action: () => router.push('/')
-	},
-	{
-		icon: 'rotate-cw',
+		icon: 'refresh',
 		action: () => mitt.emit('view.refresh')
 	},
 	{
-		icon: 'maximize-2',
+		icon: 'fullscreen',
 		action: () => router.back()
 	}
 ]
