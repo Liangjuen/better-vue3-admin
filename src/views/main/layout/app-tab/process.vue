@@ -89,7 +89,14 @@ function openCm(e: PointerEvent | MouseEvent, item: Process.Item) {
 	BContextMenu.create(e, {
 		list: [
 			{
-				icon: 'rotate-cw',
+				icon: 'fullscreen',
+				context: '内容全屏',
+				callback: (done) => {
+					done()
+				}
+			},
+			{
+				icon: 'refresh',
 				context: '重新加载',
 				callback: (done) => {
 					mitt.emit('view.refresh')

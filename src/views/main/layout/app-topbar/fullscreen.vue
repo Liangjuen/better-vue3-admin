@@ -1,7 +1,7 @@
 <template>
 	<div @click="toggle">
-		<svg-icon v-show="!isFullscreen" icon="maximize"></svg-icon>
-		<svg-icon v-show="isFullscreen" icon="minimize"></svg-icon>
+		<svg-icon v-show="!isFullscreen" icon="fullscreen"></svg-icon>
+		<svg-icon v-show="isFullscreen" icon="fullsceen-exit"></svg-icon>
 	</div>
 </template>
 
