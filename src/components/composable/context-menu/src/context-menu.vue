@@ -15,9 +15,9 @@
 			}"
 			@click.stop="handleClick(item)"
 		>
-			<span class="prefix">
+			<div class="prefix">
 				<svg-icon v-if="item.icon" :icon="item.icon" :size="16" />
-			</span>
+			</div>
 
 			<div class="flex-1">
 				<span v-if="typeof item.context == 'string'">
@@ -122,6 +122,7 @@ nextTick(() => {
 	// 设置定位信息(相对于父节点)
 	if (offsetTop) contextMenuContent.value.style.top = offsetTop + 'px'
 	if (offsetRight) contextMenuContent.value.style.right = offsetRight + 'px'
+	cm.createAnimation(contextMenuContent.value)
 })
 </script>
 
@@ -134,6 +135,8 @@ nextTick(() => {
 		box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 		border-radius: 4px;
 		position: absolute;
+		z-index: auto;
+		padding: var(--theme-padding) 0;
 		&.sub {
 			right: calc(-100% - 5px);
 			top: 16px;
@@ -142,31 +145,26 @@ nextTick(() => {
 	&__item {
 		position: relative;
 		display: flex;
+		line-height: 34px;
 		align-items: center;
-		padding: 8px var(--theme-padding);
 		color: var(--el-text-color-secondary);
 		cursor: pointer;
 		font-size: 13px;
 		transition:
 			color var(--ani-duration),
 			background-color var(--ani-duration);
-		.prefix {
-			margin-right: 6px;
-		}
+		.prefix,
 		.suffix {
 			display: flex;
+			justify-content: center;
 			align-items: center;
+			padding: 0 var(--theme-padding);
 		}
 		&:not(.disabled):hover {
 			background-color: var(--el-fill-color-dark);
 			color: var(--el-text-color-primary);
 		}
-		&:first-child {
-			margin-top: 4px;
-		}
-		&:last-child {
-			margin-bottom: 4px;
-		}
+
 		&.disabled {
 			cursor: not-allowed;
 		}
