@@ -41,10 +41,9 @@ export class ContextMenu {
 		document.body.appendChild(this.contextMenuBox)
 
 		// 获取菜单内容宽高
-		const hright = this.contextMenuBox.firstElementChild
-			?.clientHeight as number
-		const width = this.contextMenuBox.firstElementChild
-			?.clientWidth as number
+		const contextMenuContent = this.contextMenuBox.firstElementChild
+		const hright = contextMenuContent?.clientHeight as number
+		const width = contextMenuContent?.clientWidth as number
 
 		// 获取视口宽高
 		const vw = window.innerWidth
@@ -94,6 +93,18 @@ export class ContextMenu {
 		// 监听
 		window.addEventListener('click', this.destroy, true)
 		window.addEventListener('contextmenu', this.destroy, true)
+	}
+
+	/**
+	 * @description 创建菜单过度动画
+	 * @param contextMenuBox
+	 */
+	createAnimation(contextMenuBox: HTMLDivElement) {
+		contextMenuBox.style.opacity = '0'
+		requestAnimationFrame(() => {
+			contextMenuBox.style.opacity = '1'
+			contextMenuBox.style.transition = 'opacity 0.3s'
+		})
 	}
 }
 
