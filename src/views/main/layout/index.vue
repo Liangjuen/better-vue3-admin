@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { useFullscreen } from '@vueuse/core'
+import { useBetter } from '~/hooks'
 import { AppLayoutProps, defaultProps } from './type'
 
 defineOptions({
@@ -30,40 +32,81 @@ const appLayoutStyles = computed(() => {
 		})
 	}
 })
+
+const { mitt } = useBetter()
+
+const appViewRef = ref<HTMLElement | null>(null)
+
+const { toggle: toggleFullscreen, isFullscreen } = useFullscreen(appViewRef)
+
+// 视图全屏
+const fullView = ref(false)
+
+function fullscreenView() {
+	if (!isFullscreen.value) {
+		toggleFullscreen()
+	}
+	fullView.value = true
+}
+
+watch(
+	() => isFullscreen.value,
+	(val) => {
+		if (!val) {
+			fullView.value = false
+		}
+	}
+)
+
+onMounted(() => {
+	mitt.on('view.fullscreen', fullscreenView)
+})
+
+onUnmounted(() => {
+	mitt.off('view.toggleFullscreen')
+})
 </script>
 
 <template>
-	<div :class="appLayoutClasses" :style="appLayoutStyles">
+	<section :class="appLayoutClasses" :style="appLayoutStyles">
 		<!-- 左侧 -->
 
-		<aside class="app-layout-sider">
+		<aside class="app-layout-sider" v-show="!fullView">
 			<slot name="sider"></slot>
 		</aside>
 		<!-- 主体 -->
 		<slot name="app-layout-main">
-			<div class="app-layout-main">
-				<div class="app-layout-topbar">
+			<section class="app-layout-main">
+				<header class="app-layout-topbar" v-show="!fullView">
 					<slot name="topbar"></slot>
-				</div>
-				<div class="app-layout-tab">
+				</header>
+				<div class="app-layout-tab" v-show="!fullView">
 					<slot name="tab"></slot>
 				</div>
-				<div class="app-layout-view">
+				<main
+					class="app-layout-view"
+					:class="{ fullscreen: fullView }"
+					ref="appViewRef"
+				>
 					<slot name="view"></slot>
-				</div>
-				<div class="app-layout-footer" v-if="!hiddeFooter">
+				</main>
+				<footer
+					class="app-layout-footer"
+					v-if="!hiddeFooter"
+					v-show="!fullView"
+				>
 					<slot name="footer"></slot>
-				</div>
-			</div>
+				</footer>
+			</section>
 		</slot>
 		<!-- 抽屉注入器 -->
 		<div class="app-layout-drawer-provider">
 			<slot name="app-layout-drawer-provider"></slot>
 		</div>
-		<Transition name="fade" appear mode="out-in">
+		<transition name="fade" appear mode="out-in">
 			<div class="app-layout-mask" v-if="isFold && isMobile"></div>
-		</Transition>
-	</div>
+		</transition>
+	</section>
 </template>
 
 <style lang="scss" scoped>
@@ -95,6 +138,7 @@ const appLayoutStyles = computed(() => {
 	}
 
 	&-main {
+		box-sizing: border-box;
 		width: calc(100% - var(--layout-sider-width));
 		height: 100%;
 	}
@@ -108,6 +152,7 @@ const appLayoutStyles = computed(() => {
 		position: relative;
 		width: 100%;
 		height: var(--layout-topbar-height);
+		box-sizing: border-box;
 		z-index: var(--layout-topbar-z-index);
 		box-shadow: rgba(0, 0, 0, 0.08) 1px 1px 2px;
 	}
@@ -115,6 +160,7 @@ const appLayoutStyles = computed(() => {
 	&-tab {
 		position: relative;
 		width: 100%;
+		box-sizing: border-box;
 		height: var(--layout-tab-height);
 		z-index: var(--layout-tab-z-index);
 	}
@@ -124,6 +170,11 @@ const appLayoutStyles = computed(() => {
 		height: var(--layout-view-height);
 		padding: var(--layout-view-padding);
 		overflow: auto;
+		box-sizing: border-box;
+		background-color: var(--el-bg-color-page);
+		&.fullscreen {
+			width: 100vw;
+		}
 	}
 
 	&-footer {

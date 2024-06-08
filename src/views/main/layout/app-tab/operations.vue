@@ -27,7 +27,7 @@ const opratClass = computed(() => {
 	]
 })
 
-const { mitt, router } = useBetter()
+const { mitt } = useBetter()
 
 const oprations = [
 	{
@@ -36,7 +36,7 @@ const oprations = [
 	},
 	{
 		icon: 'fullscreen',
-		action: () => router.back()
+		action: () => mitt.emit('view.fullscreen')
 	}
 ]
 
@@ -45,7 +45,7 @@ function openCm(e: PointerEvent | MouseEvent) {
 	BContextMenu.create(e, {
 		list: [
 			{
-				icon: 'rotate-cw',
+				icon: 'refresh',
 				context: '重新加载',
 				callback: (done) => {
 					mitt.emit('view.refresh')
@@ -63,7 +63,7 @@ function openCm(e: PointerEvent | MouseEvent) {
 	display: flex;
 	height: 100%;
 	background-color: var(--el-bg-color);
-	border-radius: var(--el-border-radius-base);
+	border-radius: 8px;
 	margin-right: var(--theme-margin);
 	.item {
 		padding: 7px 7px;
