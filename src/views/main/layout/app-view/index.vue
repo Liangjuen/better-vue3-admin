@@ -18,6 +18,7 @@ import { useBetter } from '~/hooks'
 defineOptions({
 	name: 'app-view'
 })
+
 const { mitt } = useBetter()
 
 const key = ref(1)

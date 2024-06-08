@@ -92,6 +92,7 @@ function openCm(e: PointerEvent | MouseEvent, item: Process.Item) {
 				icon: 'fullscreen',
 				context: '内容全屏',
 				callback: (done) => {
+					mitt.emit('view.fullscreen')
 					done()
 				}
 			},
