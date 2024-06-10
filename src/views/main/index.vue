@@ -2,6 +2,7 @@
 	<app-layout
 		v-model:collapse="isFold"
 		:hiddeSider="layoutMode == 'horizontal'"
+		:hidde-tab="showTabbar"
 		:class="layout"
 		:is-mobile="isMobile"
 		view-padding="var(--theme-padding)"
@@ -55,8 +56,15 @@ import AppLogo from './layout/app-logo/index.vue'
 import { useGlobal } from '~/views'
 
 const { appStore, menuStore } = useGlobal()
-const { isFold, menuBackMode, layoutMode, tabStyle, topbarBackMode, isMobile } =
-	storeToRefs(appStore)
+const {
+	isFold,
+	menuBackMode,
+	layoutMode,
+	tabStyle,
+	topbarBackMode,
+	isMobile,
+	showTabbar
+} = storeToRefs(appStore)
 const { tree } = storeToRefs(menuStore)
 
 const layout = computed(() => {
