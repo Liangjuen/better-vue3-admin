@@ -4,38 +4,76 @@ const { appStore } = useGlobal()
 interface LayoutPickerOptions {
 	layout: Theme.LayoutMode
 	menuBack: Theme.MenuBackMode
+	topbarBack: Theme.TopbarBackMode
 }
 
 const options: Array<LayoutPickerOptions> = [
 	{
 		layout: 'horizontal',
-		menuBack: ''
+		menuBack: 'auto',
+		topbarBack: 'auto'
 	},
 	{
 		layout: 'horizontal',
-		menuBack: 'auto'
+		menuBack: 'primary',
+		topbarBack: 'primary'
 	},
 	{
 		layout: 'horizontal',
-		menuBack: 'dark'
+		menuBack: 'dark',
+		topbarBack: 'dark'
 	},
 	{
 		layout: 'vertical',
-		menuBack: ''
+		menuBack: 'auto',
+		topbarBack: 'auto'
 	},
 	{
 		layout: 'vertical',
-		menuBack: 'auto'
+		menuBack: 'primary',
+		topbarBack: 'auto'
 	},
 	{
 		layout: 'vertical',
-		menuBack: 'dark'
+		menuBack: 'dark',
+		topbarBack: 'auto'
+	},
+	{
+		layout: 'vertical',
+		menuBack: 'auto',
+		topbarBack: 'primary'
+	},
+	{
+		layout: 'vertical',
+		menuBack: 'primary',
+		topbarBack: 'primary'
+	},
+	{
+		layout: 'vertical',
+		menuBack: 'dark',
+		topbarBack: 'primary'
+	},
+	{
+		layout: 'vertical',
+		menuBack: 'auto',
+		topbarBack: 'dark'
+	},
+	{
+		layout: 'vertical',
+		menuBack: 'primary',
+		topbarBack: 'dark'
+	},
+	{
+		layout: 'vertical',
+		menuBack: 'dark',
+		topbarBack: 'dark'
 	}
 ]
 
 function handlePickerClick(item: LayoutPickerOptions) {
 	appStore.layoutMode = item.layout
 	appStore.menuBackMode = item.menuBack
+	appStore.topbarBackMode = item.topbarBack
 }
 </script>
 
@@ -48,7 +86,8 @@ function handlePickerClick(item: LayoutPickerOptions) {
 				:class="{
 					active:
 						item.layout == appStore.layoutMode &&
-						item.menuBack == appStore.menuBackMode
+						item.menuBack == appStore.menuBackMode &&
+						item.topbarBack == appStore.topbarBackMode
 				}"
 				v-for="(item, index) in options"
 				:key="index"
@@ -64,7 +103,7 @@ function handlePickerClick(item: LayoutPickerOptions) {
 				<div class="layout-main" :class="[item.layout]">
 					<div
 						class="layout-top layout-item"
-						:class="[item.menuBack]"
+						:class="[item.topbarBack]"
 					>
 						<div
 							v-if="item.layout == 'horizontal'"
@@ -121,7 +160,7 @@ function handlePickerClick(item: LayoutPickerOptions) {
 	background-color: var(--el-bg-color);
 	border-radius: 2px;
 
-	&.auto {
+	&.primary {
 		background-color: var(--el-color-primary-light-5);
 	}
 
@@ -153,11 +192,6 @@ function handlePickerClick(item: LayoutPickerOptions) {
 	flex-direction: column;
 	width: 100%;
 	display: flex;
-	&.vertical {
-		.layout-top {
-			background-color: var(--el-bg-color);
-		}
-	}
 }
 
 .layout-left {

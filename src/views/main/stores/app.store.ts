@@ -33,6 +33,11 @@ export const useAppStore = defineStore(
 			defaultOptions.menuBackMode
 		)
 
+		// 顶部背景设置
+		const topbarBackMode = ref<Theme.TopbarBackMode>(
+			defaultOptions.topbarBackMode
+		)
+
 		// 主题颜色
 		const color = ref(defaultOptions.color)
 
@@ -128,6 +133,7 @@ export const useAppStore = defineStore(
 			showTabbar,
 			showSettings,
 			menuBackMode,
+			topbarBackMode,
 			color,
 			menuWidth,
 			animationName,
@@ -149,6 +155,7 @@ export const useAppStore = defineStore(
 				'showTabbar',
 				'showSettings',
 				'menuBackMode',
+				'topbarBackMode',
 				'color',
 				'menuWidth',
 				'animationName',

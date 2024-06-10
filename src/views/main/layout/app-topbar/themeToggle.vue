@@ -1,8 +1,8 @@
 <template>
-	<button class="theme-toggle" @click="toggleDark()">
+	<div class="theme-toggle" @click="toggleDark()">
 		<svg-icon v-if="isDark" icon="moon" :size="16" />
 		<svg-icon v-else icon="sun" :size="16" />
-	</button>
+	</div>
 </template>
 
 <script setup lang="ts">

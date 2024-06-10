@@ -6,7 +6,7 @@
 		view-padding="var(--theme-padding)"
 	>
 		<template #topbar>
-			<app-topbar>
+			<app-topbar :back-mode="topbarBackMode">
 				<template #left v-if="layoutMode == 'horizontal'">
 					<app-logo />
 					<app-menu
@@ -54,13 +54,14 @@ import AppLogo from './layout/app-logo/index.vue'
 import { useGlobal } from '~/views'
 
 const { appStore, menuStore } = useGlobal()
-const { isFold, menuBackMode, layoutMode, tabStyle } = storeToRefs(appStore)
+const { isFold, menuBackMode, layoutMode, tabStyle, topbarBackMode } =
+	storeToRefs(appStore)
 const { tree } = storeToRefs(menuStore)
 
 const layout = computed(() => {
 	return [
 		`menu-${appStore.layoutMode}`,
-		`menu-back-${appStore.menuBackMode || 'none'}`
+		`menu-back-${appStore.menuBackMode || 'auto'}`
 	]
 })
 </script>
@@ -86,8 +87,7 @@ const layout = computed(() => {
 }
 .app-layout.menu-back-dark {
 	&.menu-horizontal {
-		.app-topbar,
-		.username {
+		.app-topbar {
 			background-color: var(--dark-bg-color);
 			color: #fff;
 		}
@@ -98,10 +98,9 @@ const layout = computed(() => {
 	}
 }
 
-.app-layout.menu-back-auto {
+.app-layout.menu-back-primary {
 	&.menu-horizontal {
-		.app-topbar,
-		.username {
+		.app-topbar {
 			background-color: var(--el-color-primary-light-3);
 			color: #fff;
 		}

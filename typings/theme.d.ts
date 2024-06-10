@@ -3,7 +3,11 @@ declare namespace Theme {
 
 	type MenuLayoutMode = 'horizontal' | 'vertical'
 
-	type MenuBackMode = '' | 'dark' | 'auto'
+	type BackMode = 'primary' | 'dark' | 'auto'
+
+	type MenuBackMode = BackMode
+
+	type TopbarBackMode = BackMode
 
 	type TabStyle = 'chrome' | '' | 'card'
 }
