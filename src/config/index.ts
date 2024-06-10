@@ -61,8 +61,8 @@ export const config = {
 		// 菜单背景
 		menuBackModes: [
 			{
-				label: '无',
-				value: ''
+				label: '自适应',
+				value: 'auto'
 			},
 			{
 				label: '深色',
@@ -70,7 +70,7 @@ export const config = {
 			},
 			{
 				label: '主题',
-				value: 'auto'
+				value: 'primary'
 			}
 		],
 		// 标签风格
@@ -91,7 +91,8 @@ export const config = {
 		// 默认配置值
 		default: {
 			layoutMode: 'vertical',
-			menuBackMode: '',
+			menuBackMode: 'auto',
+			topbarBackMode: 'auto',
 			color: '#409EFF',
 			animationName: 'none',
 			showTabbar: true,

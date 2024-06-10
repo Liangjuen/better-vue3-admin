@@ -11,19 +11,18 @@ export const useSet = () => {
 			'background-color': 'transparent',
 			'active-text-color': '#fff'
 		}
-		if (menuBackMode.value) {
-			if (menuBackMode.value == 'dark') {
-				style = {
-					'background-color': 'var(--dark-bg-color)',
-					'text-color': '#fff',
-					'active-text-color': '#fff'
-				}
-			} else {
-				style = {
-					'background-color': 'var(--el-color-primary-light-3)',
-					'text-color': '#fff',
-					'active-text-color': '#fff'
-				}
+
+		if (menuBackMode.value == 'dark') {
+			style = {
+				'background-color': 'var(--dark-bg-color)',
+				'text-color': '#fff',
+				'active-text-color': '#fff'
+			}
+		} else if (menuBackMode.value == 'primary') {
+			style = {
+				'background-color': 'var(--el-color-primary-light-3)',
+				'text-color': '#fff',
+				'active-text-color': '#fff'
 			}
 		}
 		return style

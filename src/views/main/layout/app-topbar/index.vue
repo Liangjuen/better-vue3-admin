@@ -1,5 +1,5 @@
 <template>
-	<div class="app-topbar">
+	<div :class="appTopbarClasses">
 		<slot name="left">
 			<div class="panel-left">
 				<button
@@ -74,6 +74,15 @@ defineOptions({
 	name: 'topbar'
 })
 
+const props = defineProps<{
+	backMode: Theme.TopbarBackMode
+}>()
+
+const appTopbarClasses = computed(() => [
+	'app-topbar',
+	`back-${props.backMode}`
+])
+
 const { appStore } = useGlobal()
 function toggleAsideMode() {
 	appStore.isFold = !appStore.isFold
@@ -100,18 +109,65 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	justify-content: space-between;
 	width: 100%;
 	height: var(--topbar-height);
-	background-color: var(--layout-item-bg-color);
 	box-sizing: border-box;
 	.panel-left,
 	.panel-right {
 		height: 100%;
 	}
-}
 
-.app-topbar-action-hover {
-	transition: background-color var(--el-transition-duration);
-	&:hover {
-		background-color: var(--el-fill-color-dark);
+	&.back-primary {
+		background-color: var(--el-color-primary-light-3);
+		color: var(--el-color-white);
+		.app-topbar-action-hover {
+			&:hover {
+				background-color: var(--el-color-primary);
+			}
+		}
+
+		.panel-right {
+			.user-info .username {
+				color: var(--el-color-white);
+			}
+		}
+
+		.panel-left {
+			.ham-top,
+			.ham-middle,
+			.ham-bottom {
+				background-color: var(--el-color-white);
+			}
+		}
+	}
+
+	&.back-dark {
+		background-color: var(--dark-bg-color);
+		color: var(--el-color-white);
+		.app-topbar-action-hover {
+			&:hover {
+				background-color: var(--el-color-primary);
+			}
+		}
+
+		.panel-right {
+			.user-info .username {
+				color: var(--el-color-white);
+			}
+		}
+
+		.panel-left {
+			.ham-top,
+			.ham-middle,
+			.ham-bottom {
+				background-color: var(--el-color-white);
+			}
+		}
+	}
+
+	.app-topbar-action-hover {
+		transition: background-color var(--el-transition-duration);
+		&:hover {
+			background-color: var(--el-color-primary-light-8);
+		}
 	}
 }
 
@@ -192,10 +248,6 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		height: 100%;
 		cursor: pointer;
 		padding: 0 10px;
-		&:hover {
-			color: var(--el-color-primary);
-			background-color: var(--el-fill-color-dark);
-		}
 	}
 }
 
@@ -207,6 +259,7 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		align-items: center;
 		cursor: pointer;
 		.username {
+			background-color: transparent;
 			font-size: 16px;
 		}
 		.avatar {
