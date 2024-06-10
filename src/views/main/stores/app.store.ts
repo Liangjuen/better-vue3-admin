@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, watch, computed } from 'vue'
-import { useDark } from '@vueuse/core'
+import { useDark, useWindowSize } from '@vueuse/core'
 
 import { primaryColor } from '~/utils'
 import { StoreName } from '~/enums'
@@ -58,6 +58,26 @@ export const useAppStore = defineStore(
 
 		// tab 风格
 		const tabStyle = ref<Theme.TabStyle>('')
+
+		// 是否为移动端
+		const isMobile = ref(false)
+
+		const { width } = useWindowSize()
+
+		watch(
+			() => width.value,
+			(val) => {
+				if (val <= config.app.maxMobileSize) {
+					layoutMode.value = 'vertical'
+					if (isMobile.value) return
+					isMobile.value = true
+				} else {
+					if (!isMobile.value) return
+					isMobile.value = false
+				}
+			},
+			{ immediate: true }
+		)
 
 		// 刷新页面()
 		function refreshView() {
@@ -141,6 +161,7 @@ export const useAppStore = defineStore(
 			maxCache,
 			radius,
 			tabStyle,
+			isMobile,
 			refreshView,
 			$reset
 		}

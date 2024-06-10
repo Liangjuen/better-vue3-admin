@@ -30,7 +30,7 @@
 					class="right-user ml-12 app-topbar-action-hover"
 				>
 					<div class="user-info">
-						<span class="username mr-8">尼克胡</span>
+						<span class="username mr-8 ellipsis">尼克胡</span>
 
 						<img
 							class="avatar"
@@ -259,6 +259,7 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		align-items: center;
 		cursor: pointer;
 		.username {
+			width: 50px;
 			background-color: transparent;
 			font-size: 16px;
 		}

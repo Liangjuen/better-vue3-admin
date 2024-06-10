@@ -71,6 +71,7 @@ const options: Array<LayoutPickerOptions> = [
 ]
 
 function handlePickerClick(item: LayoutPickerOptions) {
+	if (item.layout == 'horizontal' && appStore.isMobile) return
 	appStore.layoutMode = item.layout
 	appStore.menuBackMode = item.menuBack
 	appStore.topbarBackMode = item.topbarBack
@@ -87,7 +88,8 @@ function handlePickerClick(item: LayoutPickerOptions) {
 					active:
 						item.layout == appStore.layoutMode &&
 						item.menuBack == appStore.menuBackMode &&
-						item.topbarBack == appStore.topbarBackMode
+						item.topbarBack == appStore.topbarBackMode,
+					disabled: item.layout == 'horizontal' && appStore.isMobile
 				}"
 				v-for="(item, index) in options"
 				:key="index"
@@ -135,11 +137,12 @@ function handlePickerClick(item: LayoutPickerOptions) {
 		width: 80px;
 		height: 50px;
 		padding: 3.5px;
+		border: 1px solid transparent;
 		box-shadow:
 			0 1px 2px -2px #00000014,
 			0 3px 6px #0000000f,
 			0 5px 12px 4px #0000000a;
-		border: 1px solid var(--el-border-color);
+
 		border-radius: 3px;
 		background-color: var(--el-bg-color-page);
 		cursor: pointer;
@@ -153,6 +156,10 @@ function handlePickerClick(item: LayoutPickerOptions) {
 		}
 		&.active {
 			border-width: 2px;
+		}
+		&.disabled {
+			border: unset;
+			cursor: not-allowed;
 		}
 	}
 }
