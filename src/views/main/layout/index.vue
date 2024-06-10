@@ -8,19 +8,9 @@ defineOptions({
 	name: 'app-layout'
 })
 
-const props = withDefaults(defineProps<AppLayoutProps>(), defaultProps)
+const emits = defineEmits(['update:collapse'])
 
-const appLayoutClasses = computed(() => {
-	return {
-		collapse: props.isFold,
-		mobile: props.isMobile,
-		'app-layout': true,
-		'hidde-sider': props.hiddeSider,
-		'hidde-topbar': props.hiddeTopbar,
-		'hidde-tab': props.hiddeTab,
-		'hidde-footer': props.hiddeFooter
-	}
-})
+const props = withDefaults(defineProps<AppLayoutProps>(), defaultProps)
 
 const appLayoutStyles = computed(() => {
 	return {
@@ -42,11 +32,27 @@ const { toggle: toggleFullscreen, isFullscreen } = useFullscreen(appViewRef)
 // 视图全屏
 const fullView = ref(false)
 
+const appLayoutClasses = computed(() => {
+	return {
+		'app-layout': true,
+		'hidde-sider': props.hiddeSider || fullView.value,
+		'hidde-topbar': props.hiddeTopbar || fullView.value,
+		'hidde-tab': props.hiddeTab || fullView.value,
+		'hidde-footer': props.hiddeFooter || fullView.value,
+		collapse: props.collapse,
+		mobile: props.isMobile
+	}
+})
+
 function fullscreenView() {
 	if (!isFullscreen.value) {
 		toggleFullscreen()
 	}
 	fullView.value = true
+}
+
+function onToggleCollapse(collapse: boolean) {
+	emits('update:collapse', collapse)
 }
 
 watch(
@@ -71,16 +77,16 @@ onUnmounted(() => {
 	<section :class="appLayoutClasses" :style="appLayoutStyles">
 		<!-- 左侧 -->
 
-		<aside class="app-layout-sider" v-show="!fullView">
+		<aside class="app-layout-sider">
 			<slot name="sider"></slot>
 		</aside>
 		<!-- 主体 -->
 		<slot name="app-layout-main">
 			<section class="app-layout-main">
-				<header class="app-layout-topbar" v-show="!fullView">
+				<header class="app-layout-topbar">
 					<slot name="topbar"></slot>
 				</header>
-				<div class="app-layout-tab" v-show="!fullView">
+				<div class="app-layout-tab">
 					<slot name="tab"></slot>
 				</div>
 				<main
@@ -90,11 +96,7 @@ onUnmounted(() => {
 				>
 					<slot name="view"></slot>
 				</main>
-				<footer
-					class="app-layout-footer"
-					v-if="!hiddeFooter"
-					v-show="!fullView"
-				>
+				<footer class="app-layout-footer">
 					<slot name="footer"></slot>
 				</footer>
 			</section>
@@ -104,7 +106,11 @@ onUnmounted(() => {
 			<slot name="app-layout-drawer-provider"></slot>
 		</div>
 		<transition name="fade" appear mode="out-in">
-			<div class="app-layout-mask" v-if="isFold && isMobile"></div>
+			<div
+				class="app-layout-mask"
+				v-show="!collapse && isMobile && !hiddeSider"
+				@click="onToggleCollapse(!collapse)"
+			></div>
 		</transition>
 	</section>
 </template>
@@ -238,19 +244,22 @@ onUnmounted(() => {
 	}
 }
 
-.mobile {
-	&.app-layout {
-		.app-layout-main {
-			width: 100%;
+.app-layout {
+	&.mobile {
+		&.app-layout {
+			.app-layout-main {
+				width: 100%;
+			}
+			.app-layout-sider {
+				position: absolute;
+				z-index: 9999;
+				transition: transform var(--el-transition-duration);
+			}
 		}
-		.app-layout-sider {
-			position: absolute;
-			z-index: 9999;
-		}
-	}
-	&.collapse.app-layout {
-		.app-layout-sider {
-			transform: translateX(-100%);
+		&.collapse.app-layout {
+			.app-layout-sider {
+				transform: translateX(-100%);
+			}
 		}
 	}
 }

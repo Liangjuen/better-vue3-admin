@@ -10,7 +10,8 @@ export const config = {
 		name: import.meta.env.VITE_NAME,
 		router: {
 			mode: 'history'
-		}
+		},
+		maxMobileSize: 800
 	},
 	network: {
 		timeout: import.meta.env.VITE_TIMEOUT,

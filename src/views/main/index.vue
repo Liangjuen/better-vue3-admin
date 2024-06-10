@@ -1,8 +1,9 @@
 <template>
 	<app-layout
-		:isFold="isFold"
+		v-model:collapse="isFold"
 		:hiddeSider="layoutMode == 'horizontal'"
 		:class="layout"
+		:is-mobile="isMobile"
 		view-padding="var(--theme-padding)"
 	>
 		<template #topbar>
@@ -22,7 +23,7 @@
 		<template #tab>
 			<app-tab :type="tabStyle" />
 		</template>
-		<template #sider v-if="layoutMode == 'vertical'">
+		<template #sider>
 			<app-logo :showLabel="!isFold" />
 			<el-scrollbar class="app-side-menu-scroller">
 				<app-menu
@@ -54,7 +55,7 @@ import AppLogo from './layout/app-logo/index.vue'
 import { useGlobal } from '~/views'
 
 const { appStore, menuStore } = useGlobal()
-const { isFold, menuBackMode, layoutMode, tabStyle, topbarBackMode } =
+const { isFold, menuBackMode, layoutMode, tabStyle, topbarBackMode, isMobile } =
 	storeToRefs(appStore)
 const { tree } = storeToRefs(menuStore)
 
