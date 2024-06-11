@@ -1,7 +1,7 @@
 <template>
 	<div :class="appTopbarClasses">
-		<slot name="left">
-			<div class="panel-left">
+		<div class="panel-left">
+			<slot name="left">
 				<button
 					v-show="appStore.isVertical"
 					class="topbar-ham app-topbar-action-hover"
@@ -13,12 +13,15 @@
 						<span :class="['ham-bottom', activeClass]"></span>
 					</span>
 				</button>
-			</div>
-		</slot>
+
+				<breadcrumb v-show="!appStore.isMobile" class="ml-8" />
+			</slot>
+		</div>
 
 		<!-- 右侧工具栏 -->
-		<slot name="right">
-			<div class="panel-right">
+
+		<div class="panel-right">
+			<slot name="right">
 				<div class="right-tools">
 					<setting class="tool-item app-topbar-action-hover" />
 					<globalize class="tool-item app-topbar-action-hover" />
@@ -56,8 +59,8 @@
 						</el-dropdown-menu>
 					</template>
 				</el-dropdown>
-			</div>
-		</slot>
+			</slot>
+		</div>
 	</div>
 </template>
 
@@ -67,6 +70,7 @@ import Globalize from './globalize.vue'
 import Fullscreen from './fullscreen.vue'
 import Setting from './setting.vue'
 import ThemeToggle from './themeToggle.vue'
+import Breadcrumb from './breadcrumb.vue'
 import { useGlobal } from '~/views'
 import { ElMessageBox, ElMessage } from 'element-plus'
 
@@ -112,10 +116,15 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	box-sizing: border-box;
 	.panel-left,
 	.panel-right {
+		display: flex;
+		align-items: center;
 		height: 100%;
 	}
 
 	&.back-primary {
+		--el-text-color-primary: var(--el-color-white);
+		--el-text-color-regular: #f1f2f6;
+		--el-text-color-placeholder: #dfe4ea;
 		background-color: var(--el-color-primary-light-3);
 		color: var(--el-color-white);
 		.app-topbar-action-hover {
@@ -140,6 +149,9 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	}
 
 	&.back-dark {
+		--el-text-color-primary: var(--el-color-white);
+		--el-text-color-regular: #f1f2f6;
+		--el-text-color-placeholder: #dfe4ea;
 		background-color: var(--dark-bg-color);
 		color: var(--el-color-white);
 		.app-topbar-action-hover {
@@ -232,11 +244,6 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 </style>
 
 <style lang="scss" scoped>
-.panel-right {
-	display: flex;
-	align-items: center;
-}
-
 .right-tools {
 	height: 100%;
 	display: flex;

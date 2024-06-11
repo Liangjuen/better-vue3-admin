@@ -11,6 +11,8 @@ declare module 'vue' {
     BRow: typeof import('./../src/components/common/b/row/index.vue')['default']
     BViewGroup: typeof import('./../src/components/common/b/view-group/index.vue')['default']
     BViewWrap: typeof import('./../src/components/common/b/view-wrap/index.vue')['default']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
