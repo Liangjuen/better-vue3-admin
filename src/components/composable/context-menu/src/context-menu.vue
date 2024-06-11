@@ -19,7 +19,7 @@
 				<svg-icon v-if="item.icon" :icon="item.icon" :size="16" />
 			</div>
 
-			<div class="flex-1">
+			<div class="content">
 				<span v-if="typeof item.context == 'string'">
 					{{ item.context }}
 				</span>
@@ -147,7 +147,7 @@ nextTick(() => {
 		display: flex;
 		line-height: 34px;
 		align-items: center;
-		color: var(--el-text-color-secondary);
+		color: var(--el-text-color-primary);
 		cursor: pointer;
 		font-size: 13px;
 		transition:
@@ -162,18 +162,21 @@ nextTick(() => {
 		}
 		&:not(.disabled):hover {
 			background-color: var(--el-fill-color-dark);
-			color: var(--el-text-color-primary);
 		}
 
 		&.disabled {
+			color: var(--el-disabled-text-color);
 			cursor: not-allowed;
 		}
-		&.ellipsis span {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 1;
+		&.ellipsis .content {
+			flex: 1;
+			span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 1;
+			}
 		}
 	}
 }

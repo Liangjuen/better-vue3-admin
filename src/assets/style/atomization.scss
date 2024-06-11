@@ -59,10 +59,3 @@
 .flex{
 	display: flex;
 }
-
-
-.ellipsis {
-	white-space: nowrap; /* 确保文本在一行内显示 */
-	overflow: hidden; /* 隐藏超出容器的内容 */
-	text-overflow: ellipsis; /* 使用省略号表示被截断的文本 */
-  }
