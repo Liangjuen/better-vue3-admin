@@ -156,9 +156,10 @@ const openCm4 = (e: MouseEvent | MouseEvent) => {
 	border-radius: var(--theme-border-radius);
 }
 .context-demo-item {
-	width: 300px;
-	height: 240px;
-	margin: 0 20px 20px 0;
+	width: 280px;
+	height: 210px;
+	margin: 0 var(--theme-margin) var(--theme-margin) 0;
+	background-color: var(--el-bg-color);
 }
 .demo-sub-item {
 	width: 120px;

@@ -77,18 +77,24 @@ onUnmounted(() => {
 	<section :class="appLayoutClasses" :style="appLayoutStyles">
 		<!-- 左侧 -->
 
-		<aside class="app-layout-sider">
+		<aside class="app-layout-sider" v-show="!fullView && !hiddeSider">
 			<slot name="sider"></slot>
 		</aside>
 		<!-- 主体 -->
 		<slot name="app-layout-main">
 			<section class="app-layout-main">
-				<header class="app-layout-topbar">
+				<!-- header -->
+				<header
+					class="app-layout-topbar"
+					v-show="!fullView && !hiddeTopbar"
+				>
 					<slot name="topbar"></slot>
 				</header>
-				<div class="app-layout-tab">
+				<!-- tab -->
+				<div class="app-layout-tab" v-show="!fullView && !hiddeTab">
 					<slot name="tab"></slot>
 				</div>
+				<!-- view -->
 				<main
 					class="app-layout-view"
 					:class="{ fullscreen: fullView }"
@@ -96,7 +102,11 @@ onUnmounted(() => {
 				>
 					<slot name="view"></slot>
 				</main>
-				<footer class="app-layout-footer">
+				<!-- footer -->
+				<footer
+					class="app-layout-footer"
+					v-show="!fullView && !hiddeFooter"
+				>
 					<slot name="footer"></slot>
 				</footer>
 			</section>
@@ -161,6 +171,7 @@ onUnmounted(() => {
 		box-sizing: border-box;
 		z-index: var(--layout-topbar-z-index);
 		box-shadow: rgba(0, 0, 0, 0.08) 1px 1px 2px;
+		overflow: hidden;
 	}
 
 	&-tab {

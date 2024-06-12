@@ -2,7 +2,7 @@
 	<app-layout
 		v-model:collapse="isFold"
 		:hiddeSider="layoutMode == 'horizontal'"
-		:hidde-tab="showTabbar"
+		:hidde-tab="!showTabbar"
 		:class="layout"
 		:is-mobile="isMobile"
 		view-padding="var(--theme-padding)"
