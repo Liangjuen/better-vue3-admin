@@ -6,7 +6,7 @@ export const menu = {
 	 * @description 获取全部菜单
 	 * @returns
 	 */
-	getMenus() {
+	list() {
 		return request.get<API.Response<Array<MenuModel>>>('/menus')
 	}
 }
