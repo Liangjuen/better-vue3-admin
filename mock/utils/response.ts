@@ -4,10 +4,10 @@ class MockResponse {
 	 * @param data
 	 * @returns
 	 */
-	ok<T>(data: T): API.Response<T> {
+	ok<T>(data: T) {
 		return {
 			data,
-			code: API.ResultCode.SUCCESS,
+			code: 1,
 			message: '操作成功!'
 		}
 	}

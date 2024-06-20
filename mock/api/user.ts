@@ -1,14 +1,12 @@
 import { defineMock, mockResponse } from '../utils'
-import { menuData } from '../data'
+import { userData } from '../data'
 
 export default defineMock({
-	restfulPath: '/menus',
+	restfulPath: '/users',
 	mockList: [
 		{
 			method: 'get',
-			response: () => {
-				return mockResponse.ok(menuData)
-			}
+			response: mockResponse.ok(userData.list)
 		},
 		{
 			method: 'post',
