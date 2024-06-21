@@ -8,6 +8,7 @@ import { Router } from '../type'
 import { useGlobal } from '~/views'
 import { config } from '~/config'
 import { routes } from '../routes'
+import { useUserStore } from '~/store'
 
 //双星号是递归解释器遍历文件和文件夹的占位符或指令。它是一个简单的递归通配符，而只有一个星号表示全部没有递归
 const modules = import.meta.glob(['~/modules/**/{views,pages}/**/**.vue'])
@@ -97,17 +98,28 @@ export function setupRouter() {
 
 	router.beforeEach(async (to, _from, next) => {
 		const { processStore } = useGlobal()
+		const userStore = useUserStore()
 		const { isReg, route } = await router.register(to.path)
 
 		// 组件不存在、路由不存在
 		if (!route?.components) {
 			next('/404')
 		} else {
-			// 添加路由进程
 			if (!isReg) {
 				next({ ...to, ...route })
 			} else {
-				processStore.add(to)
+				if (userStore.token) {
+					// 在登录页面
+					if (to.path == '/login') {
+						return next('/')
+					} else {
+						// 添加路由进程
+						processStore.add(to)
+					}
+				} else {
+					// 未在登录页面
+					if (to.path !== '/login') return next('/login')
+				}
 				next()
 			}
 		}

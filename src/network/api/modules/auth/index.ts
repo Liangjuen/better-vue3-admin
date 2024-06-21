@@ -8,6 +8,6 @@ export const auth = {
 	 * @returns
 	 */
 	login(form: Auth.Login) {
-		return request.post<API.Response<AuthModel>>('/auth/login', form)
+		return request.post<AuthModel>('/auth/login', form)
 	}
 }

@@ -5,18 +5,20 @@ import { StoreName } from '~/enums'
 export const useUserStore = defineStore(
 	StoreName.USER,
 	() => {
-		const info = ref(null)
+		const info = ref<unknown>(null)
 		const token = ref('')
+		const expiration = ref()
 
 		return {
 			info,
-			token
+			token,
+			expiration
 		}
 	},
 	{
 		persist: {
 			storage: localStorage,
-			paths: ['info', 'token']
+			paths: ['info', 'token', 'expiration']
 		}
 	}
 )
