@@ -7,4 +7,5 @@ export {}
 declare global {
 	const BContextMenu: (typeof import('../src/components/composable/context-menu/index'))['BContextMenu']
 	const ElMessage: (typeof import('element-plus/es'))['ElMessage']
+	const ElMessageBox: (typeof import('element-plus/es'))['ElMessageBox']
 }
