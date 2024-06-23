@@ -81,7 +81,7 @@ const userStore = useUserStore()
 useDark()
 const form = reactive({
 	username: 'admin',
-	password: 'admin123'
+	password: 'better123'
 	// captchaId: '',
 	// verifyCode: ''
 })
@@ -124,13 +124,6 @@ function submitForm(formEl: FormInstance | undefined) {
 }
 
 async function login() {
-	const user: {
-		[key: string]: string
-	} = {
-		admin: 'admin123',
-		test: 'test123'
-	}
-	if (!user[form.username]) return ElMessage.error('用户名或密码错误')
 	const { data } = await service.auth.login(form)
 	menuStore.list = data.menus
 	userStore.token = data.access.token

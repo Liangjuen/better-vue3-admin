@@ -9,10 +9,17 @@ export const useUserStore = defineStore(
 		const token = ref('')
 		const expiration = ref()
 
+		function $reset() {
+			info.value = null
+			token.value = ''
+			expiration.value = 0
+		}
+
 		return {
 			info,
 			token,
-			expiration
+			expiration,
+			$reset
 		}
 	},
 	{
