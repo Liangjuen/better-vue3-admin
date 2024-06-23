@@ -1,3 +1,5 @@
+import { Base } from './perm.data'
+
 export const menuData = [
 	{
 		id: 29,
@@ -68,7 +70,14 @@ export const menuData = [
 		createdAt: '2024-02-06',
 		updatedAt: '2024-03-13',
 		name: '菜单管理',
-		perms: [],
+		perms: [
+			Base.MenuList,
+			Base.MenuGet,
+			Base.MenuCreate,
+			Base.MenuUpdate,
+			Base.MenuRemove,
+			Base.PermList
+		],
 		pid: 1,
 		type: 2,
 		path: '/sys/menu',
@@ -100,7 +109,19 @@ export const menuData = [
 		createdAt: '2024-02-06',
 		updatedAt: '2024-03-18',
 		name: '用户列表',
-		perms: [],
+		perms: [
+			Base.DepartmentCreate,
+			Base.DepartmentGet,
+			Base.DepartmentUpdate,
+			Base.DepartmentList,
+			Base.DepartmentRemove,
+			Base.UserList,
+			Base.UserGet,
+			Base.UserCreate,
+			Base.UserUpdate,
+			Base.UserRemove,
+			Base.UserResetPassword
+		],
 		pid: 1,
 		type: 2,
 		path: '/sys/user',
@@ -116,7 +137,13 @@ export const menuData = [
 		createdAt: '2024-02-06',
 		updatedAt: '2024-03-13',
 		name: '角色管理',
-		perms: [],
+		perms: [
+			Base.RoleList,
+			Base.RoleGet,
+			Base.RoleCreate,
+			Base.RoleUpdate,
+			Base.RoleRemove
+		],
 		pid: 1,
 		type: 2,
 		path: '/sys/role',
@@ -191,4 +218,4 @@ export const menuData = [
 		hidden: 0,
 		status: 1
 	}
-]
+].sort((a, b) => a.sort - b.sort)
