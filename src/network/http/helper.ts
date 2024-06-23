@@ -35,7 +35,11 @@ export async function handleNetworkException<T extends API.Exception>(
 		ElMessage.error('网络错误')
 	} else {
 		ElMessage.error(`[${response?.status}]
-		${response?.data.detail.message || response?.data.message || response?.statusText}`)
+		${
+			response?.data.detail.message ||
+			response?.data.message ||
+			response?.statusText
+		}`)
 	}
 
 	// ...
