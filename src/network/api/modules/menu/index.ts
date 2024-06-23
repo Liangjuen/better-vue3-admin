@@ -8,5 +8,30 @@ export const menu = {
 	 */
 	list() {
 		return request.get<API.Response<Array<MenuModel>>>('/menus')
+	},
+
+	/**
+	 * @description 创建菜单
+	 * @returns
+	 */
+	create() {
+		return request.post<API.Response<MenuModel>>('/menus')
+	},
+
+	/**
+	 * @description 更新菜单
+	 * @returns
+	 */
+	update() {
+		return request.patch<API.Response<MenuModel>>('/menus')
+	},
+
+	/**
+	 * @description 删除菜单
+	 * @returns
+	 */
+	remove(ids: number[]) {
+		const idsStr = ids.join(',')
+		return request.delete(`/menus`)
 	}
 }
