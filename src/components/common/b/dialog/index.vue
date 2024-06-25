@@ -18,11 +18,16 @@
 				<div class="b-dialog__controls">
 					<button
 						v-show="!hiddenFullscreenBtn"
-						:class="{ maximize: !fullscreen, minimize: fullscreen }"
+						:class="{
+							fullscreen: !fullscreen,
+							'fullscreen-exit': fullscreen
+						}"
 						@click="fullscreen = !fullscreen"
 					>
 						<svg-icon
-							:icon="fullscreen ? 'minimize' : 'maximize'"
+							:icon="
+								fullscreen ? 'fullscreen-exit' : 'fullscreen'
+							"
 							:size="18"
 						/>
 					</button>
@@ -109,8 +114,8 @@ defineOptions({
 			top: 0;
 			z-index: 9;
 			width: 100%;
-			.maximize,
-			.minimize,
+			.fullscreen,
+			.fullscreen-exit,
 			.close {
 				display: flex;
 				align-items: center;
@@ -130,7 +135,7 @@ defineOptions({
 		box-sizing: border-box;
 		flex: 1;
 		overflow: hidden;
-		.co-dialog__default {
+		.b-dialog__default {
 			padding: var(--theme-padding);
 		}
 	}
