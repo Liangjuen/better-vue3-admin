@@ -1,22 +1,13 @@
 import { defineMock, mockResponse } from '../utils'
-import { userData } from '../data'
+import { departData } from '../data'
 
 export default defineMock({
-	restfulPath: '/users',
+	restfulPath: '/departments',
 	mockList: [
 		{
 			method: 'get',
-			response: (req: any) => {
-				const body = JSON.parse(req.body)
-				const departIds = body.departmentIds as number[]
-
-				const list = departIds.length
-					? userData.list.filter((item) =>
-							departIds.includes(item.departmentId)
-						)
-					: userData.list
-
-				return mockResponse.ok(list)
+			response: () => {
+				return mockResponse.ok(departData)
 			}
 		},
 		{

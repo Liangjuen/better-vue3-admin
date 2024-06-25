@@ -33,4 +33,6 @@ export namespace User {
 		gender?: Gender | null
 		status?: Status | null
 	}
+
+	export interface Form extends Partial<UserModel> {}
 }

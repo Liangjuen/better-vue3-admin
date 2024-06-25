@@ -74,7 +74,7 @@ const baseColumns = ref([
 		label: '菜单类型',
 		prop: 'type',
 		align: 'center',
-		width: 80,
+		width: 100,
 		enable: true
 	},
 	{
