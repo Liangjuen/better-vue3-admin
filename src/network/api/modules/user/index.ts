@@ -18,7 +18,7 @@ export const user = {
 	 * @returns
 	 */
 	create(form: User.Form) {
-		return request.post<API.Response<UserModel>>('/departments', {
+		return request.post<API.Response<UserModel>>('/users', {
 			...form
 		})
 	},
@@ -28,7 +28,7 @@ export const user = {
 	 * @returns
 	 */
 	update(id: UserModel['id'], form: User.Form) {
-		return request.patch<API.Response<UserModel>>('/departments', {
+		return request.patch<API.Response<UserModel>>('/users', {
 			id,
 			...form
 		})
@@ -40,6 +40,6 @@ export const user = {
 	 */
 	remove(ids: number[]) {
 		const idsStr = ids.join(',')
-		return request.delete(`/departments`)
+		return request.delete(`/users`)
 	}
 }

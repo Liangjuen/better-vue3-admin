@@ -6,8 +6,9 @@ import auth from './api/auth'
 import user from './api/user'
 import perm from './api/perm'
 import depart from './api/depart'
+import role from './api/role'
 
-export const mocks = [...menu, ...auth, ...user, ...perm, ...depart]
+export const mocks = [...menu, ...auth, ...user, ...perm, ...depart, ...role]
 
 /**
  * 初始化数据模拟

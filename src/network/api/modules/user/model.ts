@@ -13,6 +13,7 @@ export interface UserModel extends BaseEntity {
 	departmentId: number
 	username: string
 	nickname: string
+	name: string
 	password: string
 	email: string
 	phone: string

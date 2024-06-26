@@ -22,9 +22,6 @@ const emit = defineEmits<{
 	refresh: [RefreshParams]
 }>()
 
-defineExpose({
-	refresh
-})
 let list: Array<DepartModel> = []
 const tree = ref<Array<DepartModel>>([])
 const dialog = reactive({
@@ -192,6 +189,11 @@ async function update() {
 	})
 	ElMessage.success('更新成功!')
 }
+
+defineExpose({
+	refresh,
+	departments: tree
+})
 
 onMounted(() => {
 	refresh()
