@@ -20,5 +20,16 @@ export const roleData = [
 		status: 1,
 		createdAt: '2024-6-18 15:00',
 		updatedAt: '2024-6-18 15:01'
+	},
+	{
+		id: 3,
+		name: 'ghost',
+		code: 'Ghost',
+		menuIdList: [],
+		perms: [],
+		remark: '游客',
+		status: 1,
+		createdAt: '2024-6-18 16:00',
+		updatedAt: '2024-6-18 16:01'
 	}
 ]
