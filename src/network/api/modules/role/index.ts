@@ -8,9 +8,12 @@ export const role = {
 	 * @returns
 	 */
 	list(params: Role.GetList) {
-		return request.get<API.Response<Array<RoleModel>>>('/roles', {
-			data: params
-		})
+		return request.get<API.Response<API.PaginateResponse<RoleModel>>>(
+			'/roles',
+			{
+				data: params
+			}
+		)
 	},
 
 	/**
