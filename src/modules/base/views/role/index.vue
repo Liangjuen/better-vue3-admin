@@ -253,7 +253,7 @@ function onContextMenu(
 async function submitForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
 
-	await formEl.validate(async (valid) => {
+	await formEl.validate(async (valid: boolean) => {
 		if (valid) {
 			if (drawer.type == 'create') {
 				await create()

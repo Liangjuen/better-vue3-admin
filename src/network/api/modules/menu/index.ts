@@ -32,6 +32,7 @@ export const menu = {
 	 */
 	remove(ids: number[]) {
 		const idsStr = ids.join(',')
+		console.log(idsStr)
 		return request.delete(`/menus`)
 	}
 }

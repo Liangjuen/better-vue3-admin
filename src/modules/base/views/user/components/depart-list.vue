@@ -154,7 +154,7 @@ function onContextMenu(event: MouseEvent | MouseEvent, row: DepartModel) {
 // 提交表单
 function submitForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
-	formEl.validate(async (valid) => {
+	formEl.validate(async (valid: boolean) => {
 		if (valid) {
 			if (openType.value == 'create') {
 				await create()

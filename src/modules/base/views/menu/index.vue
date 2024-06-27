@@ -281,7 +281,7 @@ function resetForm() {
 function submitForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
 	setForm()
-	formEl.validate(async (valid) => {
+	formEl.validate(async (valid: boolean) => {
 		if (valid) {
 			if (drawer.type == 'create') {
 				await create()

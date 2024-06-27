@@ -229,7 +229,7 @@ function handleRefresh(item: RefreshParams) {
 // 提交表单
 function submitForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
-	formEl.validate(async (valid) => {
+	formEl.validate(async (valid: boolean) => {
 		if (valid) {
 			if (drawer.type == 'create') {
 				await create()
@@ -249,7 +249,7 @@ function submitForm(formEl: FormInstance | undefined) {
 function submitPassForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
 
-	formEl.validate(async (valid) => {
+	formEl.validate(async (valid: boolean) => {
 		if (valid) {
 			if (passForm.value.password !== passForm.value.confirmPass) {
 				ElMessage.warning('两次密码不一致！')
