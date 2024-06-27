@@ -374,62 +374,86 @@ onMounted(() => {
 			<depart-list ref="departRef" @refresh="handleRefresh" />
 		</template>
 		<template #right-content>
-			<div class="page-head padding-theme">
-				<div class="flex-1"></div>
-				<el-button type="primary" @click="openDrawer('create')">
-					<svg-icon icon="plus" class="mr-8" />
-					<span>新增</span>
-				</el-button>
-				<el-button @click="refresh">
-					<svg-icon icon="refresh" class="mr-8" />
-					<span>刷新</span>
-				</el-button>
-				<el-button
-					:disabled="!checkedIds.length"
-					type="danger"
-					plain
-					@click="confirmRemove(checkedIds)"
-				>
-					<svg-icon icon="trash" class="mr-8" />
-					<span>批量删除</span>
-				</el-button>
-
-				<el-popover placement="top-start" trigger="click">
-					<template #reference>
-						<el-button>
-							<svg-icon icon="settings" class="mr-8" />
-							<span>列设置</span>
-						</el-button>
-					</template>
-					<div>
-						<vue-draggable
-							v-model="baseColumns"
-							:animation="250"
-							handle=".handle"
-						>
-							<div
-								class="column"
-								v-for="column in baseColumns"
-								:key="column.prop"
+			<el-row :gutter="10" class="page-head">
+				<el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+					<el-input
+						v-model="search.keyword"
+						style="width: 100%; max-width: 500px"
+						placeholder="输入用户名、姓名、昵称、手机"
+					>
+						<template #prepend>
+							<el-select
+								v-model="search.status"
+								placeholder="状态"
+								clearable
+								style="width: 80px"
 							>
-								<svg-icon
-									icon="move"
-									class="handle"
-									:size="16"
-									:stroke-width="1"
-								/>
-								<el-checkbox
-									v-model="column.enable"
-									:label="column.prop"
-									:value="column.enable"
+								<el-option label="正常" :value="1" />
+								<el-option label="禁用" :value="0" />
+							</el-select>
+						</template>
+						<template #append>
+							<el-button type="primary" @click="refresh">
+								<svg-icon icon="search" />
+							</el-button>
+						</template>
+					</el-input>
+				</el-col>
+				<el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+					<div class="actions">
+						<div class="flex-1"></div>
+						<el-button type="primary" @click="openDrawer('create')">
+							<svg-icon icon="plus" class="mr-8" />
+							<span>新增</span>
+						</el-button>
+						<el-button
+							:disabled="!checkedIds.length"
+							type="danger"
+							plain
+							@click="confirmRemove(checkedIds)"
+						>
+							<svg-icon icon="trash" class="mr-8" />
+							<span>批量删除</span>
+						</el-button>
+
+						<el-popover placement="top-start" trigger="click">
+							<template #reference>
+								<el-button>
+									<svg-icon icon="settings" class="mr-8" />
+									<span>列设置</span>
+								</el-button>
+							</template>
+							<div>
+								<vue-draggable
+									v-model="baseColumns"
+									:animation="250"
+									handle=".handle"
 								>
-									{{ column.label }}
-								</el-checkbox>
+									<div
+										class="column"
+										v-for="column in baseColumns"
+										:key="column.prop"
+									>
+										<svg-icon
+											icon="move"
+											class="handle"
+											:size="16"
+											:stroke-width="1"
+										/>
+										<el-checkbox
+											v-model="column.enable"
+											:label="column.prop"
+											:value="column.enable"
+										>
+											{{ column.label }}
+										</el-checkbox>
+									</div>
+								</vue-draggable>
 							</div>
-						</vue-draggable>
+						</el-popover>
 					</div>
-				</el-popover>
-			</div>
+				</el-col>
+			</el-row>
 			<div class="page-body padding-theme" v-loading="loading">
 				<el-table
 					:data="tableData"
@@ -532,9 +556,10 @@ onMounted(() => {
 					v-model:current-page="search.page"
 					v-model:page-size="search.size"
 					:page-sizes="[10, 20, 30, 40]"
-					background
-					layout="total, sizes, prev, pager, next, jumper"
 					:total="total"
+					background
+					hide-on-single-page
+					layout="total, sizes, prev, pager, next, jumper"
 					@size-change="handleSizeChange"
 					@current-change="handleCurrentChange"
 				/>
@@ -713,7 +738,14 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .page-head {
-	display: flex;
+	padding: var(--theme-margin);
+	.actions {
+		display: flex;
+	}
+
+	.el-col {
+		margin-bottom: var(--theme-margin);
+	}
 }
 .page-body {
 	height: calc(100% - 48px);
@@ -740,4 +772,3 @@ onMounted(() => {
 	margin-left: var(--theme-margin);
 }
 </style>
-: () => void: () => void: () => void
