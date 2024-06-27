@@ -7,7 +7,12 @@ export default defineMock({
 		{
 			method: 'get',
 			response: () => {
-				return mockResponse.ok(roleData)
+				return mockResponse.paginat({
+					list: roleData,
+					total: roleData.length,
+					page: 1,
+					size: 10
+				})
 			}
 		},
 		{

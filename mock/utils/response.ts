@@ -1,3 +1,25 @@
+interface Pagination<T> {
+	/**
+	 * 当前页面
+	 */
+	page: number
+
+	/**
+	 * 查询条数
+	 */
+	size: number
+
+	/**
+	 * 总条数
+	 */
+	total: number
+
+	/**
+	 * 数据
+	 */
+	list: Array<T> | null
+}
+
 class MockResponse {
 	/**
 	 * @description 操作成功
@@ -43,10 +65,7 @@ class MockResponse {
 	 * @param message
 	 * @returns
 	 */
-	paginat<T>(
-		data: API.PaginateResponse<T>,
-		message = 'ok'
-	): API.Response<API.PaginateResponse<T>> {
+	paginat<T>(data: Pagination<T>, message = 'ok') {
 		return {
 			code: 1,
 			message,
