@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BDialog: typeof import('./../src/components/common/b/dialog/index.vue')['default']
+    BExceptionPage: typeof import('./../src/components/common/b/exception-page/index.vue')['default']
     BRow: typeof import('./../src/components/common/b/row/index.vue')['default']
     BViewGroup: typeof import('./../src/components/common/b/view-group/index.vue')['default']
     BViewWrap: typeof import('./../src/components/common/b/view-wrap/index.vue')['default']
