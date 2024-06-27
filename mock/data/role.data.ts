@@ -16,7 +16,9 @@ export const roleData = [
 		id: 2,
 		name: 'editor',
 		code: 'Editor',
-		menuIdList: [29, 30, 34, 1, 2, 42, 4, 5, 35, 36, 33, 31],
+		menuIdList: [
+			29, 30, 34, 1, 2, 42, 4, 5, 35, 36, 33, 31, 99, 100, 101, 102
+		],
 		perms: [
 			Base.MenuList,
 			Base.MenuGet,
