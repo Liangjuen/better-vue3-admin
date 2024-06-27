@@ -7,6 +7,12 @@
 		:fullscreen="fullscreen"
 		draggable
 		append-to-body
+		@close="emits('close')"
+		@closed="emits('closed')"
+		@close-auto-focus="emits('closeAutoFocus')"
+		@open="emits('open')"
+		@open-auto-focus="emits('openAutoFocus')"
+		@opened="emits('opened')"
 	>
 		<template #header>
 			<div class="b-dialog__header">
