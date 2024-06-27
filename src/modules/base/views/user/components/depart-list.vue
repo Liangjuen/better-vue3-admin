@@ -292,6 +292,9 @@ onMounted(() => {
 	.el-tree-node__content {
 		height: 36px;
 		border-radius: 4px;
+		&:hover {
+			background-color: var(--el-fill-color-dark);
+		}
 	}
 	.el-tree--highlight-current
 		.el-tree-node.is-current
