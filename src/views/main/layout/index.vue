@@ -186,7 +186,8 @@ onUnmounted(() => {
 		width: 100%;
 		height: var(--layout-view-height);
 		padding: var(--layout-view-padding);
-		overflow: auto;
+		overflow-y: auto;
+		overflow-x: hidden;
 		box-sizing: border-box;
 		background-color: var(--el-bg-color-page);
 		&.fullscreen {
