@@ -344,7 +344,7 @@ async function getUserList() {
 // 获取角色列表
 async function getRoles() {
 	const { data } = await service.role.list({})
-	roles.value = data
+	roles.value = data.list || []
 }
 
 // 创建用户
@@ -380,6 +380,7 @@ onMounted(() => {
 						v-model="search.keyword"
 						style="width: 100%; max-width: 500px"
 						placeholder="输入用户名、姓名、昵称、手机"
+						clearable
 					>
 						<template #prepend>
 							<el-select
