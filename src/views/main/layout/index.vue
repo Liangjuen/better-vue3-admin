@@ -150,7 +150,7 @@ onUnmounted(() => {
 		overflow: hidden;
 		transition: transform var(--ani-duration) var(--ani-timing-function);
 		z-index: var(--layout-sider-z-index);
-		box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+		box-shadow: rgba(17, 12, 46, 0.15) 0px 6px 10px 0px;
 	}
 
 	&-main {
@@ -186,7 +186,8 @@ onUnmounted(() => {
 		width: 100%;
 		height: var(--layout-view-height);
 		padding: var(--layout-view-padding);
-		overflow: auto;
+		overflow-y: auto;
+		overflow-x: hidden;
 		box-sizing: border-box;
 		background-color: var(--el-bg-color-page);
 		&.fullscreen {

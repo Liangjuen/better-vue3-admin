@@ -1,3 +1,5 @@
+import { Base } from './perm.data'
+
 export const menuData = [
 	{
 		id: 29,
@@ -68,7 +70,14 @@ export const menuData = [
 		createdAt: '2024-02-06',
 		updatedAt: '2024-03-13',
 		name: '菜单管理',
-		perms: [],
+		perms: [
+			Base.MenuList,
+			Base.MenuGet,
+			Base.MenuCreate,
+			Base.MenuUpdate,
+			Base.MenuRemove,
+			Base.PermList
+		],
 		pid: 1,
 		type: 2,
 		path: '/sys/menu',
@@ -100,7 +109,19 @@ export const menuData = [
 		createdAt: '2024-02-06',
 		updatedAt: '2024-03-18',
 		name: '用户列表',
-		perms: [],
+		perms: [
+			Base.DepartmentCreate,
+			Base.DepartmentGet,
+			Base.DepartmentUpdate,
+			Base.DepartmentList,
+			Base.DepartmentRemove,
+			Base.UserList,
+			Base.UserGet,
+			Base.UserCreate,
+			Base.UserUpdate,
+			Base.UserRemove,
+			Base.UserResetPassword
+		],
 		pid: 1,
 		type: 2,
 		path: '/sys/user',
@@ -116,7 +137,13 @@ export const menuData = [
 		createdAt: '2024-02-06',
 		updatedAt: '2024-03-13',
 		name: '角色管理',
-		perms: [],
+		perms: [
+			Base.RoleList,
+			Base.RoleGet,
+			Base.RoleCreate,
+			Base.RoleUpdate,
+			Base.RoleRemove
+		],
 		pid: 1,
 		type: 2,
 		path: '/sys/role',
@@ -190,5 +217,69 @@ export const menuData = [
 		cache: 1,
 		hidden: 0,
 		status: 1
+	},
+	{
+		id: 99,
+		createdAt: '2024-06-19',
+		updatedAt: '2024-06-22',
+		name: '异常',
+		perms: [],
+		pid: null,
+		type: 1,
+		path: null,
+		component: '',
+		icon: 'shield-exclamation',
+		sort: 117,
+		cache: 1,
+		hidden: 0,
+		status: 1
+	},
+	{
+		id: 100,
+		createdAt: '2024-06-19',
+		updatedAt: '2024-06-22',
+		name: '401',
+		perms: [],
+		pid: 99,
+		type: 2,
+		path: '/exception/401',
+		component: 'exception/views/401.vue',
+		icon: 'window-lock',
+		sort: 118,
+		cache: 1,
+		hidden: 0,
+		status: 1
+	},
+	{
+		id: 101,
+		createdAt: '2024-06-19',
+		updatedAt: '2024-06-22',
+		name: '403',
+		perms: [],
+		pid: 99,
+		type: 2,
+		path: '/exception/403',
+		component: 'exception/views/403.vue',
+		icon: 'window-no-access',
+		sort: 119,
+		cache: 1,
+		hidden: 0,
+		status: 1
+	},
+	{
+		id: 102,
+		createdAt: '2024-06-19',
+		updatedAt: '2024-06-22',
+		name: '404',
+		perms: [],
+		pid: 99,
+		type: 2,
+		path: '/exception/404',
+		component: 'exception/views/404.vue',
+		icon: 'window-notfound',
+		sort: 119,
+		cache: 1,
+		hidden: 0,
+		status: 1
 	}
-]
+].sort((a, b) => a.sort - b.sort)

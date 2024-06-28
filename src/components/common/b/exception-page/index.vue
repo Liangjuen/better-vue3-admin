@@ -1,19 +1,21 @@
 <template>
-	<div class="error-page">
-		<div class="error-page-wrapper">
+	<div class="exception-page">
+		<div class="exception-page-wrapper">
 			<div class="wave-wrapper">
-				<div class="page-info">
-					<h1 class="code-wrapper">
-						<span v-for="item in codes" :key="item">
-							{{ item }}
-						</span>
-					</h1>
-					<p class="desc">{{ desc }}</p>
-					<div class="btns">
-						<el-button @click="back()">cd ..</el-button>
-						<el-button type="primary" @click="toHome()">
-							返回首页
-						</el-button>
+				<div class="backdrop-filter-wrap">
+					<div class="page-info">
+						<h1 class="code-wrapper">
+							<span v-for="item in codes" :key="item">
+								{{ item }}
+							</span>
+						</h1>
+						<p class="desc">{{ desc }}</p>
+						<div class="btns">
+							<el-button @click="back()" plain>cd ..</el-button>
+							<el-button type="primary" @click="toHome()" plain>
+								返回首页
+							</el-button>
+						</div>
 					</div>
 				</div>
 
@@ -64,11 +66,12 @@ function toHome() {
 </script>
 
 <style lang="scss">
-.error-page {
-	--fill: #2d3436;
-	height: 100vh;
+.exception-page {
+	--fill: var(--el-bg-color);
+	height: 100%;
 	background-color: var(--fill);
 	&-wrapper {
+		position: relative;
 		height: 100%;
 		color: #636e72;
 		.page-info {
@@ -76,7 +79,7 @@ function toHome() {
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-
+			color: var(--el-color-white);
 			.code-wrapper span {
 				font-size: 120px;
 				font-weight: 400;
@@ -93,13 +96,18 @@ function toHome() {
 			}
 		}
 
+		.backdrop-filter-wrap {
+			width: 100%;
+			height: 100%;
+			backdrop-filter: blur(var(--filter));
+			background-color: var(--el-color-primary-light-3);
+		}
 		.wave-wrapper {
 			width: 100%;
-			height: 35vw;
-			min-height: 70vh;
+			height: 35%;
+			min-height: 70%;
 			position: absolute;
 			top: 0;
-			background-color: var(--el-color-white);
 		}
 	}
 }
@@ -124,7 +132,7 @@ function toHome() {
 }
 
 .waves-svg {
-	height: 6vw;
+	height: 6%;
 	max-height: 60px;
 	min-height: 35px;
 	width: 100%;

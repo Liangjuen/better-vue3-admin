@@ -5,9 +5,11 @@ import { loading } from '~/plugins'
 import App from './App.vue'
 import { setupRouter } from '~/router'
 import { setupPinia } from '~/store'
+import { setupMock } from '../mock'
 
 function bootstrap() {
 	loading()
+	setupMock()
 
 	const app = createApp(App)
 	const pinia = setupPinia()
