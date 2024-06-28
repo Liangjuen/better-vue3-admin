@@ -229,7 +229,7 @@ function handleRefresh(item: RefreshParams) {
 // 提交表单
 function submitForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
-	formEl.validate(async (valid: boolean) => {
+	formEl.validate(async (valid) => {
 		if (valid) {
 			if (drawer.type == 'create') {
 				await create()
@@ -240,7 +240,6 @@ function submitForm(formEl: FormInstance | undefined) {
 			closeDrawer()
 		} else {
 			ElMessage.warning('表单验证未通过！')
-			return false
 		}
 	})
 }
@@ -248,18 +247,17 @@ function submitForm(formEl: FormInstance | undefined) {
 // 提交表单
 function submitPassForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
+	if (passForm.value.password !== passForm.value.confirmPass) {
+		ElMessage.warning('两次密码不一致！')
+		return false
+	}
 
-	formEl.validate(async (valid: boolean) => {
+	formEl.validate(async (valid) => {
 		if (valid) {
-			if (passForm.value.password !== passForm.value.confirmPass) {
-				ElMessage.warning('两次密码不一致！')
-				return false
-			}
 			ElMessage.success('重置成功')
 			closeDialog()
 		} else {
 			ElMessage.warning('表单验证未通过！')
-			return false
 		}
 	})
 }
@@ -384,7 +382,7 @@ onMounted(() => {
 					>
 						<template #prepend>
 							<el-select
-								v-model="search.status"
+								v-model="search.status as number"
 								placeholder="状态"
 								clearable
 								style="width: 80px"

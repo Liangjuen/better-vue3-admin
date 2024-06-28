@@ -154,7 +154,7 @@ function onContextMenu(event: MouseEvent | MouseEvent, row: DepartModel) {
 // 提交表单
 function submitForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
-	formEl.validate(async (valid: boolean) => {
+	formEl.validate(async (valid) => {
 		if (valid) {
 			if (openType.value == 'create') {
 				await create()
@@ -165,7 +165,6 @@ function submitForm(formEl: FormInstance | undefined) {
 			closeDialog()
 		} else {
 			ElMessage.warning('表单验证未通过！')
-			return false
 		}
 	})
 }

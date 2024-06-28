@@ -9,5 +9,5 @@ declare namespace Theme {
 
 	type TopbarBackMode = BackMode
 
-	type TabStyle = 'chrome' | '' | 'card'
+	type TabStyle = 'chrome' | 'default' | 'card'
 }

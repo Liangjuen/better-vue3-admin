@@ -39,10 +39,6 @@ export const config = {
 		// 页面 Transition 组件name
 		viewTransitionNames: [
 			{
-				label: 'none',
-				value: ''
-			},
-			{
 				label: 'zoom',
 				value: 'zoom'
 			},
@@ -78,7 +74,7 @@ export const config = {
 		tabStyles: [
 			{
 				label: '默认',
-				value: ''
+				value: 'default'
 			},
 			{
 				label: '谷歌',
@@ -99,7 +95,7 @@ export const config = {
 			showTabbar: true,
 			menuWidth: 256,
 			radius: 6,
-			tabStyle: ''
+			tabStyle: 'default'
 		} as const
 	}
 }

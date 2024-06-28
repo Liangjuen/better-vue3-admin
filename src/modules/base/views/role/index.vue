@@ -171,15 +171,16 @@ function closeDrawer() {
 	filterText.value = ''
 }
 
+function closeDialog() {
+	dialog.opened = false
+	filterText.value = ''
+}
+
+// 打开权限详情对话框
 function openDialog(item: RoleModel) {
 	setupForm(item)
 	loadingMenuPerms.value = true
 	dialog.opened = true
-}
-
-function closeDialog() {
-	dialog.opened = false
-	filterText.value = ''
 }
 
 // 取消
@@ -253,7 +254,7 @@ function onContextMenu(
 async function submitForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
 
-	await formEl.validate(async (valid: boolean) => {
+	await formEl.validate(async (valid) => {
 		if (valid) {
 			if (drawer.type == 'create') {
 				await create()
@@ -265,7 +266,6 @@ async function submitForm(formEl: FormInstance | undefined) {
 			await getRoleList()
 		} else {
 			ElMessage.warning('表单验证未通过！')
-			return false
 		}
 	})
 }
@@ -334,7 +334,7 @@ onMounted(async () => {
 						>
 							<template #prepend>
 								<el-select
-									v-model="search.status"
+									v-model="search.status as number"
 									placeholder="状态"
 									clearable
 									style="width: 80px"
@@ -558,8 +558,8 @@ onMounted(async () => {
 					required
 				>
 					<el-radio-group v-model="form.status">
-						<el-radio-button :label="1">正常</el-radio-button>
-						<el-radio-button :label="0">禁用</el-radio-button>
+						<el-radio-button :value="1">正常</el-radio-button>
+						<el-radio-button :value="0">禁用</el-radio-button>
 					</el-radio-group>
 				</el-form-item>
 			</el-form>

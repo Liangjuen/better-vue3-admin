@@ -281,7 +281,7 @@ function resetForm() {
 function submitForm(formEl: FormInstance | undefined) {
 	if (!formEl) return
 	setForm()
-	formEl.validate(async (valid: boolean) => {
+	formEl.validate(async (valid) => {
 		if (valid) {
 			if (drawer.type == 'create') {
 				await create()
@@ -293,7 +293,6 @@ function submitForm(formEl: FormInstance | undefined) {
 			resetForm()
 		} else {
 			ElMessage.warning('表单验证未通过！')
-			return false
 		}
 	})
 }

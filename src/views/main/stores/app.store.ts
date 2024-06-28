@@ -57,7 +57,7 @@ export const useAppStore = defineStore(
 		const radius = ref(defaultOptions.radius)
 
 		// tab 风格
-		const tabStyle = ref<Theme.TabStyle>('')
+		const tabStyle = ref<Theme.TabStyle>('default')
 
 		// 是否为移动端
 		const isMobile = ref(false)
