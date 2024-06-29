@@ -6,7 +6,7 @@
 			class="item"
 			@click="item.action"
 		>
-			<svg-icon :icon="item.icon" :size="16" />
+			<svg-icon :icon="item.icon" :size="item.iconSize || 16" />
 		</li>
 	</ul>
 </template>
@@ -27,7 +27,7 @@ const opratClass = computed(() => {
 	]
 })
 
-const { mitt } = useBetter()
+const { mitt, router } = useBetter()
 
 const oprations = [
 	{
@@ -37,6 +37,11 @@ const oprations = [
 	{
 		icon: 'fullscreen',
 		action: () => mitt.emit('view.fullscreen')
+	},
+	{
+		icon: 'home-analytics',
+		action: () => router.push('/home'),
+		iconSize: 18
 	}
 ]
 

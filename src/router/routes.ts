@@ -1,11 +1,22 @@
 import { RouteRecordRaw } from 'vue-router'
+import Home from '~/modules/dashboard/views/home/index.vue'
 
 export const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
 		name: 'Layout',
 		component: () => import('~/views/main/index.vue'),
-		children: []
+		redirect: '/home',
+		children: [
+			{
+				path: '/home',
+				name: 'Home',
+				component: Home,
+				meta: {
+					label: '首页'
+				}
+			}
+		]
 	},
 	{
 		path: '/login',

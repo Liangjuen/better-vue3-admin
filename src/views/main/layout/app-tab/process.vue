@@ -214,7 +214,7 @@ html.dark {
 						width: 10px;
 						height: 15px;
 						border-radius: 100%;
-						box-shadow: 0 0 0 30px var(--el-color-primary-light-8); /*使用box-shadow不影响尺寸*/
+						box-shadow: 0 0 0 30px var(--el-color-primary-light-9); /*使用box-shadow不影响尺寸*/
 					}
 
 					&::before {
@@ -232,8 +232,11 @@ html.dark {
 	&-style-card {
 		.process-item {
 			border: 1px solid var(--el-border-color);
+			&:hover {
+				border-color: var(--el-color-primary-light-7);
+			}
 			&.active {
-				border: 1px solid var(--el-color-primary);
+				border: 1px solid var(--el-color-primary-light-7);
 			}
 		}
 	}
@@ -270,7 +273,7 @@ html.dark {
 			color: var(--el-color-primary);
 		}
 		&.active {
-			background-color: var(--el-color-primary-light-8);
+			background-color: var(--el-color-primary-light-9);
 			color: var(--el-color-primary);
 		}
 		.svg-icon {
