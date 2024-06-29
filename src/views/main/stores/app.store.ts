@@ -148,6 +148,7 @@ export const useAppStore = defineStore(
 
 		return {
 			isFold,
+			isDark,
 			layoutMode,
 			isVertical,
 			showTabbar,
