@@ -68,7 +68,8 @@ const baseColumns = ref([
 		label: '菜单名称',
 		prop: 'name',
 		'min-width': 160,
-		enable: true
+		enable: true,
+		fixed: 'left'
 	},
 	{
 		label: '菜单类型',
@@ -137,7 +138,8 @@ const baseColumns = ref([
 		prop: 'action',
 		align: 'right',
 		'min-width': 200,
-		enable: true
+		enable: true,
+		fixed: 'right'
 	}
 ])
 
@@ -360,191 +362,175 @@ onMounted(async () => {
 
 <template>
 	<b-view-wrap v-loading="loading">
-		<div class="page-head padding-theme">
-			<div class="flex-1"></div>
-			<el-button type="primary" @click="openDrawer('create')">
-				<svg-icon icon="plus" class="mr-8" />
-				<span>新增</span>
-			</el-button>
-			<el-button @click="getMenus">
-				<svg-icon icon="refresh" class="mr-8" />
-				<span>刷新</span>
-			</el-button>
-			<el-button
-				type="danger"
-				plain
-				:disabled="!checkedIds.length"
-				@click="confirmRemove(checkedIds)"
-			>
-				<svg-icon icon="trash" class="mr-8" />
-				<span>批量删除</span>
-			</el-button>
-
-			<el-popover placement="top-start" trigger="click">
-				<template #reference>
-					<el-button>
-						<svg-icon icon="settings" class="mr-8" />
-						<span>列设置</span>
-					</el-button>
-				</template>
-				<div>
-					<vue-draggable
-						v-model="baseColumns"
-						:animation="250"
-						handle=".handle"
-					>
-						<div
-							class="column"
-							v-for="column in baseColumns"
-							:key="column.prop"
-						>
-							<svg-icon
-								icon="move"
-								class="handle"
-								:size="16"
-								:stroke-width="1"
-							/>
-							<el-checkbox
-								v-model="column.enable"
-								:label="column.prop"
-								:value="column.enable"
-							>
-								{{ column.label }}
-							</el-checkbox>
-						</div>
-					</vue-draggable>
-				</div>
-			</el-popover>
-		</div>
-		<div class="page-body">
-			<div class="padding-theme table-wrap">
-				<el-table
-					:data="tableData"
-					max-heigh="100%"
-					row-key="id"
-					class="mt-8"
-					default-expand-all
-					style="width: 100%"
-					show-overflow-tooltip
-					border
-					@row-contextmenu="rowContextmenu"
-					@selection-change="selectionChange"
+		<div class="base-menu-workspace padding-theme">
+			<div class="page-head">
+				<div class="flex-1"></div>
+				<el-button type="primary" @click="openDrawer('create')">
+					<svg-icon icon="plus" class="mr-8" />
+					<span>新增</span>
+				</el-button>
+				<el-button @click="getMenus">
+					<svg-icon icon="refresh" class="mr-8" />
+					<span>刷新</span>
+				</el-button>
+				<el-button
+					type="danger"
+					plain
+					:disabled="!checkedIds.length"
+					@click="confirmRemove(checkedIds)"
 				>
-					<template #empty><el-empty /></template>
-					<el-table-column
-						type="selection"
-						width="50"
-						align="center"
-					/>
-					<el-table-column
-						v-for="item in columns"
-						:key="item.prop"
-						v-bind="item"
-					>
-						<template v-if="item.prop == 'type'" v-slot="{ row }">
-							<el-tag v-show="row.type == 1" effect="plain"
-								>目录</el-tag
-							>
-							<el-tag
-								v-show="row.type == 2"
-								type="success"
-								effect="plain"
-							>
-								菜单
-							</el-tag>
-							<el-tag
-								v-show="row.type == 3"
-								type="warning"
-								effect="plain"
-							>
-								权限
-							</el-tag>
-						</template>
-						<template
-							v-else-if="item.prop == 'action'"
-							v-slot="{ row }"
+					<svg-icon icon="trash" class="mr-8" />
+					<span>批量删除</span>
+				</el-button>
+
+				<el-popover placement="top-start" trigger="click">
+					<template #reference>
+						<el-button>
+							<svg-icon icon="settings" class="mr-8" />
+							<span>列设置</span>
+						</el-button>
+					</template>
+					<div>
+						<vue-draggable
+							v-model="baseColumns"
+							:animation="250"
+							handle=".handle"
 						>
-							<el-button
-								plain
-								type="primary"
-								@click="openDrawer('update', row)"
+							<div
+								class="column"
+								v-for="column in baseColumns"
+								:key="column.prop"
 							>
-								编辑
-							</el-button>
-							<el-button
-								plain
-								type="danger"
-								@click="confirmRemove([row.id])"
-							>
-								删除
-							</el-button>
-						</template>
-						<template
-							v-else-if="item.prop == 'icon'"
-							v-slot="{ row }"
-						>
-							<svg-icon :icon="row.icon" :size="18" />
-						</template>
-						<template
-							v-else-if="item.prop == 'status'"
-							v-slot="{ row }"
-						>
-							<el-tag
-								v-show="row.status"
-								type="success"
-								effect="plain"
-							>
-								启用
-							</el-tag>
-							<el-tag
-								v-show="!row.status"
-								type="warning"
-								effect="plain"
-							>
-								禁用
-							</el-tag>
-						</template>
-						<template
-							v-else-if="item.prop == 'cache'"
-							v-slot="{ row }"
-						>
-							<el-tag v-show="row.cache" effect="plain">
-								开启
-							</el-tag>
-							<el-tag
-								v-show="!row.cache"
-								type="warning"
-								effect="plain"
-							>
-								禁止
-							</el-tag>
-						</template>
-						<template
-							v-else-if="item.prop == 'hidden'"
-							v-slot="{ row }"
-						>
-							<el-tag v-show="row.hidden" effect="plain">
-								是
-							</el-tag>
-							<el-tag
-								v-show="!row.hidden"
-								type="info"
-								effect="plain"
-							>
-								否
-							</el-tag>
-						</template>
-					</el-table-column>
-				</el-table>
+								<svg-icon
+									icon="move"
+									class="handle"
+									:size="16"
+									:stroke-width="1"
+								/>
+								<el-checkbox
+									v-model="column.enable"
+									:label="column.prop"
+									:value="column.enable"
+								>
+									{{ column.label }}
+								</el-checkbox>
+							</div>
+						</vue-draggable>
+					</div>
+				</el-popover>
 			</div>
+
+			<el-table
+				:data="tableData"
+				class="page-body"
+				max-heigh="100%"
+				row-key="id"
+				default-expand-all
+				style="width: 100%"
+				show-overflow-tooltip
+				border
+				@row-contextmenu="rowContextmenu"
+				@selection-change="selectionChange"
+			>
+				<template #empty><el-empty /></template>
+				<el-table-column type="selection" width="50" align="center" />
+				<el-table-column
+					v-for="item in columns"
+					:key="item.prop"
+					v-bind="item"
+				>
+					<template v-if="item.prop == 'type'" v-slot="{ row }">
+						<el-tag v-show="row.type == 1" effect="plain"
+							>目录</el-tag
+						>
+						<el-tag
+							v-show="row.type == 2"
+							type="success"
+							effect="plain"
+						>
+							菜单
+						</el-tag>
+						<el-tag
+							v-show="row.type == 3"
+							type="warning"
+							effect="plain"
+						>
+							权限
+						</el-tag>
+					</template>
+					<template
+						v-else-if="item.prop == 'action'"
+						v-slot="{ row }"
+					>
+						<el-button
+							plain
+							type="primary"
+							@click="openDrawer('update', row)"
+						>
+							编辑
+						</el-button>
+						<el-button
+							plain
+							type="danger"
+							@click="confirmRemove([row.id])"
+						>
+							删除
+						</el-button>
+					</template>
+					<template v-else-if="item.prop == 'icon'" v-slot="{ row }">
+						<svg-icon :icon="row.icon" :size="18" />
+					</template>
+					<template
+						v-else-if="item.prop == 'status'"
+						v-slot="{ row }"
+					>
+						<el-tag
+							v-show="row.status"
+							type="success"
+							effect="plain"
+						>
+							启用
+						</el-tag>
+						<el-tag
+							v-show="!row.status"
+							type="warning"
+							effect="plain"
+						>
+							禁用
+						</el-tag>
+					</template>
+					<template v-else-if="item.prop == 'cache'" v-slot="{ row }">
+						<el-tag v-show="row.cache" effect="plain">
+							开启
+						</el-tag>
+						<el-tag
+							v-show="!row.cache"
+							type="warning"
+							effect="plain"
+						>
+							禁止
+						</el-tag>
+					</template>
+					<template
+						v-else-if="item.prop == 'hidden'"
+						v-slot="{ row }"
+					>
+						<el-tag v-show="row.hidden" effect="plain"> 是 </el-tag>
+						<el-tag v-show="!row.hidden" type="info" effect="plain">
+							否
+						</el-tag>
+					</template>
+				</el-table-column>
+			</el-table>
 		</div>
+
 		<el-drawer v-model="drawer.opened" :size="400" :title="drawer.title">
 			<el-form :model="form" label-position="top" ref="formRef">
 				<el-form-item label="类型" required>
 					<el-radio-group v-model="form.type">
 						<el-radio-button
 							v-for="item in typeOptions"
-							:label="item.value"
+							:value="item.value"
 							:key="item.label"
 						>
 							{{ item.label }}
@@ -659,20 +645,20 @@ onMounted(async () => {
 				</el-form-item>
 				<el-form-item label="是否隐藏" required v-if="form.type != 3">
 					<el-radio-group v-model="form.hidden">
-						<el-radio-button :label="0">显示</el-radio-button>
-						<el-radio-button :label="1">影藏</el-radio-button>
+						<el-radio-button :value="0">显示</el-radio-button>
+						<el-radio-button :value="1">影藏</el-radio-button>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="路由缓存" required v-if="form.type == 2">
 					<el-radio-group v-model="form.cache">
-						<el-radio-button :label="1">开启</el-radio-button>
-						<el-radio-button :label="0">关闭</el-radio-button>
+						<el-radio-button :value="1">开启</el-radio-button>
+						<el-radio-button :value="0">关闭</el-radio-button>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="状态" required v-if="form.type !== 3">
 					<el-radio-group v-model="form.status">
-						<el-radio-button :label="1">正常</el-radio-button>
-						<el-radio-button :label="0">禁用</el-radio-button>
+						<el-radio-button :value="1">正常</el-radio-button>
+						<el-radio-button :value="0">禁用</el-radio-button>
 					</el-radio-group>
 				</el-form-item>
 			</el-form>
@@ -686,19 +672,19 @@ onMounted(async () => {
 	</b-view-wrap>
 </template>
 <style lang="scss" scoped>
-.b-view-wrap {
-	max-height: 100%;
-	overflow: hidden;
+.base-menu-workspace {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	width: 100%;
+	height: 100%;
 }
 .page-head {
 	display: flex;
+	margin-bottom: var(--theme-margin);
 }
 .page-body {
-	height: calc(100% - 48px);
-	.table-wrap {
-		height: 100%;
-		overflow: hidden;
-	}
+	flex: 1;
 }
 .column {
 	display: flex;

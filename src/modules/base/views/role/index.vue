@@ -410,10 +410,10 @@ onMounted(async () => {
 		<div class="page-body flex-1">
 			<el-table
 				:data="tableData"
+				class="flex-1"
 				border
 				max-heigh="100%"
 				row-key="id"
-				class="mt-8"
 				style="width: 100%"
 				show-overflow-tooltip
 				highlight-current-row
@@ -629,6 +629,10 @@ onMounted(async () => {
 	}
 
 	.page-body {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
 		padding: var(--theme-padding);
 		background-color: var(--el-bg-color);
 		border-radius: var(--el-border-radius-base);
