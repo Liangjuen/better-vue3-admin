@@ -95,23 +95,12 @@ interface ChartEvents {
  * @returns emitters
  */
 const createChartsEvents = (): ChartEvents => {
-	const onRender = (instance: echarts.ECharts) => {
-		const { appStore } = useGlobal()
-
-		instance.showLoading({
-			color: appStore.color,
-			fontSize: 14,
-			textColor: appStore.isDark
-				? 'rgb(224, 224, 224)'
-				: 'rgb(31, 31, 31)',
-			maskColor: appStore.isDark
-				? 'rgba(0, 0, 0, 0.4)'
-				: 'rgba(255, 255, 255, 0.8)'
-		})
+	const onRender = (_instance: echarts.ECharts) => {
+		// do some thing ...
 	}
 
-	const onUpdated = (instance: echarts.ECharts) => {
-		instance.hideLoading()
+	const onUpdated = (_instance: echarts.ECharts) => {
+		// do some thing ...
 	}
 
 	const onDestroy = (_instance: echarts.ECharts) => {
@@ -168,6 +157,33 @@ export const useEcharts = <T extends UseEchartsOptions>(
 	 */
 	function isRendered() {
 		return Boolean(chartRef.value && chart)
+	}
+
+	/**
+	 * show chart loading ...
+	 */
+	function showLoading() {
+		if (!chart) return
+		const { appStore } = useGlobal()
+
+		chart.showLoading({
+			text: '',
+			color: appStore.color,
+			fontSize: 14,
+			textColor: appStore.isDark
+				? 'rgb(224, 224, 224)'
+				: 'rgb(31, 31, 31)',
+			maskColor: appStore.isDark
+				? 'rgba(0, 0, 0, 0.4)'
+				: 'rgba(255, 255, 255, 0.8)'
+		})
+	}
+
+	/**
+	 * hidde loading
+	 */
+	function hideLoading() {
+		chart?.hideLoading()
 	}
 
 	/**
@@ -279,9 +295,12 @@ export const useEcharts = <T extends UseEchartsOptions>(
 	})
 
 	return {
+		chart,
 		chartRef,
 		width,
 		height,
+		showLoading,
+		hideLoading,
 		updateOptions,
 		isReady,
 		isRendered,
