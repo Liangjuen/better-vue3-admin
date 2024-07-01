@@ -1,5 +1,5 @@
 import { defineMock, mockResponse } from '../utils'
-import { menuData, access, userData, permData, Base } from '../data'
+import { menuData, access, userData, permData, Base, roleData } from '../data'
 
 export default defineMock({
 	mockList: [
@@ -18,6 +18,14 @@ export default defineMock({
 					return mockResponse.fail('用户名或密码错误')
 				}
 				const username = body.username as 'admin' | 'editor' | 'ghost'
+
+				const menuIds = username == 'ghost' ? roleData[2] : roleData[1]
+
+				const otherMenus = menuData.filter((item) => {
+					return menuIds.menuIdList.includes(item.id)
+				})
+
+				const menus = username == 'admin' ? menuData : otherMenus
 				const perms = {
 					admin: permData,
 					editor: [
@@ -30,20 +38,9 @@ export default defineMock({
 					ghost: [Base.ConfigList]
 				}
 
-				const ghostMenuNameExclude = [
-					'系统管理',
-					'菜单管理',
-					'用户列表',
-					'角色管理'
-				]
-
-				const ghostMenus = menuData.filter(
-					(item) => !ghostMenuNameExclude.includes(item.name)
-				)
-
 				return mockResponse.ok({
 					access,
-					menus: username == 'ghost' ? ghostMenus : menuData,
+					menus,
 					perms: perms[username],
 					user: userData[username]
 				})

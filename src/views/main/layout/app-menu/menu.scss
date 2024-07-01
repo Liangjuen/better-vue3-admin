@@ -1,7 +1,9 @@
-
 .el-menu {
+	--menu-item-margin: var(--theme-margin);
+	--el-menu-item-height: 44px;
 	--el-menu-item-font-size: 13.6px;
 	border: none;
+
 	.el-sub-menu__title span,
 	.el-menu-item span {
 		line-height: normal;
@@ -23,19 +25,22 @@
 	.el-menu-item:not(.is-disabled):hover,
 	.el-menu-item:not(.is-disabled):focus,
 	.el-menu-item:hover,
-	.el-sub-menu__title:hover{
+	.el-sub-menu__title:hover {
 		background-color: var(--el-color-primary);
 		color: var(--el-menu-active-color);
 	}
 
 	&.el-menu--popup {
-		.el-menu-item:last-child, .el-sub-menu:last-child>.el-sub-menu__title {
+
+		.el-menu-item:last-child,
+		.el-sub-menu:last-child>.el-sub-menu__title {
 			margin-bottom: 0;
 		}
 	}
 
 	// 菜单列表项样式
-	.el-menu-item, .el-sub-menu__title {
+	.el-menu-item,
+	.el-sub-menu__title {
 		padding: 0 calc(var(--el-menu-base-level-padding) - var(--menu-item-margin));
 		margin: 0 var(--menu-item-margin);
 		margin-bottom: var(--menu-item-margin);
@@ -45,7 +50,8 @@
 }
 
 // 自定义水平菜单样式
-.el-menu--horizontal > {
+.el-menu--horizontal> {
+
 	.el-menu-item,
 	.el-menu-item.is-active,
 	.el-sub-menu.is-active .el-sub-menu__title,
@@ -60,14 +66,16 @@
 
 .el-menu--horizontal .el-menu .el-sub-menu.is-active>.el-sub-menu__title {
 	color: var(--el-menu-text-color);
-	&:hover{
+
+	&:hover {
 		color: #fff;
 	}
 }
 
 .el-menu--vertical.el-menu {
-	.el-sub-menu.is-active .el-sub-menu__title.el-tooltip__trigger  {
+	.el-sub-menu.is-active .el-sub-menu__title.el-tooltip__trigger {
 		color: var(--el-color-primary);
+
 		&:hover {
 			color: #fff;
 		}

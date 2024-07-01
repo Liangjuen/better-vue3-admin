@@ -30,8 +30,13 @@ export const useMenuStore = defineStore(
 					path: m.path as string,
 					component: m.component,
 					meta: {
+						iframe: m.iframe,
+						link: m.link,
+						openNewWindow: m.openNewWindow,
+						isPage: m.path?.includes('/pages'),
 						keepAlive: !!m.cache,
-						label: m.name
+						label: m.name,
+						dynamic: false
 					}
 				}
 			}

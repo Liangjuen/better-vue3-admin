@@ -1,6 +1,9 @@
-import { pathToThree, vueFilePaths } from '~/utils'
+import { config } from '~/config'
+import { pathToThree, modulePaths } from '~/utils'
 
-export const componentCascaderOption = pathToThree(vueFilePaths())
+export const componentCascaderOption = pathToThree(
+	modulePaths(config.ignore.modules)
+)
 
 export const treeSelectProps = {
 	children: 'children',

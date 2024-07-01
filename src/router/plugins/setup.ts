@@ -7,11 +7,9 @@ import {
 import { Router } from '../type'
 import { useGlobal } from '~/views'
 import { config } from '~/config'
+import { modules } from '~/utils'
 import { routes } from '../routes'
 import { useUserStore } from '~/store'
-
-//双星号是递归解释器遍历文件和文件夹的占位符或指令。它是一个简单的递归通配符，而只有一个星号表示全部没有递归
-const modules = import.meta.glob(['~/modules/**/{views,pages}/**/**.vue'])
 
 /**
  * @description 初始化 router
@@ -42,33 +40,32 @@ export function setupRouter() {
 		list.forEach((d) => {
 			d.meta = d.meta ? d.meta : {}
 
-			// 组件路径
-			const url = d.path
+			d.props = {}
 
-			if (url) {
-				// 外链
-				if (url.indexOf('http') == 0) {
-					if (d.meta) {
-						d.meta.iframeUrl = url
-					}
-					// 设置外链组件
-					d.component = () =>
-						import('~/modules/demo/views/home/index.vue')
+			const { isPage, iframe, link, openNewWindow } = d.meta
+
+			// 优先级: link > iframe
+			if (link) {
+				d.meta.isLink = true
+			} else {
+				const component = modules()
+
+				// 是否为 iframe
+				d.component = iframe
+					? component[`/src/modules/common/views/iframe-page.vue`]
+					: component[`/src/modules/${d.component}`]
+
+				// iframe 组件参数
+				d.props = { ...d.props, ...(iframe ? { url: iframe } : {}) }
+
+				// 是否动态添加
+				d.meta.dynamic = true
+
+				if (isPage) {
+					router.addRoute(d as any)
 				} else {
-					// 组件路径
-					d.component = modules[`/src/modules/${d.component}`]
+					router.addRoute('Layout', d as any)
 				}
-			} else {
-				d.redirect = '/404'
-			}
-
-			// 是否动态添加
-			d.meta.dynamic = true
-
-			if (d.isPage) {
-				router.addRoute(d as any)
-			} else {
-				router.addRoute('Layout', d as any)
 			}
 		})
 	}
@@ -78,12 +75,7 @@ export function setupRouter() {
 
 		if (!isReg) {
 			const { menuStore } = useGlobal()
-			const list = menuStore.menuMappingRoutes().map((e) => {
-				return {
-					...e,
-					isPage: e.path?.includes('/pages')
-				}
-			})
+			const list = menuStore.menuMappingRoutes()
 
 			// 需要注册的路由
 			const route = list.find((e) => e.path == path)

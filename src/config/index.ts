@@ -28,7 +28,9 @@ export const config = {
 		// 不显示请求进度条
 		NProgress: ['/files/upload'],
 		// 页面不需要登录验证
-		token: ['/login', '/401', '/403', '/404', '/500', '/502']
+		token: ['/login', '/401', '/403', '/404', '/500', '/502'],
+		// 文件扫描(在菜单管理页面中选择文件路径时)
+		modules: ['common/views/iframe-page.vue']
 	},
 	// 最大缓存页面数(路由页面缓存 默认配置)
 	maxKeepAlive: 20,

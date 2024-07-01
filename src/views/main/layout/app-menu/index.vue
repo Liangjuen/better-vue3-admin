@@ -1,6 +1,5 @@
 <template>
 	<el-menu
-		router
 		ellipsis
 		:collapse-transition="false"
 		:collapse="collapse"

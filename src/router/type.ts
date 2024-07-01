@@ -4,13 +4,8 @@ export interface RouteAppendData {
 	name?: string
 	path: string
 	component?: any
-	isPage?: boolean
-	meta?: {
-		keepAlive?: boolean
-		label?: string
-		[key: string]: any
-	}
-	[key: string]: any
+	meta?: Menu.RouteMeta
+	props?: Record<string, any>
 }
 
 export declare interface Router extends VueRouter {

@@ -27,6 +27,9 @@ declare namespace Menu {
 		id?: number
 		pid: number | null
 		path: string | null
+		link?: string | null
+		iframe?: string | null
+		openNewWindow?: boolean
 		name: string
 		cache: Cache
 		sort: number
@@ -38,6 +41,15 @@ declare namespace Menu {
 		status: Status
 		children?: Array<Item> | null
 		disabled?: boolean
+	}
+
+	interface RouteMeta
+		extends Pick<Item, 'iframe' | 'openNewWindow' | 'link'> {
+		isPage?: boolean
+		keepAlive?: boolean
+		label?: string
+		dynamic?: boolean
+		[key: string]: any
 	}
 
 	type List = Array<Item>

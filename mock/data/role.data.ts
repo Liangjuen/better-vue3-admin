@@ -17,7 +17,7 @@ export const roleData = [
 		name: 'editor',
 		code: 'Editor',
 		menuIdList: [
-			29, 30, 34, 1, 2, 42, 4, 5, 35, 36, 33, 31, 99, 100, 101, 102
+			1, 2, 3, 5, 10, 11, 12, 20, 21, 200, 201, 210, 211, 220, 30, 31, 32
 		],
 		perms: [
 			Base.MenuList,
@@ -52,7 +52,7 @@ export const roleData = [
 		id: 3,
 		name: 'ghost',
 		code: 'Ghost',
-		menuIdList: [],
+		menuIdList: [1, 6, 10, 11, 12],
 		perms: [],
 		remark: '游客',
 		status: 1,
