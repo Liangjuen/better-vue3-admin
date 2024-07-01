@@ -295,7 +295,6 @@ export const useEcharts = <T extends UseEchartsOptions>(
 	})
 
 	return {
-		chart,
 		chartRef,
 		width,
 		height,
