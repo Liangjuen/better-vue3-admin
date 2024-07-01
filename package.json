@@ -1,8 +1,22 @@
 {
 	"name": "better-vue3-admin",
 	"private": true,
-	"version": "0.0.1",
+	"version": "1.0.1",
 	"type": "module",
+	"description": "一个基于Vue3、Vite3、TypeScript、Element Plus 的高颜值、清新优雅、可扩展的中后台模板。 A high appearance level, fresh and elegant, scalable middle and background template based on Vue3, Vite3, TypeScript, Element Plus.",
+	"license": "MIT",
+	"homepage": "https://github.com/Liangjuen/better-vue3-admin",
+	"repository": {
+		"url": "https://github.com/Liangjuen/better-vue3-admin.git"
+	},
+	"keywords": [
+		"Vue3 admin",
+		"Vite",
+		"Element Plus",
+		"Vue3 admin ts",
+		"TypeScript",
+		"vue-admin-template"
+	],
 	"scripts": {
 		"dev": "vite",
 		"build": "vue-tsc && vite build",
