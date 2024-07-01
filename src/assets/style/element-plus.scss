@@ -1,9 +1,13 @@
 :root {
 	--el-transition-duration: var(--animate-duration);
+
+	.el-card {
+		--el-card-border-radius: var(--el-border-radius-base);
+	}
 }
 
 .el-overlay {
-    backdrop-filter: blur(var(--filter));
+	backdrop-filter: blur(var(--filter));
 }
 
 .el-menu--popup {
@@ -34,11 +38,12 @@
 }
 
 .el-form-item {
-	.el-form-item__content> .el-select {
+	.el-form-item__content>.el-select {
 		width: 100%;
 	}
 
 }
+
 body {
 	&.el-dialog {
 		--el-dialog-border-radius: var(--theme-border-radius);
@@ -47,7 +52,7 @@ body {
 }
 
 @media screen and (max-width: 980px) {
-    body {
+	body {
 		&.el-dialog {
 			width: auto !important;
 			margin: 5vw;
