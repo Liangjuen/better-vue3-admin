@@ -17,6 +17,8 @@ export interface AppLayoutProps {
 	hiddeFooter?: boolean
 	// 视图内边距
 	viewPadding?: number | string
+	// 视图全屏
+	viewFull?: boolean
 }
 
 export const defaultProps = {

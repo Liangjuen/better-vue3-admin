@@ -18,10 +18,10 @@ export const useProcessStore = defineStore(
 
 		// 添加
 		function add(route: RouteLocationNormalized) {
-			if (excludes.includes(route.path)) return
 			list.value.forEach((p) => {
-				route.path == p.path ? (p.active = true) : (p.active = false)
+				p.active = !!(route.path == p.path)
 			})
+			if (excludes.includes(route.path)) return
 			if (route.path == '/' || has(route.path)) return
 			const process = routeToTab(route)
 			process.active = true

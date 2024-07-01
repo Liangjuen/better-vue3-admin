@@ -15,9 +15,7 @@
 						</div>
 					</div>
 					<div class="content">
-						<el-scrollbar>
-							<slot name="left-content" />
-						</el-scrollbar>
+						<slot name="left-content" />
 					</div>
 				</slot>
 				<div class="collapse-switch" @click="toggle">
@@ -43,9 +41,7 @@
 						</div>
 					</div>
 					<div class="content">
-						<el-scrollbar>
-							<slot name="right-content" />
-						</el-scrollbar>
+						<slot name="right-content" />
 					</div>
 				</slot>
 			</div>
@@ -141,6 +137,7 @@ defineOptions({
 	&__left .content,
 	&__right .content {
 		height: calc(100% - var(--b-view-head-height));
+		overflow-x: hidden;
 	}
 
 	&__right {

@@ -7,7 +7,11 @@
 	>
 		<layout-picker />
 		<set-item label="过度动画">
-			<el-select v-model="appStore.animationName">
+			<el-select
+				v-model="appStore.animationName"
+				clearable
+				:style="{ width: '160px' }"
+			>
 				<el-option
 					v-for="item in viewTransitionNames"
 					:key="item.value"
@@ -17,7 +21,7 @@
 			</el-select>
 		</set-item>
 		<set-item label="标签风格">
-			<el-select v-model="appStore.tabStyle">
+			<el-select v-model="appStore.tabStyle" :style="{ width: '160px' }">
 				<el-option
 					v-for="item in tabStyles"
 					:key="item.value"

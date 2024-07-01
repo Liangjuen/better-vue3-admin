@@ -1,3 +1,4 @@
 export enum StoreName {
-	APP = 'APP'
+	APP = 'APP',
+	USER = 'USER'
 }

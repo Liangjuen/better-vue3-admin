@@ -66,12 +66,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import Globalize from './globalize.vue'
 import Fullscreen from './fullscreen.vue'
 import Setting from './setting.vue'
 import ThemeToggle from './themeToggle.vue'
 import Breadcrumb from './breadcrumb.vue'
 import { useGlobal } from '~/views'
+import { useUserStore } from '~/store'
 import { ElMessageBox, ElMessage } from 'element-plus'
 
 defineOptions({
@@ -82,12 +84,14 @@ const props = defineProps<{
 	backMode: Theme.TopbarBackMode
 }>()
 
+const router = useRouter()
 const appTopbarClasses = computed(() => [
 	'app-topbar',
 	`back-${props.backMode}`
 ])
 
-const { appStore } = useGlobal()
+const { appStore, processStore } = useGlobal()
+const userStore = useUserStore()
 function toggleAsideMode() {
 	appStore.isFold = !appStore.isFold
 }
@@ -98,6 +102,10 @@ function logout() {
 		cancelButtonText: '取消',
 		confirmButtonText: '确定'
 	}).then(async () => {
+		userStore.$reset()
+		processStore.cleanAll()
+		processStore.cleanCache()
+		router.go(0)
 		ElMessage.success({
 			message: '您已安全退出系统!'
 		})

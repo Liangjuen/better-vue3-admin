@@ -14,7 +14,7 @@ const props = withDefaults(
 		type?: Theme.TabStyle
 	}>(),
 	{
-		type: ''
+		type: 'default'
 	}
 )
 defineOptions({

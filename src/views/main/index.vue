@@ -1,6 +1,7 @@
 <template>
 	<app-layout
 		v-model:collapse="isFold"
+		v-model:viewFull="viewFull"
 		:hiddeSider="layoutMode == 'horizontal'"
 		:hidde-tab="!showTabbar"
 		:class="layout"
@@ -44,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import AppLayout from './layout/index.vue'
 import AppSetupDrawer from './layout/app-setup-drawer/index.vue'
@@ -66,6 +67,8 @@ const {
 	showTabbar
 } = storeToRefs(appStore)
 const { tree } = storeToRefs(menuStore)
+
+const viewFull = ref(false)
 
 const layout = computed(() => {
 	return [

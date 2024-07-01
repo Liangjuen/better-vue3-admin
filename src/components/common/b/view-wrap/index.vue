@@ -18,9 +18,11 @@ defineOptions({
 	display: flex;
 	position: relative;
 	flex-direction: column;
-	min-height: 100%;
+	height: 100%;
 	border-radius: var(--el-border-radius-base);
 	background-color: var(--el-bg-color);
+	overflow-x: hidden;
+	overflow-y: auto;
 	.b-view-wrap-top-tools {
 		justify-content: flex-end;
 		margin-bottom: 8px;

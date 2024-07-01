@@ -8,7 +8,7 @@ defineOptions({
 	name: 'app-layout'
 })
 
-const emits = defineEmits(['update:collapse'])
+const emits = defineEmits(['update:collapse', 'update:viewFull'])
 
 const props = withDefaults(defineProps<AppLayoutProps>(), defaultProps)
 
@@ -23,22 +23,19 @@ const appLayoutStyles = computed(() => {
 	}
 })
 
+const appLayoutViewRef = ref<HTMLElement | null>(null)
+
 const { mitt } = useBetter()
 
-const appViewRef = ref<HTMLElement | null>(null)
-
-const { toggle: toggleFullscreen, isFullscreen } = useFullscreen(appViewRef)
-
-// 视图全屏
-const fullView = ref(false)
+const { toggle: toggleFullscreen, isFullscreen } = useFullscreen()
 
 const appLayoutClasses = computed(() => {
 	return {
 		'app-layout': true,
-		'hidde-sider': props.hiddeSider || fullView.value,
-		'hidde-topbar': props.hiddeTopbar || fullView.value,
-		'hidde-tab': props.hiddeTab || fullView.value,
-		'hidde-footer': props.hiddeFooter || fullView.value,
+		'hidde-sider': props.hiddeSider || props.viewFull,
+		'hidde-topbar': props.hiddeTopbar || props.viewFull,
+		'hidde-tab': props.hiddeTab || props.viewFull,
+		'hidde-footer': props.hiddeFooter || props.viewFull,
 		collapse: props.collapse,
 		mobile: props.isMobile
 	}
@@ -48,28 +45,39 @@ function fullscreenView() {
 	if (!isFullscreen.value) {
 		toggleFullscreen()
 	}
-	fullView.value = true
+	emits('update:viewFull', true)
 }
 
 function onToggleCollapse(collapse: boolean) {
 	emits('update:collapse', collapse)
 }
 
+function scrollToTop() {
+	if (appLayoutViewRef.value) {
+		appLayoutViewRef.value.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		})
+	}
+}
+
 watch(
 	() => isFullscreen.value,
 	(val) => {
 		if (!val) {
-			fullView.value = false
+			emits('update:viewFull', false)
 		}
 	}
 )
 
 onMounted(() => {
 	mitt.on('view.fullscreen', fullscreenView)
+	mitt.on('view.refresh', scrollToTop)
 })
 
 onUnmounted(() => {
-	mitt.off('view.toggleFullscreen')
+	mitt.off('view.fullscreen')
+	mitt.off('view.refresh')
 })
 </script>
 
@@ -77,7 +85,7 @@ onUnmounted(() => {
 	<section :class="appLayoutClasses" :style="appLayoutStyles">
 		<!-- 左侧 -->
 
-		<aside class="app-layout-sider" v-show="!fullView && !hiddeSider">
+		<aside class="app-layout-sider" v-show="!viewFull && !hiddeSider">
 			<slot name="sider"></slot>
 		</aside>
 		<!-- 主体 -->
@@ -86,26 +94,26 @@ onUnmounted(() => {
 				<!-- header -->
 				<header
 					class="app-layout-topbar"
-					v-show="!fullView && !hiddeTopbar"
+					v-show="!viewFull && !hiddeTopbar"
 				>
 					<slot name="topbar"></slot>
 				</header>
 				<!-- tab -->
-				<div class="app-layout-tab" v-show="!fullView && !hiddeTab">
+				<div class="app-layout-tab" v-show="!viewFull && !hiddeTab">
 					<slot name="tab"></slot>
 				</div>
 				<!-- view -->
 				<main
 					class="app-layout-view"
-					:class="{ fullscreen: fullView }"
-					ref="appViewRef"
+					ref="appLayoutViewRef"
+					:class="{ fullscreen: viewFull }"
 				>
 					<slot name="view"></slot>
 				</main>
 				<!-- footer -->
 				<footer
 					class="app-layout-footer"
-					v-show="!fullView && !hiddeFooter"
+					v-show="!viewFull && !hiddeFooter"
 				>
 					<slot name="footer"></slot>
 				</footer>
@@ -150,7 +158,7 @@ onUnmounted(() => {
 		overflow: hidden;
 		transition: transform var(--ani-duration) var(--ani-timing-function);
 		z-index: var(--layout-sider-z-index);
-		box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+		box-shadow: rgba(17, 12, 46, 0.15) 0px 6px 10px 0px;
 	}
 
 	&-main {
@@ -186,11 +194,12 @@ onUnmounted(() => {
 		width: 100%;
 		height: var(--layout-view-height);
 		padding: var(--layout-view-padding);
-		overflow: auto;
+		overflow-y: auto;
+		overflow-x: hidden;
 		box-sizing: border-box;
 		background-color: var(--el-bg-color-page);
 		&.fullscreen {
-			width: 100vw;
+			height: 100%;
 		}
 	}
 

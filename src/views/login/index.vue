@@ -1,12 +1,17 @@
 <template>
 	<div class="login-page">
+		<div class="tools">
+			<Theme />
+		</div>
 		<div class="content">
 			<div class="left">
 				<img src="../../assets/images/Illustrator.png" />
 			</div>
 			<div class="right">
 				<div class="form">
-					<div class="form-title mb-20">欢迎使用 Cool-Vue3-Admin</div>
+					<div class="form-title mb-20">
+						欢迎使用 Better-Vue3-Admin
+					</div>
 					<el-form :model="form" :rules="rules" ref="loginFormRef">
 						<el-form-item prop="username">
 							<el-input
@@ -61,6 +66,8 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDark } from '@vueuse/core'
 import type { FormRules } from 'element-plus'
+import { useUserStore } from '~/store'
+import { service } from '~/network/api'
 import { useGlobal } from '../index'
 import { validator as val } from '~/utils'
 
@@ -70,10 +77,11 @@ const { checkUsername, checkPassword } = val
 
 const router = useRouter()
 const { menuStore } = useGlobal()
+const userStore = useUserStore()
 useDark()
 const form = reactive({
-	username: '',
-	password: ''
+	username: 'admin',
+	password: 'better123'
 	// captchaId: '',
 	// verifyCode: ''
 })
@@ -105,20 +113,25 @@ function submitForm(formEl: FormInstance | undefined) {
 		if (valid) {
 			try {
 				await login()
-				router.replace('/')
 			} catch (error) {
 				loading.value = false
 			}
 		} else {
 			ElMessage.warning('表单验证未通过！')
 			loading.value = false
-			return false
 		}
 	})
 }
 
 async function login() {
+	const { data } = await service.auth.login(form)
+	menuStore.list = data.menus
+	userStore.token = data.access.token
+	userStore.info = data.user
+	userStore.expiration = data.access.expiration
+	menuStore.perms = data.perms
 	menuStore.menuListToTree()
+	router.replace('/')
 }
 </script>
 
@@ -127,6 +140,12 @@ async function login() {
 	position: relative;
 	height: 100vh;
 	background-color: var(--el-color-primary);
+	.tools {
+		position: absolute;
+		top: 26px;
+		right: 30px;
+		padding: var(--theme-padding);
+	}
 	.content {
 		display: flex;
 		position: absolute;

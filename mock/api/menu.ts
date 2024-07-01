@@ -2,7 +2,7 @@ import { defineMock, mockResponse } from '../utils'
 import { menuData } from '../data'
 
 export default defineMock({
-	path: '/menus',
+	restfulPath: '/menus',
 	mockList: [
 		{
 			method: 'get',
