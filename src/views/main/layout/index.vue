@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useFullscreen } from '@vueuse/core'
 import { useBetter } from '~/hooks'
 import { AppLayoutProps, defaultProps } from './type'
@@ -22,6 +22,8 @@ const appLayoutStyles = computed(() => {
 		})
 	}
 })
+
+const appLayoutViewRef = ref<HTMLElement | null>(null)
 
 const { mitt } = useBetter()
 
@@ -50,6 +52,15 @@ function onToggleCollapse(collapse: boolean) {
 	emits('update:collapse', collapse)
 }
 
+function scrollToTop() {
+	if (appLayoutViewRef.value) {
+		appLayoutViewRef.value.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		})
+	}
+}
+
 watch(
 	() => isFullscreen.value,
 	(val) => {
@@ -61,10 +72,12 @@ watch(
 
 onMounted(() => {
 	mitt.on('view.fullscreen', fullscreenView)
+	mitt.on('view.refresh', scrollToTop)
 })
 
 onUnmounted(() => {
 	mitt.off('view.fullscreen')
+	mitt.off('view.refresh')
 })
 </script>
 
@@ -90,7 +103,11 @@ onUnmounted(() => {
 					<slot name="tab"></slot>
 				</div>
 				<!-- view -->
-				<main class="app-layout-view" :class="{ fullscreen: viewFull }">
+				<main
+					class="app-layout-view"
+					ref="appLayoutViewRef"
+					:class="{ fullscreen: viewFull }"
+				>
 					<slot name="view"></slot>
 				</main>
 				<!-- footer -->
