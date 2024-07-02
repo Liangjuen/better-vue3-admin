@@ -4,14 +4,23 @@
 export const menus: Menu.List = [
 	{
 		name: '首页',
-		perms: [],
-		pid: null,
 		type: 2,
 		path: '/home',
 		component: 'dashboard/views/home/index.vue',
 		icon: 'home-analytics',
-		sort: 1,
+		sort: 0,
 		cache: 0,
+		hidden: 0,
+		status: 1
+	},
+	{
+		name: '关于',
+		type: 2,
+		path: '/about',
+		component: 'dashboard/views/about/index.vue',
+		icon: 'feather',
+		sort: 999,
+		cache: 1,
 		hidden: 0,
 		status: 1
 	}

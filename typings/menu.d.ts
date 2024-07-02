@@ -30,7 +30,7 @@ declare namespace Menu {
 
 	interface Item extends BaseEntity {
 		id?: number
-		pid: number | null
+		pid?: number | null
 		path: string | null
 		link?: string | null
 		iframe?: string | null
@@ -41,7 +41,7 @@ declare namespace Menu {
 		icon: string
 		type: Type
 		hidden: Hidden
-		perms: string[]
+		perms?: string[]
 		component: string
 		status: Status
 		children?: Array<Item> | null
