@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useFullscreen } from '@vueuse/core'
+import AppBacktop from './app-backtop/index.vue'
 import { useBetter } from '~/hooks'
 import { AppLayoutProps, defaultProps } from './type'
 
@@ -130,6 +131,7 @@ onUnmounted(() => {
 				@click="onToggleCollapse(!collapse)"
 			></div>
 		</transition>
+		<app-backtop target=".app-layout-view" />
 	</section>
 </template>
 

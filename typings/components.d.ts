@@ -13,6 +13,7 @@ declare module 'vue' {
     BViewGroup: typeof import('./../src/components/common/b/view-group/index.vue')['default']
     BViewWrap: typeof import('./../src/components/common/b/view-wrap/index.vue')['default']
     CountTo: typeof import('./../src/components/common/count-to/index.vue')['default']
+    ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
