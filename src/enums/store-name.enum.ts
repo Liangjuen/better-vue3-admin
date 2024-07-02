@@ -1,4 +1,5 @@
 export enum StoreName {
 	APP = 'APP',
-	USER = 'USER'
+	USER = 'USER',
+	MENU = 'MENU'
 }
