@@ -130,6 +130,10 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		height: 100%;
 	}
 
+	.panel-left {
+		width: calc(100vw - 356px);
+	}
+
 	&.back-primary {
 		--el-text-color-primary: var(--el-color-white);
 		--el-text-color-regular: #f1f2f6;

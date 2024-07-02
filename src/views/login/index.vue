@@ -66,6 +66,7 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDark } from '@vueuse/core'
 import type { FormRules } from 'element-plus'
+import { config } from '~/config'
 import { useUserStore } from '~/store'
 import { service } from '~/network/api'
 import { useGlobal } from '../index'
@@ -125,12 +126,13 @@ function submitForm(formEl: FormInstance | undefined) {
 
 async function login() {
 	const { data } = await service.auth.login(form)
-	menuStore.list = data.menus
+	const menus = menuStore.sort([...data.menus, ...config.menus])
+	menuStore.list = menus
 	userStore.token = data.access.token
 	userStore.info = data.user
 	userStore.expiration = data.access.expiration
 	menuStore.perms = data.perms
-	menuStore.menuListToTree()
+	menuStore.toTree()
 	router.replace('/')
 }
 </script>

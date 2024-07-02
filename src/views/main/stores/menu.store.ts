@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { listToTree } from '~/utils'
+import { useMenu } from '~/hooks/common'
 
 //双星号是递归解释器遍历文件和文件夹的占位符或指令。它是一个简单的递归通配符，而只有一个星号表示全部没有递归
 // const modules = import.meta.glob(['@/modules/**/{views,pages}/**/**.vue'])
@@ -8,6 +8,7 @@ import { listToTree } from '~/utils'
 export const useMenuStore = defineStore(
 	'menu',
 	() => {
+		const { menuListToTree, menuMappingRoutes, sort } = useMenu()
 		// 元数据
 		const list = ref<Menu.List>([])
 
@@ -17,38 +18,23 @@ export const useMenuStore = defineStore(
 		const perms = ref<string[]>([])
 
 		// 树形化
-		function menuListToTree(): Menu.List {
-			const menuList = list.value.filter((i) => !i.hidden && i.type !== 3)
-			tree.value = listToTree(menuList, 'id', 'pid')
+		function toTree(): Menu.List {
+			tree.value = menuListToTree(list.value)
 			return tree.value
 		}
 
 		// 转路由
-		function menuMappingRoutes() {
-			const mapping = (m: Menu.Item) => {
-				return {
-					path: m.path as string,
-					component: m.component,
-					meta: {
-						iframe: m.iframe,
-						link: m.link,
-						openNewWindow: !!m.openNewWindow,
-						isPage: m.path?.includes('/pages'),
-						keepAlive: !!m.cache,
-						label: m.name,
-						dynamic: false
-					}
-				}
-			}
-			return list.value.filter((m) => m.type == 2).map(mapping)
+		function mapRoutes() {
+			return menuMappingRoutes(list.value)
 		}
 
 		return {
 			list,
 			tree,
 			perms,
-			menuListToTree,
-			menuMappingRoutes
+			sort,
+			mapRoutes,
+			toTree
 		}
 	},
 	{

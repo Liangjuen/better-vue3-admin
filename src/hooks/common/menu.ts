@@ -13,9 +13,9 @@ export const useMenu = (menus: Menu.List = []) => {
 	 * @param list
 	 * @returns
 	 */
-	const sortFuc = (list: Menu.List) => list.sort((a, b) => a.sort - b.sort)
+	const sort = (list: Menu.List) => list.sort((a, b) => a.sort - b.sort)
 
-	menus = sortFuc(menus)
+	menus = sort(menus)
 
 	/**
 	 * 菜单列表转路由数组
@@ -50,6 +50,7 @@ export const useMenu = (menus: Menu.List = []) => {
 	const menuListToTree = (list: Menu.List) => {
 		list = JSON.parse(JSON.stringify(list)) as Menu.List
 		const menuList = list.filter((i) => !i.hidden && i.type !== 3)
+
 		return listToTree(menuList, 'id', 'pid')
 	}
 
@@ -59,7 +60,7 @@ export const useMenu = (menus: Menu.List = []) => {
 	return {
 		menuMappingRoutes,
 		menuListToTree,
-		sortFuc,
+		sort,
 		menus,
 		routes,
 		tree

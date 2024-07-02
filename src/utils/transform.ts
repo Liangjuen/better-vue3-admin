@@ -54,9 +54,9 @@ export function listToTree<T extends Record<string, any>>(
 ) {
 	const list: T[] = JSON.parse(JSON.stringify(data))
 	list.forEach((node) => {
-		const pNdoe = list.find((row) => row[key] === node[parentKey]) as
-			| Tree
-			| undefined
+		const pNdoe = list.find(
+			(row) => row[key] && node[parentKey] && row[key] === node[parentKey]
+		) as Tree | undefined
 
 		if (pNdoe) {
 			pNdoe.children = pNdoe.children || []

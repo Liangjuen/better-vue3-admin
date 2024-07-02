@@ -81,8 +81,9 @@ const layout = computed(() => {
 <style lang="scss">
 .app-layout.menu-horizontal {
 	.app-topbar-manu {
-		width: calc(100vw - 356px);
+		flex: 1;
 		height: calc(100% - (var(--theme-padding) * 2));
+		overflow: hidden;
 		max-height: 40px;
 		min-height: 30px;
 		border: none;

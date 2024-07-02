@@ -75,7 +75,7 @@ export function setupRouter() {
 
 		if (!isReg) {
 			const { menuStore } = useGlobal()
-			const list = menuStore.menuMappingRoutes()
+			const list = menuStore.mapRoutes()
 
 			// 需要注册的路由
 			const route = list.find((e) => e.path == path)
