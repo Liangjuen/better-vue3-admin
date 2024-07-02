@@ -34,6 +34,8 @@ export const config = {
 	},
 	// 最大缓存页面数(路由页面缓存 默认配置)
 	maxKeepAlive: 20,
+
+	//环境配置
 	...(isDev ? dev : prod),
 
 	// 主题配置

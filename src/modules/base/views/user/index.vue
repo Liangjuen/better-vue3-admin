@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, computed } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
-import { rules, passRules, treeSelectProps } from './options'
+import { rules, passRules, treeSelectProps, options } from './options'
 import { useGlobal } from '~/views'
 import DepartList from './components/depart-list.vue'
 import { RefreshParams } from './components/depart-list.vue'
@@ -30,7 +30,6 @@ const baseColumns = ref([
 		label: '用户名',
 		prop: 'username',
 		width: 140,
-		fixed: 'left',
 		enable: true
 	},
 	{
@@ -304,6 +303,7 @@ function onContextMenu(
 			{
 				icon: 'edit',
 				context: '编辑',
+				disabled: row.roles.includes('admin'),
 				callback(done) {
 					openDrawer('update', row)
 					done()
@@ -312,6 +312,7 @@ function onContextMenu(
 			{
 				icon: 'trash',
 				context: '删除',
+				disabled: row.roles.includes('admin'),
 				callback(done) {
 					confirmRemove([row.id])
 					done()
@@ -474,7 +475,11 @@ onMounted(() => {
 					@row-contextmenu="onContextMenu"
 				>
 					<template #empty><el-empty /></template>
-					<el-table-column type="selection" width="50" fixed="left" />
+					<el-table-column
+						type="selection"
+						:selectable="(row) => !row.roles.includes('admin')"
+						width="50"
+					/>
 					<el-table-column
 						v-for="item in columns"
 						:key="item.prop"
@@ -508,6 +513,7 @@ onMounted(() => {
 							v-slot="{ row }"
 						>
 							<el-button
+								:disabled="row.roles.includes('admin')"
 								plain
 								type="success"
 								@click="openPassDialog(row)"
@@ -515,6 +521,7 @@ onMounted(() => {
 								重置
 							</el-button>
 							<el-button
+								:disabled="row.roles.includes('admin')"
 								plain
 								type="primary"
 								@click="openDrawer('update', row)"
@@ -522,6 +529,7 @@ onMounted(() => {
 								编辑
 							</el-button>
 							<el-button
+								:disabled="row.roles.includes('admin')"
 								plain
 								type="danger"
 								@click="confirmRemove([row.id])"
@@ -656,76 +664,67 @@ onMounted(() => {
 							/>
 						</el-select>
 					</el-form-item>
-					<el-button
-						type="primary"
-						text
-						class="mb-8"
-						v-show="!showMoreInfo"
-						@click="changeShowMoreInfo(true)"
+					<div
+						class="show-more"
+						@click="changeShowMoreInfo(!showMoreInfo)"
 					>
-						更多信息(可选)
-					</el-button>
-					<el-button
-						type="primary"
-						text
-						class="mb-8"
-						v-show="showMoreInfo"
-						@click="changeShowMoreInfo(false)"
-					>
-						收起
-					</el-button>
-					<transition
-						:name="appStore.animationName"
-						appear
-						mode="out-in"
-					>
-						<div class="more" v-if="showMoreInfo">
-							<el-form-item label="手机" prop="phone">
-								<el-input
-									v-model="form.phone"
-									placeholder="请输入手机号"
-								/>
-							</el-form-item>
-							<el-form-item label="邮箱" prop="email">
-								<el-input
-									v-model="form.email"
-									placeholder="请输入邮箱"
-								/>
-							</el-form-item>
-							<el-form-item label="状态">
-								<el-radio-group v-model="form.status">
-									<el-radio-button :label="1">
-										正常
-									</el-radio-button>
-									<el-radio-button :label="0">
-										禁用
-									</el-radio-button>
-								</el-radio-group>
-							</el-form-item>
-							<el-form-item label="性别">
-								<el-radio-group v-model="form.gender">
-									<el-radio-button :label="0">
-										男
-									</el-radio-button>
-									<el-radio-button :label="2">
-										薛定谔的猫
-									</el-radio-button>
-									<el-radio-button :label="1">
-										女
-									</el-radio-button>
-								</el-radio-group>
-							</el-form-item>
-							<el-form-item label="备注" prop="remark">
-								<el-input
-									type="textarea"
-									maxlength="200"
-									show-word-limit
-									:rows="2"
-									v-model="form.remark"
-								/>
-							</el-form-item>
-						</div>
-					</transition>
+						<svg-icon
+							v-show="!showMoreInfo"
+							icon="more-horizontal"
+						/>
+						<svg-icon v-show="showMoreInfo" icon="chevron-up" />
+					</div>
+					<div class="more-wrap">
+						<transition
+							:name="appStore.animationName"
+							appear
+							mode="out-in"
+						>
+							<div class="more" v-if="showMoreInfo">
+								<el-form-item label="手机" prop="phone">
+									<el-input
+										v-model="form.phone"
+										placeholder="请输入手机号"
+									/>
+								</el-form-item>
+								<el-form-item label="邮箱" prop="email">
+									<el-input
+										v-model="form.email"
+										placeholder="请输入邮箱"
+									/>
+								</el-form-item>
+								<el-form-item label="状态">
+									<el-segmented
+										v-model="form.status"
+										:options="options.status"
+									>
+										<template #default="{ item }">
+											{{ item.label }}
+										</template>
+									</el-segmented>
+								</el-form-item>
+								<el-form-item label="性别">
+									<el-segmented
+										v-model="form.gender"
+										:options="options.gender"
+									>
+										<template #default="{ item }">
+											{{ item.label }}
+										</template>
+									</el-segmented>
+								</el-form-item>
+								<el-form-item label="备注" prop="remark">
+									<el-input
+										type="textarea"
+										maxlength="200"
+										show-word-limit
+										:rows="2"
+										v-model="form.remark"
+									/>
+								</el-form-item>
+							</div>
+						</transition>
+					</div>
 				</el-form>
 				<template #footer>
 					<el-button type="primary" @click="submitForm(formRef)">
@@ -774,5 +773,25 @@ onMounted(() => {
 	flex: 1;
 	margin-right: 0;
 	margin-left: var(--theme-margin);
+}
+.show-more {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: var(--theme-padding);
+	margin-bottom: 16px;
+	border-radius: var(--el-border-radius-base);
+	border: 1px solid var(--el-border-color);
+	cursor: pointer;
+	&:hover {
+		border-color: var(--el-color-primary-light-3);
+		color: var(--el-color-primary);
+	}
+}
+
+.more-wrap {
+	width: 100%;
+	overflow-x: hidden;
 }
 </style>

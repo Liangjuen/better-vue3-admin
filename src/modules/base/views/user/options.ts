@@ -70,3 +70,15 @@ export const treeSelectProps = {
 	label: 'name',
 	value: 'id'
 }
+
+export const options = {
+	status: [
+		{ label: '禁用', value: 0 },
+		{ label: '启用', value: 1 }
+	],
+	gender: [
+		{ label: '男', value: 0 },
+		{ label: '薛定谔的猫', value: 2 },
+		{ label: '女', value: 1 }
+	]
+}

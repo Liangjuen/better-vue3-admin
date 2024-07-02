@@ -6,7 +6,7 @@ import svgNames from '~/assets/icons/index'
 import { listToTree } from '~/utils'
 import {
 	treeSelectProps,
-	typeOptions,
+	options,
 	permsTreeSelectProps,
 	rules,
 	componentCascaderOption
@@ -45,7 +45,7 @@ const checkedIds = ref<number[]>([])
 // 加载状态
 const loading = ref(false)
 
-const initFormData = {
+const initFormData: MenuModel = {
 	id: 0,
 	pid: null,
 	path: null,
@@ -53,12 +53,17 @@ const initFormData = {
 	cache: 1,
 	sort: 110,
 	icon: '',
+	link: null,
+	iframe: null,
+	openNewWindow: 0,
 	type: 1,
 	hidden: 0,
 	perms: [],
 	component: '',
 	status: 1
 }
+
+const optForm = ref(1)
 
 const form = ref<MenuModel>(initFormData)
 
@@ -68,8 +73,7 @@ const baseColumns = ref([
 		label: '菜单名称',
 		prop: 'name',
 		'min-width': 160,
-		enable: true,
-		fixed: 'left'
+		enable: true
 	},
 	{
 		label: '菜单类型',
@@ -425,7 +429,6 @@ onMounted(async () => {
 				class="page-body"
 				max-heigh="100%"
 				row-key="id"
-				default-expand-all
 				style="width: 100%"
 				show-overflow-tooltip
 				border
@@ -527,16 +530,25 @@ onMounted(async () => {
 		<el-drawer v-model="drawer.opened" :size="400" :title="drawer.title">
 			<el-form :model="form" label-position="top" ref="formRef">
 				<el-form-item label="类型" required>
-					<el-radio-group v-model="form.type">
-						<el-radio-button
-							v-for="item in typeOptions"
-							:value="item.value"
-							:key="item.label"
-						>
+					<el-segmented
+						v-model="form.type"
+						:options="options.type"
+						:disabled="drawer.type == 'update'"
+					>
+						<template #default="{ item }">
 							{{ item.label }}
-						</el-radio-button>
-					</el-radio-group>
+						</template>
+					</el-segmented>
 				</el-form-item>
+				<el-form-item label="页面配置" v-if="form.type == 2">
+					<el-segmented v-model="optForm" :options="options.view">
+						<template #default="{ item }">
+							<svg-icon v-if="!item.value" icon="minus-circle" />
+							<span v-else>{{ item.label }}</span>
+						</template>
+					</el-segmented>
+				</el-form-item>
+
 				<el-form-item label="父级节点">
 					<el-tree-select
 						placeholder="请选择父级节点"
@@ -644,22 +656,31 @@ onMounted(async () => {
 					/>
 				</el-form-item>
 				<el-form-item label="是否隐藏" required v-if="form.type != 3">
-					<el-radio-group v-model="form.hidden">
-						<el-radio-button :value="0">显示</el-radio-button>
-						<el-radio-button :value="1">影藏</el-radio-button>
-					</el-radio-group>
+					<el-segmented
+						v-model="form.hidden"
+						:options="options.hidden"
+					>
+						<template #default="{ item }">
+							{{ item.label }}
+						</template>
+					</el-segmented>
 				</el-form-item>
 				<el-form-item label="路由缓存" required v-if="form.type == 2">
-					<el-radio-group v-model="form.cache">
-						<el-radio-button :value="1">开启</el-radio-button>
-						<el-radio-button :value="0">关闭</el-radio-button>
-					</el-radio-group>
+					<el-segmented v-model="form.cache" :options="options.cache">
+						<template #default="{ item }">
+							{{ item.label }}
+						</template>
+					</el-segmented>
 				</el-form-item>
 				<el-form-item label="状态" required v-if="form.type !== 3">
-					<el-radio-group v-model="form.status">
-						<el-radio-button :value="1">正常</el-radio-button>
-						<el-radio-button :value="0">禁用</el-radio-button>
-					</el-radio-group>
+					<el-segmented
+						v-model="form.status"
+						:options="options.status"
+					>
+						<template #default="{ item }">
+							{{ item.label }}
+						</template>
+					</el-segmented>
 				</el-form-item>
 			</el-form>
 			<template #footer>

@@ -425,7 +425,6 @@ onMounted(async () => {
 					type="selection"
 					:selectable="(row) => row.code !== 'Admin'"
 					width="50"
-					fixed="left"
 				/>
 				<el-table-column
 					v-for="item in columns"

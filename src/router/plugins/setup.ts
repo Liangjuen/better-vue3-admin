@@ -42,7 +42,7 @@ export function setupRouter() {
 
 			d.props = {}
 
-			const { isPage, iframe, link, openNewWindow } = d.meta
+			const { isPage, iframe, link } = d.meta
 
 			// 优先级: link > iframe
 			if (link) {

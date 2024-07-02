@@ -4,7 +4,7 @@
 			<slot name="left">
 				<button
 					v-show="appStore.isVertical"
-					class="topbar-ham app-topbar-action-hover"
+					class="topbar-ham app-topbar-tool-item"
 					@click="toggleAsideMode"
 				>
 					<span class="ham-container">
@@ -23,14 +23,14 @@
 		<div class="panel-right">
 			<slot name="right">
 				<div class="right-tools">
-					<setting class="tool-item app-topbar-action-hover" />
-					<globalize class="tool-item app-topbar-action-hover" />
-					<fullscreen class="tool-item app-topbar-action-hover" />
-					<theme-toggle class="tool-item app-topbar-action-hover" />
+					<setting class="tool-item app-topbar-tool-item" />
+					<globalize class="tool-item app-topbar-tool-item" />
+					<fullscreen class="tool-item app-topbar-tool-item" />
+					<theme-toggle class="tool-item app-topbar-tool-item" />
 				</div>
 				<el-dropdown
 					trigger="click"
-					class="right-user ml-12 app-topbar-action-hover"
+					class="right-user ml-12 app-topbar-tool-item"
 				>
 					<div class="user-info">
 						<span class="username mr-8 ellipsis">尼克胡</span>
@@ -121,6 +121,7 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	justify-content: space-between;
 	width: 100%;
 	height: var(--topbar-height);
+	padding: 0 var(--theme-padding);
 	box-sizing: border-box;
 	.panel-left,
 	.panel-right {
@@ -135,11 +136,6 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		--el-text-color-placeholder: #dfe4ea;
 		background-color: var(--el-color-primary-light-3);
 		color: var(--el-color-white);
-		.app-topbar-action-hover {
-			&:hover {
-				background-color: var(--el-color-primary);
-			}
-		}
 
 		.panel-right {
 			.user-info .username {
@@ -162,11 +158,6 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		--el-text-color-placeholder: #dfe4ea;
 		background-color: var(--dark-bg-color);
 		color: var(--el-color-white);
-		.app-topbar-action-hover {
-			&:hover {
-				background-color: var(--el-color-primary);
-			}
-		}
 
 		.panel-right {
 			.user-info .username {
@@ -183,10 +174,28 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		}
 	}
 
-	.app-topbar-action-hover {
-		transition: background-color var(--el-transition-duration);
+	.app-topbar-tool-item {
+		height: calc(100% - (var(--theme-padding) * 2));
+		min-height: 32px;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		padding: 0 10px;
+		border-radius: 6px;
+		transition:
+			background-color,
+			color var(--el-transition-duration);
 		&:hover {
-			background-color: var(--el-color-primary-light-8);
+			color: var(--el-color-primary);
+			background-color: var(--el-color-primary-light-7);
+		}
+	}
+
+	.panel-right {
+		.user-info {
+			&:hover .username {
+				color: var(--el-color-primary);
+			}
 		}
 	}
 }
@@ -200,6 +209,15 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	height: 100%;
 	width: 40px;
 	background-color: transparent;
+	&:hover {
+		.ham-container {
+			.ham-top,
+			.ham-middle,
+			.ham-bottom {
+				background-color: var(--el-color-primary);
+			}
+		}
+	}
 }
 
 .ham-container {
@@ -257,18 +275,9 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	.tool-item {
-		display: flex;
-		align-items: center;
-		height: 100%;
-		cursor: pointer;
-		padding: 0 10px;
-	}
 }
 
 .right-user {
-	height: 100%;
-	padding: 0 var(--layout-padding);
 	.user-info {
 		display: flex;
 		align-items: center;
