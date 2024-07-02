@@ -32,7 +32,7 @@ export const useMenuStore = defineStore(
 					meta: {
 						iframe: m.iframe,
 						link: m.link,
-						openNewWindow: m.openNewWindow,
+						openNewWindow: !!m.openNewWindow,
 						isPage: m.path?.includes('/pages'),
 						keepAlive: !!m.cache,
 						label: m.name,

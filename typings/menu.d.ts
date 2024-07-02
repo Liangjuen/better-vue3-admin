@@ -17,6 +17,11 @@ declare namespace Menu {
 		on
 	}
 
+	enum OpenNewWindow {
+		off = 0,
+		on
+	}
+
 	enum Type {
 		directory = 1,
 		view,
@@ -29,7 +34,7 @@ declare namespace Menu {
 		path: string | null
 		link?: string | null
 		iframe?: string | null
-		openNewWindow?: boolean
+		openNewWindow?: OpenNewWindow
 		name: string
 		cache: Cache
 		sort: number
@@ -43,8 +48,8 @@ declare namespace Menu {
 		disabled?: boolean
 	}
 
-	interface RouteMeta
-		extends Pick<Item, 'iframe' | 'openNewWindow' | 'link'> {
+	interface RouteMeta extends Pick<Item, 'iframe' | 'link'> {
+		openNewWindow?: boolean
 		isPage?: boolean
 		keepAlive?: boolean
 		label?: string
