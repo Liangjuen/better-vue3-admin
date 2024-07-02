@@ -172,7 +172,7 @@ export const menuData = [
 		status: 1
 	},
 	{
-		id: 220,
+		id: 22,
 		createdAt: '2024-02-19',
 		updatedAt: '2024-03-22',
 		name: '右键菜单',
@@ -182,7 +182,7 @@ export const menuData = [
 		path: '/demo/context-menu',
 		component: 'demo/views/context-menu/index.vue',
 		icon: 'align-justify',
-		sort: 220,
+		sort: 22,
 		cache: 1,
 		hidden: 0,
 		status: 1
@@ -351,7 +351,7 @@ export const menuData = [
 		path: '/personal',
 		component: 'base/views/user/info.vue',
 		icon: 'user',
-		sort: 6,
+		sort: 5,
 		cache: 1,
 		hidden: 1,
 		status: 1
