@@ -61,7 +61,6 @@ export const useMenu = (menus: Menu.List = []) => {
 		menuMappingRoutes,
 		menuListToTree,
 		sort,
-		menus,
 		routes,
 		tree
 	}

@@ -10,7 +10,7 @@ const { menuStore } = useGlobal()
 // 数据列表
 const list = computed(() => {
 	function findParent(item: Menu.Item): Menu.List {
-		const p = menuStore.list.find((i) => i.id == item.pid)
+		const p = menuStore.list.find((i) => !!item.pid && i.id == item.pid)
 		if (!p?.pid) return p ? [p] : []
 		return [...findParent(p), p]
 	}

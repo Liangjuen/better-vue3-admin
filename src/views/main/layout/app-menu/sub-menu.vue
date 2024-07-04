@@ -13,7 +13,7 @@
 	<el-sub-menu
 		v-else
 		:index="item.path ? item.path : item.name"
-		:key="item.name"
+		:key="item.name + item.path"
 	>
 		<template #title>
 			<el-icon>
