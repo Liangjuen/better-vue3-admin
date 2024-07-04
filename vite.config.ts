@@ -7,7 +7,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import vue from '@vitejs/plugin-vue'
 
 function resolve(dir: string) {
-	return path.resolve(__dirname, 'src', dir)
+	return path.resolve(__dirname, dir)
 }
 
 // https://vitejs.dev/config/
@@ -62,7 +62,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 		resolve: {
 			// 别名
 			alias: {
-				'~': resolve('')
+				'-': resolve(''),
+				'~': resolve('src')
 			}
 		}
 	}
