@@ -23,7 +23,8 @@ const {
 	tabStyle,
 	headerBackMode,
 	isMobile,
-	showTabbar
+	showTabbar,
+	showFooter
 } = storeToRefs(appStore)
 const { tree, secondLevelMenus } = storeToRefs(menuStore)
 
@@ -70,6 +71,7 @@ onUnmounted(() => {
 		:mode="layoutMode"
 		:mobile="isMobile"
 		:hide-tab="!showTabbar"
+		:hide-footer="!showFooter"
 	>
 		<template #header>
 			<app-header :back-mode="headerBackMode">

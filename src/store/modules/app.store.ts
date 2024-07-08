@@ -25,6 +25,9 @@ export const useAppStore = defineStore(
 		// 是否显示 tabbar
 		const showTabbar = ref(defaultOptions.showTabbar)
 
+		// 显示 footer
+		const showFooter = ref(defaultOptions.showFooter)
+
 		// 是否打开右侧设置
 		const showSettings = ref(false)
 
@@ -91,6 +94,7 @@ export const useAppStore = defineStore(
 			headerBackMode.value = defaultOptions.headerBackMode
 			siderBackMode.value = defaultOptions.siderBackMode
 			showTabbar.value = defaultOptions.showTabbar
+			showFooter.value = defaultOptions.showFooter
 			menuWidth.value = defaultOptions.menuWidth
 			radius.value = defaultOptions.radius
 			tabStyle.value = defaultOptions.tabStyle
@@ -149,6 +153,7 @@ export const useAppStore = defineStore(
 			headerBackMode,
 			siderBackMode,
 			color,
+			showFooter,
 			menuWidth,
 			animationName,
 			isRefresh,
@@ -169,6 +174,7 @@ export const useAppStore = defineStore(
 				'isVertical',
 				'showTabbar',
 				'showSettings',
+				'showFooter',
 				'menuBackMode',
 				'color',
 				'menuWidth',

@@ -80,8 +80,11 @@
 		<set-item label="暗黑模式">
 			<theme />
 		</set-item>
-		<set-item label="标签">
+		<set-item label="显示标签">
 			<el-switch v-model="appStore.showTabbar" />
+		</set-item>
+		<set-item label="显示底部">
+			<el-switch v-model="appStore.showFooter" />
 		</set-item>
 		<template #footer>
 			<el-button type="primary" @click="confirmReset">重置</el-button>
