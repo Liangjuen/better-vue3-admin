@@ -11,7 +11,7 @@
 	</ul>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useBetter } from '~/hooks'
 const props = defineProps<{
 	type: Theme.TabStyle
@@ -19,6 +19,7 @@ const props = defineProps<{
 defineOptions({
 	name: 'app-tab-options'
 })
+const contentFullscreen = ref(false)
 
 const opratClass = computed(() => {
 	return [
@@ -29,21 +30,24 @@ const opratClass = computed(() => {
 
 const { mitt, router } = useBetter()
 
-const oprations = [
+const oprations = computed(() => [
 	{
 		icon: 'refresh',
 		action: () => mitt.emit('view.refresh')
 	},
 	{
-		icon: 'fullscreen',
-		action: () => mitt.emit('view.fullscreen')
+		icon: contentFullscreen.value ? 'fullscreen-exit' : 'fullscreen',
+		action: () => {
+			contentFullscreen.value = !contentFullscreen.value
+			mitt.emit('view.toggle.fullscreen', contentFullscreen.value)
+		}
 	},
 	{
 		icon: 'home-analytics',
 		action: () => router.push('/home'),
 		iconSize: 18
 	}
-]
+])
 
 // 右键菜单
 function openCm(e: PointerEvent | MouseEvent) {

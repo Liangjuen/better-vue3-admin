@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { ArrowRight } from '@element-plus/icons-vue'
-import { useGlobal } from '~/views'
+import { useGlobal } from '~/store'
 
 const route = useRoute()
 

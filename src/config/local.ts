@@ -49,8 +49,8 @@ export const theme = {
 			value: 'slide-right'
 		}
 	],
-	// 菜单背景
-	menuBackModes: [
+	// 背景
+	backMode: [
 		{
 			label: '自适应',
 			value: 'auto'
@@ -82,8 +82,8 @@ export const theme = {
 	// 默认配置值
 	default: {
 		layoutMode: 'vertical',
-		menuBackMode: 'auto',
-		topbarBackMode: 'auto',
+		headerBackMode: 'auto',
+		siderBackMode: 'auto',
 		color: '#409EFF',
 		animationName: 'none',
 		showTabbar: true,

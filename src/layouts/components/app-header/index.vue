@@ -1,10 +1,9 @@
 <template>
-	<div :class="appTopbarClasses">
+	<div :class="headerClasses">
 		<div class="panel-left">
-			<slot name="left">
+			<slot name="left" :currentBackMode="backMode">
 				<button
-					v-show="appStore.isVertical"
-					class="topbar-ham app-topbar-tool-item"
+					class="topbar-ham app-header-tool-item"
 					@click="toggleAsideMode"
 				>
 					<span class="ham-container">
@@ -23,21 +22,21 @@
 		<div class="panel-right">
 			<slot name="right">
 				<div class="right-tools">
-					<setting class="tool-item app-topbar-tool-item" />
-					<globalize class="tool-item app-topbar-tool-item" />
-					<fullscreen class="tool-item app-topbar-tool-item" />
-					<theme-toggle class="tool-item app-topbar-tool-item" />
+					<setting class="tool-item app-header-tool-item" />
+					<globalize class="tool-item app-header-tool-item" />
+					<fullscreen class="tool-item app-header-tool-item" />
+					<theme-toggle class="tool-item app-header-tool-item" />
 				</div>
 				<el-dropdown
 					trigger="click"
-					class="right-user ml-12 app-topbar-tool-item"
+					class="right-user ml-12 app-header-tool-item"
 				>
 					<div class="user-info">
 						<span class="username mr-8 ellipsis">尼克胡</span>
 
 						<img
 							class="avatar"
-							src="../../../../assets/images/portrait.jpeg"
+							src="../../../assets/images//portrait.jpeg"
 						/>
 					</div>
 					<template #dropdown>
@@ -72,23 +71,25 @@ import Fullscreen from './fullscreen.vue'
 import Setting from './setting.vue'
 import ThemeToggle from './themeToggle.vue'
 import Breadcrumb from './breadcrumb.vue'
-import { useGlobal } from '~/views'
+import { useGlobal } from '~/store'
 import { useUserStore } from '~/store'
 import { ElMessageBox, ElMessage } from 'element-plus'
 
 defineOptions({
-	name: 'topbar'
+	name: 'app-header'
 })
 
-const props = defineProps<{
-	backMode: Theme.TopbarBackMode
-}>()
+const props = withDefaults(
+	defineProps<{
+		backMode?: App.BackgroundColorMode
+	}>(),
+	{
+		backMode: 'auto'
+	}
+)
 
 const router = useRouter()
-const appTopbarClasses = computed(() => [
-	'app-topbar',
-	`back-${props.backMode}`
-])
+const headerClasses = computed(() => ['app-header', `bgc-${props.backMode}`])
 
 const { appStore, processStore } = useGlobal()
 const userStore = useUserStore()
@@ -115,7 +116,7 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 </script>
 
 <style lang="scss">
-.app-topbar {
+.app-header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -123,6 +124,7 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	height: var(--topbar-height);
 	padding: 0 var(--theme-padding);
 	box-sizing: border-box;
+	box-shadow: rgba(0, 0, 0, 0.08) 1px 1px 2px;
 	.panel-left,
 	.panel-right {
 		display: flex;
@@ -134,29 +136,11 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		width: calc(100vw - 356px);
 	}
 
-	&.back-primary {
-		--el-text-color-primary: var(--el-color-white);
-		--el-text-color-regular: #f1f2f6;
-		--el-text-color-placeholder: #dfe4ea;
-		background-color: var(--el-color-primary-light-3);
-		color: var(--el-color-white);
-
-		.panel-right {
-			.user-info .username {
-				color: var(--el-color-white);
-			}
-		}
-
-		.panel-left {
-			.ham-top,
-			.ham-middle,
-			.ham-bottom {
-				background-color: var(--el-color-white);
-			}
-		}
+	&.bgc-auto {
+		background-color: var(--el-bg-color);
 	}
 
-	&.back-dark {
+	&.bgc-dark {
 		--el-text-color-primary: var(--el-color-white);
 		--el-text-color-regular: #f1f2f6;
 		--el-text-color-placeholder: #dfe4ea;
@@ -178,7 +162,29 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 		}
 	}
 
-	.app-topbar-tool-item {
+	&.bgc-primary {
+		--el-text-color-primary: var(--el-color-white);
+		--el-text-color-regular: #f1f2f6;
+		--el-text-color-placeholder: #dfe4ea;
+		background-color: var(--el-color-primary-light-3);
+		color: var(--el-color-white);
+
+		.panel-right {
+			.user-info .username {
+				color: var(--el-color-white);
+			}
+		}
+
+		.panel-left {
+			.ham-top,
+			.ham-middle,
+			.ham-bottom {
+				background-color: var(--el-color-white);
+			}
+		}
+	}
+
+	.app-header-tool-item {
 		height: calc(100% - (var(--theme-padding) * 2));
 		min-height: 32px;
 		display: flex;

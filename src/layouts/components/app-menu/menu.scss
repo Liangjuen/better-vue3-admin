@@ -1,5 +1,10 @@
+:root {
+	--el-menu-item-height: 44px;
+}
+
 .el-menu {
 	--el-menu-item-font-size: 13.6px;
+
 	border: none;
 
 	.el-sub-menu__title span,
@@ -13,8 +18,7 @@
 	}
 
 	// 追加 .is-active 样式
-	.el-menu-item.is-active,
-	&.el-menu--horizontal>.el-sub-menu.is-active .el-sub-menu__title {
+	.el-menu-item.is-active {
 		background-color: var(--el-color-primary);
 	}
 
@@ -47,8 +51,29 @@
 
 }
 
+// 自定义垂直菜单样式
+.el-menu--vertical.el-menu {
+
+	.el-sub-menu.is-active .el-sub-menu__title.el-tooltip__trigger {
+		color: var(--el-color-primary);
+
+		&:hover {
+			color: #fff;
+		}
+	}
+}
+
+.el-menu--vertical.el-menu,
+.el-menu--vertical.el-menu .el-menu {
+	--menu-item-margin: var(--theme-margin);
+}
+
 // 自定义水平菜单样式
 .el-menu--horizontal> {
+
+	.el-sub-menu.is-active .el-sub-menu__title {
+		background-color: var(--el-color-primary);
+	}
 
 	.el-menu-item,
 	.el-menu-item.is-active,
@@ -66,22 +91,13 @@
 	}
 }
 
-.el-menu--horizontal .el-menu .el-menu-item.is-active {
-	color: #fff;
-}
-
-.el-menu--horizontal .el-menu .el-sub-menu.is-active>.el-sub-menu__title {
-	color: var(--el-menu-text-color);
-
-	&:hover {
+.el-menu--horizontal {
+	.el-menu .el-menu-item.is-active {
 		color: #fff;
 	}
-}
 
-.el-menu--vertical.el-menu {
-
-	.el-sub-menu.is-active .el-sub-menu__title.el-tooltip__trigger {
-		color: var(--el-color-primary);
+	.el-menu .el-sub-menu.is-active>.el-sub-menu__title {
+		color: var(--el-menu-text-color);
 
 		&:hover {
 			color: #fff;
@@ -89,11 +105,32 @@
 	}
 }
 
-.el-menu--vertical.el-menu,
-.el-menu--vertical.el-menu .el-menu {
-	--menu-item-margin: var(--theme-margin);
-}
+// 简约菜单样式
+.el-menu.simple,
+.el-menu--popup-container.simple {
 
-:root {
-	--el-menu-item-height: 44px;
+	// 追加 .is-active 样式
+	.el-menu-item.is-active {
+		background-color: var(--el-color-primary-light-9);
+		color: var(--el-color-primary);
+	}
+
+	.el-sub-menu.is-active .el-sub-menu__title,
+	&.el-menu--horizontal>.el-sub-menu.is-active .el-sub-menu__title {
+		color: var(--el-color-primary);
+	}
+
+	&.el-menu--horizontal>.el-sub-menu.is-active .el-sub-menu__title {
+		background-color: transparent;
+	}
+
+	// 鼠标悬停样式
+	.el-sub-menu .el-sub-menu__title:hover,
+	.el-menu-item:not(.is-disabled):hover,
+	.el-menu-item:not(.is-disabled):focus,
+	.el-menu-item:hover,
+	.el-sub-menu__title:hover {
+		background-color: var(--el-color-primary-light-9);
+		color: var(--el-menu-active-color);
+	}
 }

@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { listToTree } from '~/utils'
 
 import type { RouteAppendData } from '~/router/type'
@@ -54,6 +55,24 @@ export const useMenu = (menus: Menu.List = []) => {
 		return listToTree(menuList, 'id', 'pid')
 	}
 
+	/**
+	 * get root menu by route
+	 * @param list menu list
+	 * @param currentRoute route
+	 * @returns
+	 */
+	function getRootMenuByRoute(list: Menu.List) {
+		const route = useRoute()
+		const find = (item: Menu.Item): boolean => {
+			if (item.path == route.path) return true
+			if (item.children && item.children.length) {
+				return !!item.children.find(find)
+			}
+			return false
+		}
+		return list.find(find)
+	}
+
 	routes.value = menuMappingRoutes(menus)
 	tree.value = menuListToTree(menus)
 
@@ -61,6 +80,7 @@ export const useMenu = (menus: Menu.List = []) => {
 		menuMappingRoutes,
 		menuListToTree,
 		sort,
+		getRootMenuByRoute,
 		routes,
 		tree
 	}

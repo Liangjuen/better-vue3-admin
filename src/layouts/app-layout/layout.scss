@@ -1,0 +1,112 @@
+.app-layout {
+	position: relative;
+	height: 100%;
+	background-color: var(--el-bg-color-page);
+
+	&.vertical {
+		&.sider-collapsed {
+			.app-layout__sider {
+				width: var(--b-layout-sider-collapsed-width);
+			}
+
+			.app-layout__main {
+				padding-left: var(--b-layout-sider-collapsed-width);
+			}
+		}
+
+		&.mobile {
+			&.sider-collapsed {
+				.app-layout__sider {
+					transform: translateX(-100%);
+					width: var(--b-layout-sider-collapsed-width);
+				}
+			}
+
+			.app-layout__sider {
+				transform: translateX(0);
+				width: var(--b-layout-sider-width);
+			}
+
+			.app-layout__main {
+				padding-left: 0;
+			}
+		}
+	}
+
+	&.horizontal {
+		.app-layout__main {
+			padding-left: 0;
+		}
+	}
+
+	--b-layout- &-scroll-wraper {
+		overflow-y: auto;
+	}
+
+	&__sider {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: var(--b-layout-sider-width);
+		height: 100%;
+		z-index: var(--b-layout-sider-z-index);
+		box-sizing: border-box;
+		transition: transform var(--ani-duration) var(--ani-timing-function), width var(--ani-duration) var(--ani-timing-function);
+	}
+
+	&__main {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		padding-left: var(--b-layout-sider-width);
+		overflow-x: hidden;
+		box-sizing: border-box;
+		transition: padding-left var(--ani-duration) var(--ani-timing-function);
+	}
+
+	&.view-full &__main {
+		padding-left: 0 !important;
+	}
+
+	&__header {
+		height: var(--b-layout-header-height);
+		z-index: var(--b-layout-header-z-index);
+		box-sizing: border-box;
+	}
+
+	&__tab {
+		width: 100%;
+		height: var(--b-layout-tab-height);
+		z-index: var(--b-layout-tab-z-index);
+		box-sizing: border-box;
+	}
+
+	&__footer {
+		height: var(--b-layout-footer-height);
+		z-index: var(--b-layout-footer-z-index);
+		box-sizing: border-box;
+	}
+
+	&__view {
+		flex-grow: 1;
+		overflow-x: hidden;
+		box-sizing: border-box;
+
+		.app-view {
+			box-sizing: border-box;
+			padding: var(--theme-padding);
+		}
+	}
+
+	&__mask {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: var(--b-layout-mask-z-index);
+		background-color: var(--el-overlay-color-lighter);
+		backdrop-filter: blur(var(--filter));
+	}
+}

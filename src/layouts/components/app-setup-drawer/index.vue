@@ -6,6 +6,32 @@
 		size="312px"
 	>
 		<layout-picker />
+		<set-item label="侧边栏背景">
+			<el-select
+				v-model="appStore.siderBackMode"
+				:style="{ width: '160px' }"
+			>
+				<el-option
+					v-for="item in backMode"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value"
+				/>
+			</el-select>
+		</set-item>
+		<set-item label="顶部背景">
+			<el-select
+				v-model="appStore.headerBackMode"
+				:style="{ width: '160px' }"
+			>
+				<el-option
+					v-for="item in backMode"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value"
+				/>
+			</el-select>
+		</set-item>
 		<set-item label="过度动画">
 			<el-select
 				v-model="appStore.animationName"
@@ -39,9 +65,6 @@
 				:style="{ width: '160px' }"
 			/>
 		</set-item>
-		<set-item label="主题色">
-			<el-color-picker v-model="appStore.color" size="small" />
-		</set-item>
 		<set-item label="圆角">
 			<el-input-number
 				type="number"
@@ -50,6 +73,9 @@
 				:max="50"
 				:style="{ width: '160px' }"
 			/>
+		</set-item>
+		<set-item label="主题色">
+			<el-color-picker v-model="appStore.color" size="small" />
 		</set-item>
 		<set-item label="暗黑模式">
 			<theme />
@@ -67,7 +93,7 @@
 import { ElMessageBox } from 'element-plus'
 import SetItem from './set-item.vue'
 import LayoutPicker from './layout-picker.vue'
-import { useGlobal } from '~/views'
+import { useGlobal } from '~/store'
 import { config } from '~/config'
 
 defineOptions({
@@ -75,7 +101,7 @@ defineOptions({
 })
 
 const {
-	theme: { viewTransitionNames, tabStyles }
+	theme: { viewTransitionNames, tabStyles, backMode }
 } = config
 
 const { appStore } = useGlobal()

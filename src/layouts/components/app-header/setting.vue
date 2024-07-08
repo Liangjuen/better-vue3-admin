@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { useGlobal } from '~/views'
+import { useGlobal } from '~/store'
 const { appStore } = useGlobal()
 function changeSetDrawer() {
 	appStore.showSettings = true

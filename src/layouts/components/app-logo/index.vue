@@ -2,14 +2,17 @@
 	<router-link to="/" class="app-logo">
 		<img src="../../../../../public/vite.svg" />
 		<span v-show="showLabel">
-			<slot name="label">BETTER-VUE3-ADMIN</slot>
+			<slot name="label">
+				<app-logo-label />
+			</slot>
 		</span>
 	</router-link>
 </template>
 
 <script setup lang="ts">
+import AppLogoLabel from './label.vue'
 defineOptions({
-	name: 'logo'
+	name: 'app-logo'
 })
 defineProps<{
 	showLabel?: boolean
@@ -22,15 +25,8 @@ defineProps<{
 	justify-content: center;
 	align-items: center;
 	min-width: 48px;
-	height: var(--layout-topbar-height);
-	max-height: var(--layout-topbar-height);
+	height: var(--b-layout-header-height);
 	background-color: transparent;
 	cursor: pointer;
-	span {
-		margin-left: 10px;
-		line-height: 1;
-		white-space: nowrap;
-		color: var(--el-color-primary);
-	}
 }
 </style>

@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useGlobal } from '~/views'
+import { useGlobal } from '~/store'
 const { appStore, processStore } = useGlobal()
 import { useBetter } from '~/hooks'
 defineOptions({
@@ -42,5 +42,6 @@ onUnmounted(() => {
 	box-sizing: border-box;
 	width: 100%;
 	height: 100%;
+	min-height: 100%;
 }
 </style>

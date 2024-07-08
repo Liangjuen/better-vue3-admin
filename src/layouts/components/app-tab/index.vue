@@ -32,17 +32,17 @@ const tabClass = computed(() => {
 	align-items: center;
 	height: 100%;
 	padding: var(--layout-padding) var(--layout-padding) 0 var(--layout-padding);
-	&-style-default {
-		background-color: var(--el-bg-color-page);
-	}
 
 	&-style-chrome {
+		background-color: var(--el-bg-color);
 		box-shadow: rgba(0, 0, 0, 0.08) 1px 1px 2px;
 	}
 
 	&-style-card {
+		background-color: var(--el-bg-color);
 		padding: calc(var(--layout-padding) / 2) var(--layout-padding);
 		min-height: 30px;
+		box-shadow: rgba(0, 0, 0, 0.08) 1px 1px 2px;
 	}
 }
 </style>

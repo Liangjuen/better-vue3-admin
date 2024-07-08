@@ -29,7 +29,7 @@
 import { ref, onMounted, watch, computed } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { useBetter } from '~/hooks'
-import { useGlobal } from '~/views'
+import { useGlobal } from '~/store'
 const props = defineProps<{
 	type: Theme.TabStyle
 }>()
@@ -88,14 +88,6 @@ function onChoose(item: Process.Item) {
 function openCm(e: PointerEvent | MouseEvent, item: Process.Item) {
 	BContextMenu.create(e, {
 		list: [
-			{
-				icon: 'fullscreen',
-				context: '内容全屏',
-				callback: (done) => {
-					mitt.emit('view.fullscreen')
-					done()
-				}
-			},
 			{
 				icon: 'refresh',
 				context: '重新加载',
@@ -198,7 +190,7 @@ html.dark {
 				border-bottom-left-radius: unset;
 				border-bottom-right-radius: unset;
 				&:first-child {
-					margin-left: var(--layout-margin);
+					margin-left: var(--theme-margin);
 				}
 				&::before,
 				&::after {
@@ -262,7 +254,7 @@ html.dark {
 		align-items: center;
 		font-size: 13.5px;
 		margin-right: var(--layout-margin);
-		border-radius: 8px;
+		border-radius: 5px;
 		background-color: var(--el-bg-color);
 		transition: color var(--ani-duration);
 		cursor: pointer;

@@ -1,126 +1,127 @@
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import AppLayout from '~/layouts/app-layout/index.vue'
+import AppSetupDrawer from '~/layouts/components/app-setup-drawer/index.vue'
+import AppHeader from '~/layouts/components/app-header/index.vue'
+import AppView from '~/layouts/components/app-view/index.vue'
+import AppMenu from '~/layouts/components/app-menu/index.vue'
+import AppTab from '~/layouts/components/app-tab/index.vue'
+import AppLogo from '~/layouts/components/app-logo/index.vue'
+import AppSider from '~/layouts/components/app-sider/index.vue'
+import AppBacktop from '~/layouts/components/app-backtop/index.vue'
+import { useGlobal } from '~/store'
+import { useBetter } from '~/hooks'
+
+import type { Layout } from '~/layouts/app-layout'
+
+const { mitt } = useBetter()
+const { appStore, menuStore } = useGlobal()
+const {
+	isFold,
+	siderBackMode,
+	tabStyle,
+	headerBackMode,
+	isMobile,
+	showTabbar
+} = storeToRefs(appStore)
+const { tree, secondLevelMenus } = storeToRefs(menuStore)
+
+/** content fullscreen */
+const viewFull = ref(false)
+
+const layoutRef = ref()
+
+const layoutMode = computed(() => {
+	const vertical: Layout.Mode = 'vertical'
+	const horizontal: Layout.Mode = 'horizontal'
+	return appStore.layoutMode.includes('vertical') ||
+		appStore.layoutMode == 'horizontal-mix'
+		? vertical
+		: horizontal
+})
+
+function toggleFullscreen(full: boolean) {
+	viewFull.value = full
+}
+
+function scrollToTop() {
+	if (layoutRef.value) {
+		layoutRef.value.backTop()
+	}
+}
+
+onMounted(() => {
+	mitt.on('view.toggle.fullscreen', toggleFullscreen)
+	mitt.on('view.refresh', scrollToTop)
+})
+
+onUnmounted(() => {
+	mitt.off('view.toggle.fullscreen')
+	mitt.off('view.refresh')
+})
+</script>
+
 <template>
 	<app-layout
-		v-model:collapse="isFold"
-		v-model:viewFull="viewFull"
-		:hiddeSider="layoutMode == 'horizontal'"
-		:hidde-tab="!showTabbar"
-		:class="layout"
-		:is-mobile="isMobile"
-		view-padding="var(--theme-padding)"
+		v-model:siderCollapse="isFold"
+		v-model:fullView="viewFull"
+		:ref="layoutRef"
+		:mode="layoutMode"
+		:mobile="isMobile"
+		:hide-tab="!showTabbar"
 	>
-		<template #topbar>
-			<app-topbar :back-mode="topbarBackMode">
-				<template #left v-if="layoutMode == 'horizontal'">
+		<template #header>
+			<app-header :back-mode="headerBackMode">
+				<template v-if="appStore.layoutMode == 'horizontal'" #left>
 					<app-logo />
 					<app-menu
 						mode="horizontal"
-						class="app-topbar-manu"
-						:backMode="menuBackMode"
+						class="app-header-manu"
+						:backMode="headerBackMode"
 						:list="tree"
 						:collapse="false"
 					/>
 				</template>
-			</app-topbar>
+				<template
+					v-else-if="appStore.layoutMode == 'horizontal-mix'"
+					#left
+				>
+					<app-logo />
+					<app-menu
+						mode="horizontal"
+						class="app-header-manu"
+						:backMode="headerBackMode"
+						:list="secondLevelMenus"
+						:collapse="false"
+						:simple="headerBackMode == 'auto'"
+					/>
+				</template>
+			</app-header>
 		</template>
-		<template #tab>
-			<app-tab :type="tabStyle" />
-		</template>
+		<template #tab><app-tab :type="tabStyle" /></template>
 		<template #sider>
-			<app-logo :showLabel="!isFold" />
-			<el-scrollbar class="app-side-menu-scroller">
-				<app-menu
-					class="app-side-menu"
-					:list="tree"
-					:collapse="isFold"
-					:mode="layoutMode"
-					:backMode="menuBackMode"
-				/>
-			</el-scrollbar>
+			<app-sider
+				:list="tree"
+				:mode="appStore.layoutMode"
+				:back-mode="siderBackMode"
+				v-model:collapse="isFold"
+			/>
 		</template>
-		<template #view>
-			<app-view />
-		</template>
-		<template #app-layout-drawer-provider><app-setup-drawer /></template>
+		<app-view />
+		<app-setup-drawer />
+		<app-backtop target=".app-layout__view" />
+		<template #footer> </template>
 	</app-layout>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue'
-import { storeToRefs } from 'pinia'
-import AppLayout from './layout/index.vue'
-import AppSetupDrawer from './layout/app-setup-drawer/index.vue'
-import AppTopbar from './layout/app-topbar/index.vue'
-import AppView from './layout/app-view/index.vue'
-import AppMenu from './layout/app-menu/index.vue'
-import AppTab from './layout/app-tab/index.vue'
-import AppLogo from './layout/app-logo/index.vue'
-import { useGlobal } from '~/views'
-
-const { appStore, menuStore } = useGlobal()
-const {
-	isFold,
-	menuBackMode,
-	layoutMode,
-	tabStyle,
-	topbarBackMode,
-	isMobile,
-	showTabbar
-} = storeToRefs(appStore)
-const { tree } = storeToRefs(menuStore)
-
-const viewFull = ref(false)
-
-const layout = computed(() => {
-	return [
-		`menu-${appStore.layoutMode}`,
-		`menu-back-${appStore.menuBackMode || 'auto'}`
-	]
-})
-</script>
-
 <style lang="scss">
-.app-layout.menu-horizontal {
-	.app-topbar-manu {
-		flex: 1;
-		height: calc(100% - (var(--theme-padding) * 2));
-		overflow: hidden;
-		max-height: 40px;
-		min-height: 30px;
-		border: none;
-	}
-}
-
-.app-layout.menu-vertical {
-	.app-side-menu-scroller {
-		height: calc(100% - var(--layout-topbar-height));
-		.app-side-menu {
-			height: 100%;
-		}
-	}
-}
-.app-layout.menu-back-dark {
-	&.menu-horizontal {
-		.app-topbar {
-			background-color: var(--dark-bg-color);
-			color: #fff;
-		}
-	}
-	.app-layout-sider {
-		background-color: var(--dark-bg-color);
-		color: #fff;
-	}
-}
-
-.app-layout.menu-back-primary {
-	&.menu-horizontal {
-		.app-topbar {
-			background-color: var(--el-color-primary-light-3);
-			color: #fff;
-		}
-	}
-	.app-layout-sider {
-		background-color: var(--el-color-primary-light-3);
-		color: #fff;
-	}
+.app-header-manu {
+	flex: 1;
+	height: calc(100% - (var(--theme-padding) * 2));
+	overflow: hidden;
+	max-height: 40px;
+	min-height: 30px;
+	border: unset !important;
 }
 </style>
