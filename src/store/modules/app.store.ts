@@ -17,7 +17,7 @@ export const useAppStore = defineStore(
 		const isDark = useDark()
 
 		// 布局模式
-		const layoutMode = ref<Theme.LayoutMode>(defaultOptions.layoutMode)
+		const layoutMode = ref<App.Layout.Mode>(defaultOptions.layoutMode)
 
 		// 是否为垂直菜单布局
 		const isVertical = computed(() => layoutMode.value == 'vertical')
@@ -28,15 +28,9 @@ export const useAppStore = defineStore(
 		// 是否打开右侧设置
 		const showSettings = ref(false)
 
-		// 菜单背景设置
-		const menuBackMode = ref<Theme.MenuBackMode>(
-			defaultOptions.menuBackMode
-		)
-
-		// 顶部背景设置
-		const topbarBackMode = ref<Theme.TopbarBackMode>(
-			defaultOptions.topbarBackMode
-		)
+		/** background color setting */
+		const headerBackMode = ref<App.BackgroundColorMode>('auto')
+		const siderBackMode = ref<App.BackgroundColorMode>('auto')
 
 		// 主题颜色
 		const color = ref(defaultOptions.color)
@@ -92,22 +86,21 @@ export const useAppStore = defineStore(
 		// 重置设置
 		function $reset() {
 			layoutMode.value = defaultOptions.layoutMode
-			menuBackMode.value = defaultOptions.menuBackMode
 			color.value = defaultOptions.color
 			animationName.value = defaultOptions.animationName
+			headerBackMode.value = defaultOptions.headerBackMode
+			siderBackMode.value = defaultOptions.siderBackMode
 			showTabbar.value = defaultOptions.showTabbar
 			menuWidth.value = defaultOptions.menuWidth
 			radius.value = defaultOptions.radius
 			tabStyle.value = defaultOptions.tabStyle
 		}
 
-		watch(
-			layoutMode,
-			(val) => {
-				isFold.value = val === 'vertical'
-			},
-			{ immediate: true }
-		)
+		watch(layoutMode, (val) => {
+			if (val == 'horizontal-mix' || val == 'horizontal') {
+				isFold.value = true
+			}
+		})
 
 		watch(
 			[color, isDark],
@@ -153,8 +146,8 @@ export const useAppStore = defineStore(
 			isVertical,
 			showTabbar,
 			showSettings,
-			menuBackMode,
-			topbarBackMode,
+			headerBackMode,
+			siderBackMode,
 			color,
 			menuWidth,
 			animationName,
@@ -177,7 +170,6 @@ export const useAppStore = defineStore(
 				'showTabbar',
 				'showSettings',
 				'menuBackMode',
-				'topbarBackMode',
 				'color',
 				'menuWidth',
 				'animationName',

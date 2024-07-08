@@ -5,7 +5,7 @@ import {
 } from 'vue-router'
 
 import { Router } from '../type'
-import { useGlobal } from '~/views'
+import { useGlobal } from '~/store'
 import { config } from '~/config'
 import { modules } from '~/utils'
 import { routes } from '../routes'

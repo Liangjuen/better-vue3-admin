@@ -69,7 +69,7 @@ import type { FormRules } from 'element-plus'
 import { config } from '~/config'
 import { useUserStore } from '~/store'
 import { service } from '~/network/api'
-import { useGlobal } from '../index'
+import { useGlobal } from '~/store'
 import { validator as val } from '~/utils'
 
 import type { FormInstance } from 'element-plus'

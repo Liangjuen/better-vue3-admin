@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted, computed } from 'vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { rules, passRules, treeSelectProps, options } from './options'
-import { useGlobal } from '~/views'
+import { useGlobal } from '~/store'
 import DepartList from './components/depart-list.vue'
 import { RefreshParams } from './components/depart-list.vue'
 import { UserModel, User, RoleModel, service } from '~/network/api'
