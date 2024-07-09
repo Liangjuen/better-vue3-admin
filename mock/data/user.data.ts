@@ -10,7 +10,7 @@ const admin = {
 	status: 1,
 	gender: 0,
 	tags: ['working'],
-	avatar: '',
+	avatar: 'https://fakeimg.pl/150x150/36d/fff/?text=Nick',
 	remark: '愿我是阳光，明媚而不忧伤',
 	createdAt: '2024-6-18 14:00',
 	updatedAt: '2024-6-18 14:01'
@@ -28,7 +28,7 @@ const editor = {
 	status: 1,
 	gender: 1,
 	tags: ['good'],
-	avatar: '',
+	avatar: 'https://fakeimg.pl/150x150/ff9700/fff/?text=Judi',
 	remark: '浮生若梦，唯爱永恒。',
 	createdAt: '2024-6-18 15:00',
 	updatedAt: '2024-6-18 15:01'
@@ -46,7 +46,7 @@ const ghost = {
 	status: 1,
 	gender: 2,
 	tags: ['happy'],
-	avatar: '',
+	avatar: 'https://fakeimg.pl/150x150/8c7ae6/fff/?text=xiaoxin',
 	remark: '蓝天白云，悠然自得，干净如梦，永驻心间。',
 	createdAt: '2024-6-18 16:00',
 	updatedAt: '2024-6-18 16:01'

@@ -255,7 +255,7 @@ export const menuData = [
 		id: 4,
 		createdAt: '2024-02-06',
 		updatedAt: '2024-03-13',
-		name: '系统管理',
+		name: '系统',
 		perms: [],
 		pid: null,
 		type: 1,

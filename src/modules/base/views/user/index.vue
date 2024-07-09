@@ -23,7 +23,7 @@ const baseColumns = ref([
 		label: '头像',
 		prop: 'avatar',
 		align: 'center',
-		width: 160,
+		width: 80,
 		enable: true
 	},
 	{
@@ -562,6 +562,16 @@ onMounted(() => {
 								禁用
 							</el-tag>
 						</template>
+						<template
+							v-else-if="item.prop == 'avatar'"
+							v-slot="{ row }"
+						>
+							<img
+								class="avatar"
+								:src="row.avatar"
+								v-lazy="row.avatar"
+							/>
+						</template>
 					</el-table-column>
 				</el-table>
 
@@ -793,5 +803,11 @@ onMounted(() => {
 .more-wrap {
 	width: 100%;
 	overflow-x: hidden;
+}
+
+.avatar {
+	width: 60px;
+	height: 60px;
+	border-radius: 10px;
 }
 </style>
