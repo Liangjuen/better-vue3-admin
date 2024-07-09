@@ -23,7 +23,7 @@ const baseColumns = ref([
 		label: '头像',
 		prop: 'avatar',
 		align: 'center',
-		width: 80,
+		width: 90,
 		enable: true
 	},
 	{
@@ -806,8 +806,8 @@ onMounted(() => {
 }
 
 .avatar {
-	width: 60px;
-	height: 60px;
+	width: 56px;
+	height: 56px;
 	border-radius: 10px;
 }
 </style>
