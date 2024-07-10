@@ -15,7 +15,7 @@ better-vue3-admin 是一个基于Vue3、Vite3、TypeScript、Element Plus 实现
 ### 特性
 
 -   基于基于角色的访问控制(RBAC)
--   基于 pinia  的状态管理及持久化实现
+-   基于 pinia 的状态管理及持久化实现
 -   基于 自定义指令 实现的按钮级别权限控制
 -   基于 菜单管理 的动态路由添加
 -   基于菜单管理的自动化的文件路由系统
@@ -28,19 +28,20 @@ better-vue3-admin 是一个基于Vue3、Vite3、TypeScript、Element Plus 实现
 
 ### 获取
 
-- 克隆项目
+-   克隆项目
 
 ```
 git clone https://github.com/Liangjuen/better-vue3-admin.git
 ```
 
-- 安装依赖
+-   安装依赖
 
 ```
 npm install
 ```
 
-- 运行项目
+-   运行项目
+
 ```
 npm run dev
 ```
