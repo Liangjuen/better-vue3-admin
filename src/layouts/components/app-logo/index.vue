@@ -1,6 +1,6 @@
 <template>
 	<router-link to="/" class="app-logo">
-		<img src="../../../../../public/vite.svg" />
+		<img :src="logoUrl" />
 		<span v-show="showLabel">
 			<slot name="label">
 				<app-logo-label />
@@ -10,6 +10,7 @@
 </template>
 
 <script setup lang="ts">
+import logoUrl from '~/assets/images/vite.svg'
 import AppLogoLabel from './label.vue'
 defineOptions({
 	name: 'app-logo'

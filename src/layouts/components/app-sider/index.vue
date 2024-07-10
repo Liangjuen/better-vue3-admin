@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useBetter } from '~/hooks'
 import { useGlobal } from '~/store'
 import FirstLevelMenu from '../app-menu/first-level-menu.vue'

@@ -26,7 +26,7 @@ const {
 	showTabbar,
 	showFooter
 } = storeToRefs(appStore)
-const { tree, secondLevelMenus } = storeToRefs(menuStore)
+const { tree } = storeToRefs(menuStore)
 
 /** content fullscreen */
 const viewFull = ref(false)
@@ -67,7 +67,7 @@ onUnmounted(() => {
 	<app-layout
 		v-model:siderCollapse="isFold"
 		v-model:fullView="viewFull"
-		:ref="layoutRef"
+		ref="layoutRef"
 		:mode="layoutMode"
 		:mobile="isMobile"
 		:hide-tab="!showTabbar"
@@ -94,7 +94,7 @@ onUnmounted(() => {
 						mode="horizontal"
 						class="app-header-manu"
 						:backMode="headerBackMode"
-						:list="secondLevelMenus"
+						:list="menuStore.secondLevelMenus"
 						:collapse="false"
 						:simple="headerBackMode == 'auto'"
 					/>

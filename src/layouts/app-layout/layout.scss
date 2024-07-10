@@ -85,6 +85,7 @@
 	&__footer {
 		height: var(--b-layout-footer-height);
 		z-index: var(--b-layout-footer-z-index);
+		flex-shrink: 0;
 		box-sizing: border-box;
 	}
 

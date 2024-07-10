@@ -4,8 +4,7 @@ defineOptions({
 	name: 'about'
 })
 
-const { name, version, description, homepage, dependencies, devDependencies } =
-	pkg
+const { version, homepage, dependencies, devDependencies } = pkg
 
 function extract(obj: object) {
 	return Object.entries(obj).map((item) => ({

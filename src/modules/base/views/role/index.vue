@@ -462,7 +462,7 @@ onMounted(async () => {
 						<el-link
 							v-show="row.code !== 'Admin'"
 							type="primary"
-							@click="openDialog(row)"
+							@click="openDialog(row as RoleModel)"
 						>
 							详情
 						</el-link>
