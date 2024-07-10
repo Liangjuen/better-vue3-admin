@@ -5,7 +5,7 @@ export const config = {
 	/**
 	 * 前缀
 	 */
-	prefix: '/rest/v1',
+	prefix: import.meta.env['VITE_SERVICE_PREFIX'],
 	/**
 	 * 超时
 	 */
@@ -13,5 +13,5 @@ export const config = {
 	/**
 	 * 请求基础路径
 	 */
-	baseUrl: 'http://127.0.0.1:8847'
+	baseUrl: import.meta.env['VITE_SERVICE_BASE_RUL']
 }

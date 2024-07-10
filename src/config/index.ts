@@ -1,8 +1,5 @@
-import dev from './dev'
-import prod from './prod'
+import { envConfig } from './env'
 import { menus, theme } from './local'
-// 是否开发模式
-export const isDev = import.meta.env.DEV
 
 // 配置
 export const config = {
@@ -36,7 +33,7 @@ export const config = {
 	maxKeepAlive: 20,
 
 	//环境配置
-	...(isDev ? dev : prod),
+	...envConfig,
 
 	// 主题配置
 	theme,

@@ -18,7 +18,7 @@
 		"vue-admin-template"
 	],
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite --mode dev",
 		"build": "vue-tsc && vite build",
 		"preview": "vite preview",
 		"test": "vite --mode test",
