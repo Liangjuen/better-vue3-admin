@@ -19,9 +19,10 @@
 	],
 	"scripts": {
 		"dev": "vite --mode dev",
-		"build": "vue-tsc && vite build",
-		"preview": "vite preview",
-		"test": "vite --mode test",
+		"dev:test": "vite --mode test",
+		"dev:prod": "vite --mode prod",
+		"build": "vue-tsc && vite build --mode prod",
+		"build:test": "vue-tsc && vite build --mode test",
 		"lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
 		"format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
 		"commit:comment": "引导设置规范化的提交信息",
