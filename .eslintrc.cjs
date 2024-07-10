@@ -42,7 +42,7 @@ module.exports = {
 		"vue/component-name-in-template-casing": ["error", "kebab-case"],
 		"vue/component-definition-name-casing": ["error", "kebab-case"],
 		"no-use-before-define": "off",
-		"no-unused-vars": "off",
+		"no-unused-vars": "warn",
 		"@typescript-eslint/no-use-before-define": "off",
 		"@typescript-eslint/ban-ts-comment": "off",
 		"@typescript-eslint/ban-types": "off",
