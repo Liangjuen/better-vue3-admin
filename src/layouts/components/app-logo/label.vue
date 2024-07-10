@@ -1,8 +1,9 @@
 <template>
-	<div class="app-name">BETTER-VUE3-ADMIN</div>
+	<div class="app-name">{{ config.app.name }}</div>
 </template>
 
 <script setup lang="ts">
+import { config } from '~/config'
 defineOptions({
 	name: 'app-name'
 })

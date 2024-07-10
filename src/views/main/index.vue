@@ -89,7 +89,6 @@ onUnmounted(() => {
 					v-else-if="appStore.layoutMode == 'horizontal-mix'"
 					#left
 				>
-					<app-logo />
 					<app-menu
 						mode="horizontal"
 						class="app-header-manu"
