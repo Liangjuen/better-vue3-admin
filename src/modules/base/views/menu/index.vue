@@ -11,6 +11,8 @@ import {
 	rules,
 	componentCascaderOption
 } from './options'
+import { Base } from '~/enums/permission.enum'
+import { usePermission } from '~/hooks/business'
 import type { FormInstance } from 'element-plus'
 import type { DrawerModel } from './type'
 
@@ -25,6 +27,7 @@ const drawer = reactive<DrawerModel>({
 	title: '创建菜单',
 	opened: false
 })
+const { hasPermission } = usePermission()
 // 菜单文件路径通过级联选择器输入
 const isSelectWay = ref(true)
 const checkStrictly = ref(true)
@@ -159,12 +162,14 @@ function rowContextmenu(
 	_column: any,
 	event: MouseEvent | MouseEvent
 ) {
+	if (!hasPermission([Base.MenuCreate, Base.MenuUpdate, Base.MenuRemove]))
+		return
 	BContextMenu.create(event, {
 		list: [
 			{
 				context: '新增',
 				icon: 'plus',
-				hidden: row.type == 3,
+				hidden: row.type == 3 || !hasPermission(Base.MenuCreate),
 				callback: (done) => {
 					form.value.type = 1
 					openDrawer('create')
@@ -174,6 +179,7 @@ function rowContextmenu(
 			{
 				context: '编辑',
 				icon: 'edit',
+				hidden: !hasPermission(Base.MenuUpdate),
 				callback: (done) => {
 					openDrawer('update', row)
 					done()
@@ -182,6 +188,7 @@ function rowContextmenu(
 			{
 				context: '删除',
 				icon: 'trash',
+				hidden: !hasPermission(Base.MenuRemove),
 				callback: (done) => {
 					confirmRemove([row.id as number])
 					done()
@@ -190,7 +197,7 @@ function rowContextmenu(
 			{
 				context: '权限',
 				icon: 'shield-check',
-				hidden: row.type == 3,
+				hidden: row.type == 3 || !hasPermission(Base.MenuCreate),
 				callback: (done) => {
 					form.value.type = 3
 					if (row.type == 2) form.value.pid = row.id as number
@@ -369,7 +376,11 @@ onMounted(async () => {
 		<div class="base-menu-workspace padding-theme">
 			<div class="page-head">
 				<div class="flex-1"></div>
-				<el-button type="primary" @click="openDrawer('create')">
+				<el-button
+					v-permission="[Base.MenuCreate]"
+					type="primary"
+					@click="openDrawer('create')"
+				>
 					<svg-icon icon="plus" class="mr-8" />
 					<span>新增</span>
 				</el-button>
@@ -378,6 +389,7 @@ onMounted(async () => {
 					<span>刷新</span>
 				</el-button>
 				<el-button
+					v-permission="[Base.MenuRemove]"
 					type="danger"
 					plain
 					:disabled="!checkedIds.length"
@@ -466,6 +478,7 @@ onMounted(async () => {
 						v-slot="{ row }"
 					>
 						<el-button
+							v-permission="[Base.MenuUpdate]"
 							plain
 							type="primary"
 							@click="openDrawer('update', row)"
@@ -473,6 +486,7 @@ onMounted(async () => {
 							编辑
 						</el-button>
 						<el-button
+							v-permission="[Base.MenuRemove]"
 							plain
 							type="danger"
 							@click="confirmRemove([row.id])"

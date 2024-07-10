@@ -3,6 +3,9 @@ import { ref, nextTick, reactive, onMounted } from 'vue'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { listToTree, treeToList } from '~/utils'
 import { service, DepartModel } from '~/network/api'
+import { Base } from '~/enums/permission.enum'
+import { usePermission } from '~/hooks/business'
+
 import type { FormInstance } from 'element-plus'
 
 export interface RefreshParams {
@@ -21,6 +24,8 @@ const rules = {
 const emit = defineEmits<{
 	refresh: [RefreshParams]
 }>()
+
+const { hasPermission } = usePermission()
 
 let list: Array<DepartModel> = []
 const tree = ref<Array<DepartModel>>([])
@@ -89,66 +94,77 @@ function rowClick(item: DepartModel) {
 
 // 创建右键菜单
 function onContextMenu(event: MouseEvent | MouseEvent, row: DepartModel) {
-	BContextMenu.create(event, {
-		list: [
-			{
-				context: '新增',
-				icon: 'plus',
-				callback: (done) => {
-					form.value.name = ''
-					form.value.orderNum = 0
-					form.value.pId = row.id
-					form.value.parentName = row.name
-					openDialog('新增')
-					done()
-				}
-			},
-			{
-				context: '编辑',
-				icon: 'edit',
-				callback: (done) => {
-					const parent = list.find((i) => i.id == row.pId)
-					form.value.pId = row.pId || 0
-					form.value.id = row.id
-					form.value.parentName = parent?.name || ''
-					form.value.name = row.name
-					form.value.orderNum
-					openDialog('更新')
-					done()
-				}
-			},
-			{
-				context: '删除',
-				icon: 'trash-2',
-				callback: (done) => {
-					done()
-					ElMessageBox.confirm(
-						`此操作将会删除"${row.name}"部门的所有用户，是否确认？`,
-						'提示',
-						{
-							confirmButtonText: '确定',
-							cancelButtonText: '取消',
-							type: 'warning'
-						}
-					)
-						.then(async () => {
-							await service.depart.remove([row.id])
-							ElMessage({
-								type: 'success',
-								message: '删除成功!'
+	if (
+		hasPermission([
+			Base.DepartmentCreate,
+			Base.DepartmentUpdate,
+			Base.DepartmentRemove
+		])
+	) {
+		BContextMenu.create(event, {
+			list: [
+				{
+					context: '新增',
+					icon: 'plus',
+					hidden: !hasPermission(Base.DepartmentCreate),
+					callback: (done) => {
+						form.value.name = ''
+						form.value.orderNum = 0
+						form.value.pId = row.id
+						form.value.parentName = row.name
+						openDialog('新增')
+						done()
+					}
+				},
+				{
+					context: '编辑',
+					icon: 'edit',
+					hidden: !hasPermission(Base.DepartmentUpdate),
+					callback: (done) => {
+						const parent = list.find((i) => i.id == row.pId)
+						form.value.pId = row.pId || 0
+						form.value.id = row.id
+						form.value.parentName = parent?.name || ''
+						form.value.name = row.name
+						form.value.orderNum
+						openDialog('更新')
+						done()
+					}
+				},
+				{
+					context: '删除',
+					icon: 'trash-2',
+					hidden: !hasPermission(Base.DepartmentRemove),
+					callback: (done) => {
+						done()
+						ElMessageBox.confirm(
+							`此操作将会删除"${row.name}"部门的所有用户，是否确认？`,
+							'提示',
+							{
+								confirmButtonText: '确定',
+								cancelButtonText: '取消',
+								type: 'warning'
+							}
+						)
+							.then(async () => {
+								await service.depart.remove([row.id])
+								ElMessage({
+									type: 'success',
+									message: '删除成功!'
+								})
+								await refresh()
 							})
-							await refresh()
-						})
-						.catch(() => {
-							ElMessage({
-								type: 'info',
-								message: '已取消'
+							.catch(() => {
+								ElMessage({
+									type: 'info',
+									message: '已取消'
+								})
 							})
-						})
+					}
 				}
-			}
-		]
-	})
+			]
+		})
+	}
 }
 
 // 提交表单
@@ -210,7 +226,11 @@ onMounted(() => {
 				</button>
 			</el-tooltip>
 			<el-tooltip content="新增">
-				<button class="tool-item" @click="openDialog('新增')">
+				<button
+					v-permission="Base.DepartmentCreate"
+					class="tool-item"
+					@click="openDialog('新增')"
+				>
 					<svg-icon icon="plus" :size="18" />
 				</button>
 			</el-tooltip>

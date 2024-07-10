@@ -6,6 +6,8 @@ import { useGlobal } from '~/store'
 import DepartList from './components/depart-list.vue'
 import { RefreshParams } from './components/depart-list.vue'
 import { UserModel, User, RoleModel, service } from '~/network/api'
+import { Base } from '~/enums/permission.enum'
+import { usePermission } from '~/hooks/business'
 
 import type { FormInstance } from 'element-plus'
 import type { DrawerModel } from './type'
@@ -14,6 +16,8 @@ defineOptions({
 	name: 'base-user'
 })
 const { appStore } = useGlobal()
+
+const { hasPermission } = usePermission()
 
 const roles = ref<Array<RoleModel>>([])
 
@@ -290,36 +294,41 @@ function onContextMenu(
 	_column: any,
 	event: MouseEvent | MouseEvent
 ) {
-	BContextMenu.create(event, {
-		list: [
-			{
-				icon: 'plus',
-				context: '新增',
-				callback(done) {
-					openDrawer('create')
-					done()
+	if (hasPermission([Base.UserCreate, Base.UserUpdate, Base.UserRemove])) {
+		BContextMenu.create(event, {
+			list: [
+				{
+					icon: 'plus',
+					context: '新增',
+					hidden: !hasPermission(Base.UserCreate),
+					callback(done) {
+						openDrawer('create')
+						done()
+					}
+				},
+				{
+					icon: 'edit',
+					context: '编辑',
+					hidden: !hasPermission(Base.UserUpdate),
+					disabled: row.roles.includes('admin'),
+					callback(done) {
+						openDrawer('update', row)
+						done()
+					}
+				},
+				{
+					icon: 'trash',
+					context: '删除',
+					hidden: !hasPermission(Base.UserRemove),
+					disabled: row.roles.includes('admin'),
+					callback(done) {
+						confirmRemove([row.id])
+						done()
+					}
 				}
-			},
-			{
-				icon: 'edit',
-				context: '编辑',
-				disabled: row.roles.includes('admin'),
-				callback(done) {
-					openDrawer('update', row)
-					done()
-				}
-			},
-			{
-				icon: 'trash',
-				context: '删除',
-				disabled: row.roles.includes('admin'),
-				callback(done) {
-					confirmRemove([row.id])
-					done()
-				}
-			}
-		]
-	})
+			]
+		})
+	}
 }
 
 // 刷新
@@ -404,6 +413,7 @@ onMounted(() => {
 						<div class="actions">
 							<div class="flex-1"></div>
 							<el-button
+								v-permission="Base.UserCreate"
 								type="primary"
 								@click="openDrawer('create')"
 							>
@@ -411,6 +421,7 @@ onMounted(() => {
 								<span>新增</span>
 							</el-button>
 							<el-button
+								v-permission="Base.UserRemove"
 								:disabled="!checkedIds.length"
 								type="danger"
 								plain
@@ -513,6 +524,7 @@ onMounted(() => {
 							v-slot="{ row }"
 						>
 							<el-button
+								v-permission="Base.UserResetPassword"
 								:disabled="row.roles.includes('admin')"
 								plain
 								type="success"
@@ -521,6 +533,7 @@ onMounted(() => {
 								重置
 							</el-button>
 							<el-button
+								v-permission="Base.UserUpdate"
 								:disabled="row.roles.includes('admin')"
 								plain
 								type="primary"
@@ -529,6 +542,7 @@ onMounted(() => {
 								编辑
 							</el-button>
 							<el-button
+								v-permission="Base.UserRemove"
 								:disabled="row.roles.includes('admin')"
 								plain
 								type="danger"

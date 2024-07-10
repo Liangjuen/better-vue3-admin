@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useMenu } from '~/hooks/common'
-
+import { StoreName } from '~/enums'
 export const useMenuStore = defineStore(
-	'menu',
+	StoreName.MENU,
 	() => {
 		const { menuListToTree, menuMappingRoutes, sort } = useMenu()
 		// 元数据

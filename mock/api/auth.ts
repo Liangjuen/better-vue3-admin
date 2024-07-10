@@ -28,14 +28,8 @@ export default defineMock({
 				const menus = username == 'admin' ? menuData : otherMenus
 				const perms = {
 					admin: permData,
-					editor: [
-						Base.UserList,
-						Base.DepartmentList,
-						Base.MenuList,
-						Base.RoleList,
-						Base.ConfigList
-					],
-					ghost: [Base.ConfigList]
+					editor: roleData[1].perms,
+					ghost: roleData[2].perms
 				}
 
 				return mockResponse.ok({

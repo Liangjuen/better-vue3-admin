@@ -17,31 +17,32 @@ export const roleData = [
 		name: 'editor',
 		code: 'Editor',
 		menuIdList: [
-			1, 2, 3, 5, 10, 11, 12, 20, 21, 200, 201, 210, 211, 220, 30, 31, 32
+			1, 2, 3, 5, 10, 11, 12, 20, 21, 200, 201, 210, 211, 220, 30, 31, 32,
+			4, 40, 41, 42
 		],
 		perms: [
 			Base.MenuList,
 			Base.MenuGet,
 			Base.MenuCreate,
 			Base.MenuUpdate,
-			Base.MenuRemove,
+			// Base.MenuRemove,
 			Base.PermList,
 			Base.RoleList,
 			Base.RoleGet,
 			Base.RoleCreate,
 			Base.RoleUpdate,
-			Base.RoleRemove,
+			// Base.RoleRemove,
 			Base.DepartmentCreate,
 			Base.DepartmentGet,
 			Base.DepartmentUpdate,
 			Base.DepartmentList,
-			Base.DepartmentRemove,
+			// Base.DepartmentRemove,
 			Base.UserList,
 			Base.UserGet,
 			Base.UserCreate,
-			Base.UserUpdate,
-			Base.UserRemove,
-			Base.UserResetPassword
+			Base.UserUpdate
+			// Base.UserRemove,
+			// Base.UserResetPassword
 		],
 		remark: '管理员',
 		status: 1,

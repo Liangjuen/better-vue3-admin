@@ -4,12 +4,16 @@ import { VueDraggable } from 'vue-draggable-plus'
 import { listToTree } from '~/utils'
 import { RoleModel, service, type Role } from '~/network/api'
 import { rules, treeProps } from './options'
+import { Base } from '~/enums/permission.enum'
+import { usePermission } from '~/hooks/business'
 
 import type { FormInstance } from 'element-plus'
 
 defineOptions({
 	name: 'base-role'
 })
+
+const { hasPermission } = usePermission()
 
 const initFormData: RoleModel = {
 	name: '',
@@ -218,11 +222,14 @@ function onContextMenu(
 	_column: any,
 	event: MouseEvent | MouseEvent
 ) {
+	if (!hasPermission([Base.RoleCreate, Base.RoleUpdate, Base.RoleRemove]))
+		return
 	BContextMenu.create(event, {
 		list: [
 			{
 				icon: 'plus',
 				context: '新增',
+				hidden: !hasPermission(Base.RoleCreate),
 				callback(done) {
 					openDrawer('create')
 					done()
@@ -232,6 +239,7 @@ function onContextMenu(
 				icon: 'edit',
 				context: '编辑',
 				disabled: row.code == 'Admin',
+				hidden: !hasPermission(Base.RoleUpdate),
 				callback(done) {
 					openDrawer('update', row)
 					done()
@@ -240,6 +248,7 @@ function onContextMenu(
 			{
 				icon: 'trash',
 				context: '删除',
+				hidden: !hasPermission(Base.RoleRemove),
 				disabled: row.code == 'Admin',
 				callback(done) {
 					confirmRemove([row.id])
@@ -354,11 +363,16 @@ onMounted(async () => {
 				<el-col :xs="24" :sm="12" :md="16" :lg="16" :xl="16">
 					<el-form-item>
 						<div class="flex-1"></div>
-						<el-button type="primary" @click="openDrawer('create')">
+						<el-button
+							v-permission="[Base.RoleCreate]"
+							type="primary"
+							@click="openDrawer('create')"
+						>
 							<svg-icon icon="plus" class="mr-8" />
 							<span>新增</span>
 						</el-button>
 						<el-button
+							v-permission="[Base.RoleRemove]"
 							:disabled="!checkedIds.length"
 							type="danger"
 							plain
@@ -473,6 +487,7 @@ onMounted(async () => {
 						v-slot="{ row }"
 					>
 						<el-button
+							v-permission="[Base.RoleUpdate]"
 							plain
 							type="primary"
 							:disabled="row.code == 'Admin'"
@@ -481,6 +496,7 @@ onMounted(async () => {
 							编辑
 						</el-button>
 						<el-button
+							v-permission="[Base.RoleRemove]"
 							plain
 							type="danger"
 							:disabled="row.code == 'Admin'"
