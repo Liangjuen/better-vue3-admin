@@ -1,7 +1,7 @@
 <template>
 	<div class="app-tab" :class="tabClass">
 		<oprations :type="type" />
-		<process :type="type" />
+		<process :type="type" :is-mobile="appStore.isMobile" />
 	</div>
 </template>
 
@@ -9,6 +9,8 @@
 import { computed } from 'vue'
 import Oprations from './operations.vue'
 import Process from './process.vue'
+import { useGlobal } from '~/store'
+
 const props = withDefaults(
 	defineProps<{
 		type?: Theme.TabStyle
@@ -20,6 +22,8 @@ const props = withDefaults(
 defineOptions({
 	name: 'app-tab'
 })
+
+const { appStore } = useGlobal()
 
 const tabClass = computed(() => {
 	return [`app-tab-style-${props.type || 'default'}`]

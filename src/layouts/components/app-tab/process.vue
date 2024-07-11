@@ -2,6 +2,7 @@
 	<vue-draggable
 		v-model="processStore.list"
 		:animation="250"
+		:disabled="isMobile"
 		target=".process-scroller"
 		:class="processClass"
 	>
@@ -32,6 +33,7 @@ import { useBetter } from '~/hooks'
 import { useGlobal } from '~/store'
 const props = defineProps<{
 	type: Theme.TabStyle
+	isMobile: boolean
 }>()
 defineOptions({
 	name: 'app-tab-process'
@@ -269,17 +271,11 @@ html.dark {
 			color: var(--el-color-primary);
 		}
 		.svg-icon {
-			width: 0;
+			width: 16px;
+			margin-left: 4px;
 			transition: width var(--ani-duration);
 			&:hover {
 				color: var(--el-color-error);
-			}
-		}
-		&.active,
-		&:hover {
-			.svg-icon {
-				width: 16px;
-				margin-left: 4px;
 			}
 		}
 	}

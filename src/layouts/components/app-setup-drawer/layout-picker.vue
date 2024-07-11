@@ -21,7 +21,7 @@ const options: Array<LayoutPickerOptions> = [
 ]
 
 function handlePickerClick(item: LayoutPickerOptions) {
-	if (item.mode == 'horizontal-mix' && appStore.isMobile) return
+	if (item.mode.includes('horizontal') && appStore.isMobile) return
 	appStore.layoutMode = item.mode
 }
 </script>
