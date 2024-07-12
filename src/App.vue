@@ -13,5 +13,6 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
+	filter: grayscale(var(--gray-percent));
 }
 </style>

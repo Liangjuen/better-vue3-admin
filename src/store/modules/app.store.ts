@@ -38,6 +38,9 @@ export const useAppStore = defineStore(
 		// 主题颜色
 		const color = ref(defaultOptions.color)
 
+		// 灰色模式
+		const gray = ref(false)
+
 		// 菜单宽度
 		const siderWidth = ref(defaultOptions.siderWidth)
 
@@ -90,6 +93,7 @@ export const useAppStore = defineStore(
 		function $reset() {
 			layoutMode.value = defaultOptions.layoutMode
 			color.value = defaultOptions.color
+			gray.value = false
 			animationName.value = defaultOptions.animationName
 			headerBackMode.value = defaultOptions.headerBackMode
 			siderBackMode.value = defaultOptions.siderBackMode
@@ -105,6 +109,19 @@ export const useAppStore = defineStore(
 				isFold.value = true
 			}
 		})
+
+		watch(
+			gray,
+			(val) => {
+				document.documentElement.style.setProperty(
+					'--gray-percent',
+					val ? '100%' : '0'
+				)
+			},
+			{
+				immediate: true
+			}
+		)
 
 		watch(
 			[color, isDark],
@@ -153,6 +170,7 @@ export const useAppStore = defineStore(
 			headerBackMode,
 			siderBackMode,
 			color,
+			gray,
 			showFooter,
 			siderWidth,
 			animationName,
@@ -177,6 +195,7 @@ export const useAppStore = defineStore(
 				'showFooter',
 				'menuBackMode',
 				'color',
+				'gray',
 				'siderWidth',
 				'animationName',
 				'maxCache',

@@ -80,6 +80,9 @@
 		<set-item label="暗黑模式">
 			<theme />
 		</set-item>
+		<set-item label="灰色模式">
+			<el-switch v-model="appStore.gray" />
+		</set-item>
 		<set-item label="显示标签">
 			<el-switch v-model="appStore.showTabbar" />
 		</set-item>
