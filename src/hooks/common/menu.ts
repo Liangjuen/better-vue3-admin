@@ -30,6 +30,7 @@ export const useMenu = (menus: Menu.List = []) => {
 				path: m.path as string,
 				component: m.component,
 				meta: {
+					icon: m.icon,
 					iframe: m.iframe,
 					link: m.link,
 					openNewWindow: !!m.openNewWindow,

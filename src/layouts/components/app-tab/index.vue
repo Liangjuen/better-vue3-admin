@@ -1,7 +1,8 @@
 <template>
 	<div class="app-tab" :class="tabClass">
-		<oprations :type="type" />
 		<process :type="type" :is-mobile="appStore.isMobile" />
+		<div class="placeholder"></div>
+		<oprations :type="type" />
 	</div>
 </template>
 
@@ -47,6 +48,9 @@ const tabClass = computed(() => {
 		padding: calc(var(--layout-padding) / 2) var(--layout-padding);
 		min-height: 30px;
 		box-shadow: rgba(0, 0, 0, 0.08) 1px 1px 2px;
+	}
+	.placeholder {
+		width: var(--layout-padding);
 	}
 }
 </style>

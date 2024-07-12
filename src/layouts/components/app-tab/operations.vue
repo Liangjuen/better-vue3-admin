@@ -32,6 +32,11 @@ const { mitt, router } = useBetter()
 
 const oprations = computed(() => [
 	{
+		icon: 'home-analytics',
+		action: () => router.push('/home'),
+		iconSize: 18
+	},
+	{
 		icon: 'refresh',
 		action: () => mitt.emit('view.refresh')
 	},
@@ -41,11 +46,6 @@ const oprations = computed(() => [
 			contentFullscreen.value = !contentFullscreen.value
 			mitt.emit('view.toggle.fullscreen', contentFullscreen.value)
 		}
-	},
-	{
-		icon: 'home-analytics',
-		action: () => router.push('/home'),
-		iconSize: 18
 	}
 ])
 
@@ -73,7 +73,6 @@ function openCm(e: PointerEvent | MouseEvent) {
 	height: 100%;
 	background-color: var(--el-bg-color);
 	border-radius: 8px;
-	margin-right: var(--theme-margin);
 	.item {
 		padding: 7px 7px;
 		border-radius: 4px;
