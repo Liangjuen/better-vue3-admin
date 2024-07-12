@@ -39,7 +39,7 @@ export const useAppStore = defineStore(
 		const color = ref(defaultOptions.color)
 
 		// 菜单宽度
-		const menuWidth = ref(defaultOptions.menuWidth)
+		const siderWidth = ref(defaultOptions.siderWidth)
 
 		// 过度动画
 		const animationName = ref(defaultOptions.animationName)
@@ -95,7 +95,7 @@ export const useAppStore = defineStore(
 			siderBackMode.value = defaultOptions.siderBackMode
 			showTabbar.value = defaultOptions.showTabbar
 			showFooter.value = defaultOptions.showFooter
-			menuWidth.value = defaultOptions.menuWidth
+			siderWidth.value = defaultOptions.siderWidth
 			radius.value = defaultOptions.radius
 			tabStyle.value = defaultOptions.tabStyle
 		}
@@ -118,7 +118,7 @@ export const useAppStore = defineStore(
 		)
 
 		watch(
-			menuWidth,
+			siderWidth,
 			(val) => {
 				document.documentElement.style.setProperty(
 					'--left-aside-width',
@@ -154,7 +154,7 @@ export const useAppStore = defineStore(
 			siderBackMode,
 			color,
 			showFooter,
-			menuWidth,
+			siderWidth,
 			animationName,
 			isRefresh,
 			maxCache,
@@ -177,7 +177,7 @@ export const useAppStore = defineStore(
 				'showFooter',
 				'menuBackMode',
 				'color',
-				'menuWidth',
+				'siderWidth',
 				'animationName',
 				'maxCache',
 				'radius',

@@ -24,7 +24,8 @@ const {
 	headerBackMode,
 	isMobile,
 	showTabbar,
-	showFooter
+	showFooter,
+	siderWidth
 } = storeToRefs(appStore)
 const { tree } = storeToRefs(menuStore)
 
@@ -68,6 +69,7 @@ onUnmounted(() => {
 		v-model:siderCollapse="isFold"
 		v-model:fullView="viewFull"
 		ref="layoutRef"
+		:sider-width="siderWidth"
 		:mode="layoutMode"
 		:mobile="isMobile"
 		:hide-tab="!showTabbar"

@@ -56,10 +56,10 @@
 				/>
 			</el-select>
 		</set-item>
-		<set-item label="菜单宽度">
+		<set-item label="侧边栏宽度">
 			<el-input-number
 				type="number"
-				v-model="appStore.menuWidth"
+				v-model="appStore.siderWidth"
 				:min="256"
 				:max="500"
 				:style="{ width: '160px' }"

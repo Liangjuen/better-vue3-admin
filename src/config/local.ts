@@ -88,7 +88,7 @@ export const theme = {
 		animationName: 'none',
 		showTabbar: true,
 		showFooter: true,
-		menuWidth: 256,
+		siderWidth: 256,
 		radius: 6,
 		tabStyle: 'default'
 	}
