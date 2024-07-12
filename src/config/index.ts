@@ -6,7 +6,7 @@ export const config = {
 	app: {
 		name: import.meta.env.VITE_NAME,
 		router: {
-			mode: 'history'
+			mode: 'hash'
 		},
 		maxMobileSize: 800
 	},
