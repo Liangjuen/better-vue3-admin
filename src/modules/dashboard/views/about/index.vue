@@ -20,7 +20,7 @@ const packages = {
 </script>
 
 <template>
-	<div class="about-workspace">
+	<div class="about-workspace padding-theme">
 		<el-card shadow="hover">
 			<template #header> 关于 </template>
 			<el-text>

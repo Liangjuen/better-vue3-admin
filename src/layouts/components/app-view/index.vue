@@ -1,13 +1,11 @@
 <template>
-	<section class="app-view">
-		<router-view v-slot="{ Component }">
-			<transition :name="appStore.animationName" appear mode="out-in">
-				<keep-alive :include="processStore.caches" :key="key">
-					<component :is="Component" />
-				</keep-alive>
-			</transition>
-		</router-view>
-	</section>
+	<router-view v-slot="{ Component }">
+		<transition :name="appStore.animationName" appear mode="out-in">
+			<keep-alive :include="processStore.caches" :key="key">
+				<component :is="Component" />
+			</keep-alive>
+		</transition>
+	</router-view>
 </template>
 
 <script setup lang="ts">
@@ -37,12 +35,4 @@ onUnmounted(() => {
 })
 </script>
 
-<style lang="scss" scoped>
-.app-view {
-	position: relative;
-	box-sizing: border-box;
-	width: 100%;
-	height: 100%;
-	min-height: 100%;
-}
-</style>
+<style></style>

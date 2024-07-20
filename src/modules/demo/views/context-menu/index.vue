@@ -1,5 +1,5 @@
 <template>
-	<div class="content-wrap">
+	<div class="content-wrap padding-theme">
 		<div class="context-demo-item" @contextmenu="(e) => openCm(e)">
 			简约
 		</div>

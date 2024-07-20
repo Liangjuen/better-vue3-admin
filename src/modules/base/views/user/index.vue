@@ -377,7 +377,11 @@ onMounted(() => {
 </script>
 
 <template>
-	<b-view-group left-view-title="组织" right-view-titel="用户列表">
+	<b-view-group
+		left-view-title="组织"
+		right-view-titel="用户列表"
+		class="padding-theme"
+	>
 		<template #left>
 			<depart-list ref="departRef" @refresh="handleRefresh" />
 		</template>

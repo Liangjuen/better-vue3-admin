@@ -1,5 +1,5 @@
 <template>
-	<div class="icon-list">
+	<div class="icon-list padding-theme">
 		<div
 			class="item"
 			v-for="item in svgNames"

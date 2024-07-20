@@ -17,13 +17,15 @@ onActivated(() => {
 </script>
 
 <template>
-	<iframe id="iframePage" class="size-full" :src="url"></iframe>
+	<iframe id="iframePage" :src="url"></iframe>
 </template>
 
 <style scoped>
 #iframePage {
+	display: block;
 	width: 100%;
 	height: 100%;
-	border: unset;
+	box-sizing: border-box;
+	border: none;
 }
 </style>

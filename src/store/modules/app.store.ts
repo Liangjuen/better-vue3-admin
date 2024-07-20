@@ -6,7 +6,7 @@ import { primaryColor } from '~/utils'
 import { StoreName } from '~/enums'
 import { config } from '~/config'
 
-const defaultOptions = config.theme.default
+const defaultOptions = config.local
 
 export const useAppStore = defineStore(
 	StoreName.APP,
@@ -61,6 +61,8 @@ export const useAppStore = defineStore(
 
 		// 是否为移动端
 		const isMobile = ref(false)
+
+		const language = ref<App.I18n.Lang>(defaultOptions.language)
 
 		const { width } = useWindowSize()
 
@@ -179,6 +181,7 @@ export const useAppStore = defineStore(
 			radius,
 			tabStyle,
 			isMobile,
+			language,
 			refreshView,
 			$reset
 		}
@@ -200,7 +203,8 @@ export const useAppStore = defineStore(
 				'animationName',
 				'maxCache',
 				'radius',
-				'tabStyle'
+				'tabStyle',
+				'language'
 			]
 		}
 	}

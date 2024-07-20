@@ -187,10 +187,12 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	.app-header-tool-item {
 		height: calc(100% - (var(--theme-padding) * 2));
 		min-height: 32px;
+		min-width: 32px;
 		display: flex;
+		justify-content: center;
 		align-items: center;
+		margin-left: var(--theme-margin);
 		cursor: pointer;
-		padding: 0 10px;
 		border-radius: 6px;
 		transition:
 			background-color,
@@ -203,6 +205,7 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 
 	.panel-right {
 		.user-info {
+			padding: 0 var(--theme-padding);
 			&:hover .username {
 				color: var(--el-color-primary);
 			}
@@ -219,6 +222,7 @@ const activeClass = computed(() => (!appStore.isFold ? 'is-active' : ''))
 	height: 100%;
 	width: 40px;
 	background-color: transparent;
+	margin-left: 0 !important;
 	&:hover {
 		.ham-container {
 			.ham-top,

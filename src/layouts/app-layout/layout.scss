@@ -93,11 +93,6 @@
 		flex-grow: 1;
 		overflow-x: hidden;
 		box-sizing: border-box;
-
-		.app-view {
-			box-sizing: border-box;
-			padding: var(--theme-padding);
-		}
 	}
 
 	&__mask {

@@ -26,70 +26,85 @@ export const menus: Menu.List = [
 	}
 ]
 
-/**
- * 主题设置
- */
-export const theme = {
-	// 页面 Transition 组件name
-	viewTransitionNames: [
-		{
-			label: 'zoom',
-			value: 'zoom'
-		},
-		{
-			label: 'fade',
-			value: 'fade'
-		},
-		{
-			label: 'slide-left',
-			value: 'slide-left'
-		},
-		{
-			label: 'slide-right',
-			value: 'slide-right'
-		}
-	],
-	// 背景
-	backMode: [
-		{
-			label: '自适应',
-			value: 'auto'
-		},
-		{
-			label: '深色',
-			value: 'dark'
-		},
-		{
-			label: '主题',
-			value: 'primary'
-		}
-	],
-	// 标签风格
-	tabStyles: [
-		{
-			label: '默认',
-			value: 'default'
-		},
-		{
-			label: '谷歌',
-			value: 'chrome'
-		},
-		{
-			label: '卡片',
-			value: 'card'
-		}
-	],
-	// 默认配置值
-	default: {
-		layoutMode: 'vertical',
-		headerBackMode: 'auto',
-		siderBackMode: 'auto',
-		color: '#409EFF',
-		animationName: 'none',
-		showTabbar: true,
-		showFooter: true,
-		siderWidth: 256,
-		radius: 6,
-		tabStyle: 'default'
+// 国际化
+export const langOptions: App.I18n.LangOption[] = [
+	{
+		label: '中文',
+		value: 'zh-CN'
+	},
+	{
+		label: 'English',
+		value: 'en-US'
 	}
-} as const
+]
+
+// 页面 Transition 组件name
+export const viewTransitionNames: App.Config.ViewTransitionNameOption[] = [
+	{
+		label: 'zoom',
+		value: 'zoom'
+	},
+	{
+		label: 'fade',
+		value: 'fade'
+	},
+	{
+		label: 'slide-left',
+		value: 'slide-left'
+	},
+	{
+		label: 'slide-right',
+		value: 'slide-right'
+	}
+]
+
+export const backModes: App.Config.BackModeOption[] = [
+	{
+		label: '自适应',
+		value: 'auto'
+	},
+	{
+		label: '深色',
+		value: 'dark'
+	},
+	{
+		label: '主题',
+		value: 'primary'
+	}
+]
+
+// header 背景
+export const headerBackModes = backModes
+
+// sider 背景
+export const siderBackModes = backModes
+
+// 标签风格
+export const tabStyles: App.Config.TabStyleOption[] = [
+	{
+		label: '默认',
+		value: 'default'
+	},
+	{
+		label: '谷歌',
+		value: 'chrome'
+	},
+	{
+		label: '卡片',
+		value: 'card'
+	}
+]
+
+export const local: App.Config.SetOption = {
+	layoutMode: 'vertical',
+	headerBackMode: 'auto',
+	siderBackMode: 'auto',
+	color: '#409EFF',
+	animationName: 'none',
+	showTabbar: true,
+	showFooter: true,
+	siderWidth: 256,
+	radius: 6,
+	tabStyle: 'default',
+	language: 'zh-CN'
+}

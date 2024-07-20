@@ -1,5 +1,13 @@
 import { envConfig } from './env'
-import { menus, theme } from './local'
+import {
+	menus,
+	local,
+	langOptions,
+	viewTransitionNames,
+	headerBackModes,
+	siderBackModes,
+	tabStyles
+} from './local'
 
 // 配置
 export const config = {
@@ -35,9 +43,12 @@ export const config = {
 	//环境配置
 	...envConfig,
 
-	// 主题配置
-	theme,
-
+	local,
+	langOptions,
+	viewTransitionNames,
+	headerBackModes,
+	siderBackModes,
+	tabStyles,
 	// 菜单
 	menus
 }

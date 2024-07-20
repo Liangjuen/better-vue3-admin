@@ -37,7 +37,7 @@ declare namespace App {
 			hide: boolean
 			height: number
 			cache: boolean
-			mode: 'chrome' | 'default' | 'button'
+			mode: 'chrome' | 'default' | 'card'
 		}
 
 		/** layout footer */
@@ -72,6 +72,49 @@ declare namespace App {
 			sider: Pick<Layout.Sider, 'hide' | 'bgcMode' | 'width'>
 			footer: Layout.Footer
 			viewTransition: TransitionName
+		}
+	}
+
+	/** i18n namespace */
+	namespace I18n {
+		type Lang = 'en-US' | 'zh-CN'
+
+		interface LangOption {
+			label: string
+			value: Lang
+		}
+	}
+
+	/** app config namespace */
+	namespace Config {
+		/** app set options */
+		interface SetOption {
+			layoutMode: Layout.Mode
+			headerBackMode: BackgroundColorMode
+			siderBackMode: BackgroundColorMode
+			color: string
+			animationName: Theme.TransitionName | 'none'
+			showTabbar: boolean
+			showFooter: boolean
+			siderWidth: number
+			radius: number
+			tabStyle: Layout.Tab['mode']
+			language: I18n.Lang
+		}
+
+		interface TabStyleOption {
+			label: string
+			value: Layout.Tab['mode']
+		}
+
+		interface BackModeOption {
+			label: string
+			value: BackgroundColorMode
+		}
+
+		interface ViewTransitionNameOption {
+			label: string
+			value: Theme.TransitionName | 'none'
 		}
 	}
 }

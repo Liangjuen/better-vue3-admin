@@ -330,7 +330,7 @@ onMounted(async () => {
 </script>
 
 <template>
-	<div class="base-role-workspace" v-loading="loading">
+	<div class="base-role-workspace padding-theme" v-loading="loading">
 		<el-form class="page-head">
 			<el-row :gutter="24">
 				<el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">

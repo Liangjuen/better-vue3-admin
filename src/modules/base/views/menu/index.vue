@@ -372,7 +372,7 @@ onMounted(async () => {
 </script>
 
 <template>
-	<b-view-wrap v-loading="loading">
+	<b-view-wrap v-loading="loading" class="padding-theme">
 		<div class="base-menu-workspace padding-theme">
 			<div class="page-head">
 				<div class="flex-1"></div>

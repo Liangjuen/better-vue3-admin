@@ -9,7 +9,7 @@ defineOptions({ name: 'home' })
 </script>
 
 <template>
-	<div class="home-analytics-workspace">
+	<div class="home-analytics-workspace padding-theme">
 		<header-banner />
 		<card-data />
 		<el-row :gutter="10">

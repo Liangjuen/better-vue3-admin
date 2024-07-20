@@ -12,7 +12,7 @@
 				:style="{ width: '160px' }"
 			>
 				<el-option
-					v-for="item in backMode"
+					v-for="item in siderBackModes"
 					:key="item.value"
 					:label="item.label"
 					:value="item.value"
@@ -25,7 +25,7 @@
 				:style="{ width: '160px' }"
 			>
 				<el-option
-					v-for="item in backMode"
+					v-for="item in headerBackModes"
 					:key="item.value"
 					:label="item.label"
 					:value="item.value"
@@ -106,9 +106,8 @@ defineOptions({
 	name: 'set-opt-drawer'
 })
 
-const {
-	theme: { viewTransitionNames, tabStyles, backMode }
-} = config
+const { viewTransitionNames, tabStyles, siderBackModes, headerBackModes } =
+	config
 
 const { appStore } = useGlobal()
 
