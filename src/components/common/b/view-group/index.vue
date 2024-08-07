@@ -211,7 +211,7 @@ defineOptions({
 
 		&.collapse {
 			.b-view-group__left {
-				transform: translateX(-100%);
+				transform: translateX(calc(-100% - var(--theme-padding)));
 			}
 		}
 	}
