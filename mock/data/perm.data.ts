@@ -29,4 +29,44 @@ export enum Base {
 	ConfigRemove = 'base:config:remove'
 }
 
-export const permData = enumToList(Base)
+export namespace Data {
+	export enum DictType {
+		Get = 'data:dictType:get',
+		List = 'data:dictType:list',
+		Create = 'data:dictType:create',
+		Update = 'data:dictType:update',
+		Remove = 'data:dictType:remove'
+	}
+
+	export enum Dict {
+		Get = 'data:dict:get',
+		List = 'data:dict:list',
+		Create = 'data:dict:create',
+		Update = 'data:dict:update',
+		Remove = 'data:dict:remove'
+	}
+
+	export enum StorageType {
+		Get = 'data:storageType:get',
+		List = 'data:storageType:list',
+		Create = 'data:storageType:create',
+		Update = 'data:storageType:update',
+		Remove = 'data:storageType:remove'
+	}
+
+	export enum Storage {
+		Get = 'data:storage:get',
+		List = 'data:storage:list',
+		Create = 'data:storage:create',
+		Update = 'data:storage:update',
+		Remove = 'data:storage:remove'
+	}
+}
+
+export const permData = enumToList({
+	...Base,
+	...Data.Dict,
+	...Data.DictType,
+	...Data.StorageType,
+	...Data.StorageType
+})

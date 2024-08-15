@@ -1,4 +1,4 @@
-import { Base } from './perm.data'
+import { Base, Data } from './perm.data'
 
 export const menuData = [
 	{
@@ -342,6 +342,76 @@ export const menuData = [
 	},
 	{
 		id: 5,
+		createdAt: '2024-02-06',
+		updatedAt: '2024-03-13',
+		name: '数据',
+		perms: [],
+		pid: null,
+		type: 1,
+		path: null,
+		component: '',
+		icon: 'database',
+		sort: 5,
+		cache: 0,
+		hidden: 0,
+		status: 1
+	},
+	{
+		id: 50,
+		createdAt: '2024-02-06',
+		updatedAt: '2024-03-13',
+		name: '字典管理',
+		perms: [
+			Data.DictType.Create,
+			Data.DictType.Get,
+			Data.DictType.List,
+			Data.DictType.Remove,
+			Data.DictType.Update,
+			Data.Dict.Create,
+			Data.Dict.Get,
+			Data.Dict.List,
+			Data.Dict.Remove,
+			Data.Dict.Update
+		],
+		pid: 5,
+		type: 2,
+		path: '/data/dict',
+		component: 'data/views/dict/index.vue',
+		icon: 'book-open',
+		sort: 5,
+		cache: 1,
+		hidden: 0,
+		status: 1
+	},
+	{
+		id: 51,
+		createdAt: '2024-02-06',
+		updatedAt: '2024-03-13',
+		name: '存储管理',
+		perms: [
+			Data.StorageType.Create,
+			Data.StorageType.Get,
+			Data.StorageType.List,
+			Data.StorageType.Remove,
+			Data.StorageType.Update,
+			Data.Storage.Create,
+			Data.Storage.Get,
+			Data.Storage.List,
+			Data.Storage.Remove,
+			Data.Storage.Update
+		],
+		pid: 5,
+		type: 2,
+		path: '/data/storage',
+		component: 'data/views/storage/index.vue',
+		icon: 'folder',
+		sort: 5,
+		cache: 1,
+		hidden: 0,
+		status: 1
+	},
+	{
+		id: 6,
 		createdAt: '2024-02-23',
 		updatedAt: '2024-03-24',
 		name: '个人中心',
@@ -351,7 +421,7 @@ export const menuData = [
 		path: '/personal',
 		component: 'base/views/user/info.vue',
 		icon: 'user',
-		sort: 5,
+		sort: 6,
 		cache: 1,
 		hidden: 1,
 		status: 1
