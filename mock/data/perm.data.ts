@@ -63,10 +63,16 @@ export namespace Data {
 	}
 }
 
-export const permData = enumToList({
-	...Base,
-	...Data.Dict,
-	...Data.DictType,
-	...Data.StorageType,
-	...Data.StorageType
-})
+const base = enumToList(Base)
+const dict = enumToList(Data.Dict)
+const dictType = enumToList(Data.DictType)
+const storage = enumToList(Data.Storage)
+const storageType = enumToList(Data.StorageType)
+
+export const permData = [
+	...base,
+	...dict,
+	...dictType,
+	...storage,
+	...storageType
+]

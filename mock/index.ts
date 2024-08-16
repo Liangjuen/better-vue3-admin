@@ -7,8 +7,18 @@ import user from './api/user'
 import perm from './api/perm'
 import depart from './api/depart'
 import role from './api/role'
+import { dict, dictType } from './api/dict'
 
-export const mocks = [...menu, ...auth, ...user, ...perm, ...depart, ...role]
+export const mocks = [
+	...menu,
+	...auth,
+	...user,
+	...perm,
+	...depart,
+	...role,
+	...dict,
+	...dictType
+]
 
 /**
  * 初始化数据模拟

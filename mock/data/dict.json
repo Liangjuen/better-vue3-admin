@@ -1,0 +1,163 @@
+{
+	"dict": [
+		{
+			"id": 1,
+			"pId": null,
+			"name": "法师",
+			"value": "法师",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 1,
+			"orderNum": 1
+		},
+		{
+			"id": 2,
+			"pId": null,
+			"name": "战士",
+			"value": "战士",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 1,
+			"orderNum": 2
+		},
+		{
+			"id": 3,
+			"pId": null,
+			"name": "坦克",
+			"value": "坦克",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 1,
+			"orderNum": 3
+		},
+		{
+			"id": 4,
+			"pId": null,
+			"name": "射手",
+			"value": "射手",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 1,
+			"orderNum": 4
+		},
+		{
+			"id": 5,
+			"pId": null,
+			"name": "刺客",
+			"value": "刺客",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 1,
+			"orderNum": 5
+		},
+		{
+			"id": 6,
+			"pId": 5,
+			"name": "幻影刺客",
+			"value": "幻影刺客",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 1,
+			"orderNum": 6
+		},
+		{
+			"id": 7,
+			"pId": 4,
+			"name": "急枪射手",
+			"value": "急枪射手",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 1,
+			"orderNum": 7
+		},
+		{
+			"id": 100,
+			"pId": null,
+			"name": "华为",
+			"value": "HUAWEI",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 2,
+			"orderNum": 10
+		},
+		{
+			"id": 101,
+			"pId": null,
+			"name": "oppo",
+			"value": "OPPO",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 2,
+			"orderNum": 11
+		},
+		{
+			"id": 102,
+			"pId": null,
+			"name": "小米",
+			"value": "XIAOMI",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 2,
+			"orderNum": 12
+		},
+		{
+			"id": 103,
+			"pId": null,
+			"name": "vivo",
+			"value": "VIVO",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 2,
+			"orderNum": 13
+		},
+		{
+			"id": 104,
+			"pId": null,
+			"name": "三星",
+			"value": "SAMSUNG",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 2,
+			"orderNum": 14
+		},
+		{
+			"id": 105,
+			"pId": null,
+			"name": "苹果",
+			"value": "APPLE",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16",
+			"remark": "",
+			"typeId": 2,
+			"orderNum": 15
+		}
+	],
+	"type": [
+		{
+			"id": 1,
+			"name": "职业",
+			"key": "occupation",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16"
+		},
+		{
+			"id": 2,
+			"name": "品牌",
+			"key": "brand",
+			"createdAt": "2024-08-16",
+			"updatedAt": "2024-08-16"
+		}
+	]
+}
