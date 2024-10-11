@@ -7,6 +7,7 @@ import DictTypeList from './components/dict-type-list.vue'
 		class="padding-theme"
 		left-view-title="字典类型"
 		right-view-titel="字典列表"
+		:view-left-width="420"
 	>
 		<template #left><dict-type-list /></template>
 	</b-view-group>

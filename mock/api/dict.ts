@@ -2,7 +2,7 @@ import { defineMock, mockResponse } from '../utils'
 import data from '../data/dict.json'
 
 export const dictType = defineMock({
-	restfulPath: 'dictType',
+	restfulPath: '/dictTypes',
 	mockList: [
 		{
 			method: 'get',
@@ -30,7 +30,7 @@ export const dictType = defineMock({
 })
 
 export const dict = defineMock({
-	restfulPath: 'dict',
+	restfulPath: '/dicts',
 	mockList: [
 		{
 			method: 'get',
