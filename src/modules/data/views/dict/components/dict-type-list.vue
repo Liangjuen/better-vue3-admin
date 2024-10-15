@@ -3,12 +3,15 @@ import { ref, reactive, onMounted, nextTick } from 'vue'
 import { Data } from '~/enums/permission.enum'
 import { DictTypeRules } from '../options'
 import { service, DictTypeModel } from '~/network/api'
+import { usePermission } from '~/hooks/business'
 
 import type { FormInstance } from 'element-plus'
 
 export interface RefreshParams {
 	id: DictTypeModel['id']
 }
+
+const { hasPermission } = usePermission()
 
 const list = ref<Array<DictTypeModel>>([])
 
@@ -41,7 +44,14 @@ async function refresh() {
 		list.value = data
 		if (data.length) {
 			current.value.id = data[0].id
-			rowClick(data[0])
+			current.value.name = data[0].name
+			current.value.key = data[0].key
+			nextTick(() => {
+				// 刷新列表
+				emit('refresh', {
+					id: current.value.id
+				})
+			})
 		}
 	} catch (error) {
 		loading.value = false
@@ -103,6 +113,76 @@ const resetForm = (formEl: FormInstance | undefined) => {
 	formEl.resetFields()
 }
 
+// 右键菜单
+function onContextMenu(event: MouseEvent | MouseEvent, row: DictTypeModel) {
+	if (
+		hasPermission([
+			Data.DictType.Create,
+			Data.DictType.Update,
+			Data.DictType.Remove
+		])
+	) {
+		BContextMenu.create(event, {
+			list: [
+				{
+					context: '新增',
+					icon: 'plus',
+					hidden: !hasPermission(Data.DictType.Create),
+					callback: (done) => {
+						form.value.name = ''
+						form.value.key = ''
+						openDialog('create')
+						done()
+					}
+				},
+				{
+					context: '编辑',
+					icon: 'edit',
+					hidden: !hasPermission(Data.DictType.Update),
+					callback: (done) => {
+						form.value.id = row.id
+						form.value.name = row.name
+						form.value.key = row.key
+						openDialog('update')
+						done()
+					}
+				},
+				{
+					context: '删除',
+					icon: 'trash-2',
+					hidden: !hasPermission(Data.DictType.Remove),
+					callback: (done) => {
+						done()
+						ElMessageBox.confirm(
+							`是否删除“${row.name}"？`,
+							'提示',
+							{
+								confirmButtonText: '确定',
+								cancelButtonText: '取消',
+								type: 'warning'
+							}
+						)
+							.then(async () => {
+								await service.dictType.remove([row.id])
+								ElMessage({
+									type: 'success',
+									message: '删除成功!'
+								})
+								await refresh()
+							})
+							.catch(() => {
+								ElMessage({
+									type: 'info',
+									message: '已取消'
+								})
+							})
+					}
+				}
+			]
+		})
+	}
+}
+
 // 创建
 async function create() {
 	await service.dictType.create({
@@ -160,6 +240,7 @@ onMounted(() => {
 						class="dict-type-item"
 						:class="{ 'is-current': item.id == current.id }"
 						@click="rowClick(item)"
+						@contextmenu="(e) => onContextMenu(e, item)"
 					>
 						{{ item.name }} - {{ item.key }}
 					</div>

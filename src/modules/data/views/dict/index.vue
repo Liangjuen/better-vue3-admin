@@ -1,5 +1,11 @@
 <script lang="ts" setup>
 import DictTypeList from './components/dict-type-list.vue'
+
+import { RefreshParams } from './components/dict-type-list.vue'
+
+function handleRefresh(item: RefreshParams) {
+	console.log(item)
+}
 </script>
 
 <template>
@@ -9,6 +15,6 @@ import DictTypeList from './components/dict-type-list.vue'
 		right-view-titel="字典列表"
 		:view-left-width="420"
 	>
-		<template #left><dict-type-list /></template>
+		<template #left><dict-type-list @refresh="handleRefresh" /></template>
 	</b-view-group>
 </template>
