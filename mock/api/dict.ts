@@ -37,13 +37,19 @@ export const dict = defineMock({
 			response: (req: any) => {
 				const body = JSON.parse(req.body)
 				const typeId = body.typeId
+				const keyword = body.keyword
+				const page = body.page || 1
+				const size = body.size || 10
 				const dict = data.dict
 					.filter((i) => typeId == i.typeId)
+					.filter(
+						(i) => (keyword && i.name.includes(keyword)) || !keyword
+					)
 					.sort((a, b) => a.orderNum - b.orderNum)
 
 				return mockResponse.paginat({
-					page: 1,
-					size: 10,
+					page,
+					size,
 					total: dict.length,
 					list: dict
 				})

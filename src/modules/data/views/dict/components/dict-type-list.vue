@@ -7,9 +7,8 @@ import { usePermission } from '~/hooks/business'
 
 import type { FormInstance } from 'element-plus'
 
-export interface RefreshParams {
-	id: DictTypeModel['id']
-}
+export interface RefreshParams
+	extends Pick<DictTypeModel, 'id' | 'name' | 'key'> {}
 
 const { hasPermission } = usePermission()
 
@@ -37,21 +36,27 @@ const dialog = reactive<DialogModel>({
 	type: 'update',
 	opened: false
 })
+
+function setCurrent(item: DictTypeModel) {
+	current.value.id = item.id
+	current.value.name = item.name
+	current.value.key = item.key
+	nextTick(() => {
+		// 刷新列表
+		emit('refresh', {
+			id: current.value.id,
+			name: current.value.name,
+			key: current.value.key
+		})
+	})
+}
 async function refresh() {
 	loading.value = true
 	try {
 		const { data } = await service.dictType.list()
 		list.value = data
 		if (data.length) {
-			current.value.id = data[0].id
-			current.value.name = data[0].name
-			current.value.key = data[0].key
-			nextTick(() => {
-				// 刷新列表
-				emit('refresh', {
-					id: current.value.id
-				})
-			})
+			setCurrent(data[0])
 		}
 	} catch (error) {
 		loading.value = false
@@ -62,14 +67,7 @@ async function refresh() {
 // 点击
 function rowClick(item: DictTypeModel) {
 	if (item.id == current.value.id) return
-	current.value.id = item.id
-
-	nextTick(() => {
-		// 刷新列表
-		emit('refresh', {
-			id: current.value.id
-		})
-	})
+	setCurrent(item)
 }
 
 function openDialog(type: DialogModel['type']) {
@@ -203,7 +201,7 @@ async function update() {
 
 defineExpose({
 	refresh,
-	departments: list
+	dictTypes: list
 })
 
 onMounted(() => {

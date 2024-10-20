@@ -22,7 +22,9 @@ export namespace DictType {
 export namespace Dict {
 	export interface Item extends DictModel {}
 
-	export interface GetList extends API.Pagination {}
+	export interface GetList extends API.Pagination {
+		typeId: DictModel['id']
+	}
 
 	export interface Form extends Partial<DictModel> {}
 }
