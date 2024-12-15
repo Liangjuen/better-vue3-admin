@@ -8,6 +8,7 @@ import perm from './api/perm'
 import depart from './api/depart'
 import role from './api/role'
 import { dict, dictType } from './api/dict'
+import loginLog from './api/login-log'
 
 export const mocks = [
 	...menu,
@@ -17,7 +18,8 @@ export const mocks = [
 	...depart,
 	...role,
 	...dict,
-	...dictType
+	...dictType,
+	...loginLog
 ]
 
 /**

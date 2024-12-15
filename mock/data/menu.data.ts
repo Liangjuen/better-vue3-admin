@@ -341,6 +341,22 @@ export const menuData = [
 		status: 1
 	},
 	{
+		id: 43,
+		createdAt: '2024-02-06',
+		updatedAt: '2024-03-13',
+		name: '登录日志',
+		perms: [Base.LoginLogList, Base.LoginLogRemove, Base.LoginLogClear],
+		pid: 4,
+		type: 2,
+		path: '/sys/login-log',
+		component: 'base/views/login-log/index.vue',
+		icon: 'file-text',
+		sort: 42,
+		cache: 1,
+		hidden: 0,
+		status: 1
+	},
+	{
 		id: 5,
 		createdAt: '2024-02-06',
 		updatedAt: '2024-03-13',
