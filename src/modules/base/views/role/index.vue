@@ -515,7 +515,6 @@ onMounted(async () => {
 				:page-sizes="[10, 20, 30, 40]"
 				:total="total"
 				background
-				hide-on-single-page
 				layout="total, sizes, prev, pager, next, jumper"
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
@@ -646,6 +645,7 @@ onMounted(async () => {
 	.page-body {
 		display: flex;
 		flex-direction: column;
+		overflow: hidden;
 		width: 100%;
 		height: 100%;
 		padding: var(--theme-padding);
