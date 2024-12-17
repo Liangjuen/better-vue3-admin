@@ -6,12 +6,32 @@ export default defineMock({
 	mockList: [
 		{
 			method: 'get',
-			response: () => {
+			response: (req: any) => {
+				const body = JSON.parse(req.body)
+
+				const keyword = body.keyword
+				const page = body.page || 1
+				const size = body.size || 10
+				const state = body.loginState
+
+				const filters = loginLogData.filter(
+					(i) =>
+						(keyword &&
+							(i.username.includes(keyword) ||
+								i.ip.includes(keyword))) ||
+						!keyword
+				)
+
+				const list =
+					body.loginState == null
+						? filters
+						: filters.filter((item) => item.loginState == state)
+
 				return mockResponse.paginat({
-					page: 1,
-					size: 10,
-					total: loginLogData.length,
-					list: loginLogData
+					page,
+					size,
+					total: list.length,
+					list
 				})
 			}
 		},
