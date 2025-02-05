@@ -1,108 +1,114 @@
-.app-layout {
-	position: relative;
-	height: 100%;
-	background-color: var(--el-bg-color-page);
+$namespace: app-layout;
 
-	&.vertical {
-		&.sider-collapsed {
-			.app-layout__sider {
-				width: var(--b-layout-sider-collapsed-width);
-			}
+@mixin layout($namespace) {
+	.#{$namespace} {
+		position: relative;
+		height: 100%;
+		background-color: var(--el-bg-color-page);
 
-			.app-layout__main {
-				padding-left: var(--b-layout-sider-collapsed-width);
-			}
-		}
-
-		&.mobile {
+		&.vertical {
 			&.sider-collapsed {
-				.app-layout__sider {
-					transform: translateX(-100%);
+				.#{$namespace}__sider {
 					width: var(--b-layout-sider-collapsed-width);
+				}
+
+				.#{$namespace}__main {
+					padding-left: var(--b-layout-sider-collapsed-width);
 				}
 			}
 
-			.app-layout__sider {
-				transform: translateX(0);
-				width: var(--b-layout-sider-width);
-			}
+			&.mobile {
+				&.sider-collapsed {
+					.#{$namespace}__sider {
+						transform: translateX(-100%);
+						width: var(--b-layout-sider-collapsed-width);
+					}
+				}
 
-			.app-layout__main {
+				.#{$namespace}__sider {
+					transform: translateX(0);
+					width: var(--b-layout-sider-width);
+				}
+
+				.#{$namespace}__main {
+					padding-left: 0;
+				}
+			}
+		}
+
+		&.horizontal {
+			.#{$namespace}__main {
 				padding-left: 0;
 			}
 		}
-	}
 
-	&.horizontal {
-		.app-layout__main {
-			padding-left: 0;
+		--b-layout- &-scroll-wraper {
+			overflow-y: auto;
+		}
+
+		&__sider {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: var(--b-layout-sider-width);
+			height: 100%;
+			z-index: var(--b-layout-sider-z-index);
+			box-sizing: border-box;
+			transition: transform var(--ani-duration) var(--ani-timing-function), width var(--ani-duration) var(--ani-timing-function);
+		}
+
+		&__main {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			padding-left: var(--b-layout-sider-width);
+			overflow-x: hidden;
+			box-sizing: border-box;
+			transition: padding-left var(--ani-duration) var(--ani-timing-function);
+		}
+
+		&.view-full &__main {
+			padding-left: 0 !important;
+		}
+
+		&__header {
+			height: var(--b-layout-header-height);
+			z-index: var(--b-layout-header-z-index);
+			box-sizing: border-box;
+		}
+
+		&__tab {
+			width: 100%;
+			height: var(--b-layout-tab-height);
+			z-index: var(--b-layout-tab-z-index);
+			box-sizing: border-box;
+		}
+
+		&__footer {
+			height: var(--b-layout-footer-height);
+			z-index: var(--b-layout-footer-z-index);
+			flex-shrink: 0;
+			box-sizing: border-box;
+		}
+
+		&__view {
+			flex-grow: 1;
+			overflow-x: hidden;
+			box-sizing: border-box;
+		}
+
+		&__mask {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: var(--b-layout-mask-z-index);
+			background-color: var(--el-overlay-color-lighter);
+			backdrop-filter: blur(var(--filter));
 		}
 	}
-
-	--b-layout- &-scroll-wraper {
-		overflow-y: auto;
-	}
-
-	&__sider {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: var(--b-layout-sider-width);
-		height: 100%;
-		z-index: var(--b-layout-sider-z-index);
-		box-sizing: border-box;
-		transition: transform var(--ani-duration) var(--ani-timing-function), width var(--ani-duration) var(--ani-timing-function);
-	}
-
-	&__main {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		padding-left: var(--b-layout-sider-width);
-		overflow-x: hidden;
-		box-sizing: border-box;
-		transition: padding-left var(--ani-duration) var(--ani-timing-function);
-	}
-
-	&.view-full &__main {
-		padding-left: 0 !important;
-	}
-
-	&__header {
-		height: var(--b-layout-header-height);
-		z-index: var(--b-layout-header-z-index);
-		box-sizing: border-box;
-	}
-
-	&__tab {
-		width: 100%;
-		height: var(--b-layout-tab-height);
-		z-index: var(--b-layout-tab-z-index);
-		box-sizing: border-box;
-	}
-
-	&__footer {
-		height: var(--b-layout-footer-height);
-		z-index: var(--b-layout-footer-z-index);
-		flex-shrink: 0;
-		box-sizing: border-box;
-	}
-
-	&__view {
-		flex-grow: 1;
-		overflow-x: hidden;
-		box-sizing: border-box;
-	}
-
-	&__mask {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		z-index: var(--b-layout-mask-z-index);
-		background-color: var(--el-overlay-color-lighter);
-		backdrop-filter: blur(var(--filter));
-	}
 }
+
+@include layout($namespace);

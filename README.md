@@ -14,33 +14,33 @@ better-vue3-admin 是一个基于Vue3、Vite3、TypeScript、Element Plus 实现
 
 ### 特性
 
--   基于基于角色的访问控制(RBAC)
--   基于 pinia 的状态管理及持久化实现
--   基于 自定义指令 实现的按钮级别权限控制
--   基于 菜单管理 的动态路由添加
--   基于菜单管理的自动化的文件路由系统
--   通用组件、hook 封装(svg图标、右键菜单、useEcharts、usePermission...)
--   主题配置(动画、布局、dark/light切换、主颜色...)
--   多端适配，实现自适应布局
--   全局使用 css 变量,可根据预设变量实现个性化
--   使用 Prettier 统一格式化代码，集成 ESLint、Stylelint 代码校验规范
--   使用 husky、lint-staged、commitlint、czg、cz-git 规范提交信息
+- 基于基于角色的访问控制(RBAC)
+- 基于 pinia 的状态管理及持久化实现
+- 基于 自定义指令 实现的按钮级别权限控制
+- 基于 菜单管理 的动态路由添加
+- 基于菜单管理的自动化的文件路由系统
+- 通用组件、hook 封装(svg图标、右键菜单、useEcharts、usePermission...)
+- 主题配置(动画、布局、dark/light切换、主颜色...)
+- 多端适配，实现自适应布局
+- 全局使用 css 变量,可根据预设变量实现个性化
+- 使用 Prettier 统一格式化代码，集成 ESLint、Stylelint 代码校验规范
+- 使用 husky、lint-staged、commitlint、czg、cz-git 规范提交信息
 
 ### 获取
 
--   克隆项目
+- 克隆项目
 
 ```
 git clone https://github.com/Liangjuen/better-vue3-admin.git
 ```
 
--   安装依赖
+- 安装依赖
 
 ```
 npm install
 ```
 
--   运行项目
+- 运行项目
 
 ```
 npm run dev

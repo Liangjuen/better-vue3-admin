@@ -44,6 +44,8 @@
 		]
 	},
 	"dependencies": {
+		"@vue/shared": "^3.5.13",
+		"@vueuse/core": "^12.4.0",
 		"axios": "^1.6.4",
 		"echarts": "^5.5.1",
 		"element-plus": "^2.4.4",
