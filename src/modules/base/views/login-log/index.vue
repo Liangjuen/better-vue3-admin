@@ -85,7 +85,7 @@ const baseColumns = ref([
 		prop: 'action',
 		align: 'center',
 		fixed: 'right',
-		width: 80,
+		width: 90,
 		enable: true
 	}
 ])
